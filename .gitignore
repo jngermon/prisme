@@ -6,3 +6,6 @@ docker-compose.yml
 
 # Composer
 /vendor
+
+# PHP CS
+.php_cs.cache
