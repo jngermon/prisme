@@ -1,0 +1,5 @@
+#Docker
+docker-compose.yml
+/docker/docker-compose.env
+/docker/.home-developer
+/docker/conf/nginx_vhost.conf
