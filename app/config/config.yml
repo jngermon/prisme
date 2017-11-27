@@ -96,7 +96,9 @@ sonata_block:
             contexts: [nav_top]
 
 sonata_admin:
+    title: Prisme alternatif
+    title_logo: favicon.png
     templates:
-        layout: MMCSonataAdminBundle::sonata_layout.html.twig
+        layout: AppBundle::sonata_layout.html.twig
     security:
         handler: sonata.admin.security.handler.role
