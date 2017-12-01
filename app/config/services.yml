@@ -33,12 +33,3 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
-
-    sonata.app.block.user:
-        class: AppBundle\Block\UserBlock
-        arguments:
-            - 'sonata.app.block.user'
-        public: true
-        tags:
-            -
-                name: sonata.block

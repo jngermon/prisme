@@ -39,6 +39,10 @@ twig:
     strict_variables: '%kernel.debug%'
     form_themes:
         - 'SonataCoreBundle:Form:datepicker.html.twig'
+    globals:
+        mmc_fos_user_layout: "FOSUserBundle:Default:layout.html.twig"
+        mmc_fos_user_bundle_logout_path: '/logout'
+        admin_title_suffix: 'Prisme'
 
 # Doctrine Configuration
 doctrine:
@@ -102,3 +106,23 @@ sonata_admin:
         layout: AppBundle::sonata_layout.html.twig
     security:
         handler: sonata.admin.security.handler.role
+    dashboard:
+        blocks: []
+        groups:
+            sonata.admin.group.admin:
+                items:
+                    - mmc_fos_user_bundle.sonata_admin.user
+
+fos_user:
+    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: MMC\FosUserBundle\Entity\User
+    from_email:
+        address: "%fos_mail_address%"
+        sender_name: "%fos_mail_name%"
+    registration:
+        confirmation:
+            enabled: true
+
+mmc_fos_user:
+    admin: ~

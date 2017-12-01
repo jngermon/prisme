@@ -25,3 +25,6 @@ parameters:
     secret: ThisTokenIsNotSoSecretChangeIt
 
     admin_password: tintin
+
+    fos_mail_address: server@prisme.fr
+    fos_mail_name: Prisme
