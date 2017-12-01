@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e2ef57ff9f3556b6687856c3a7c13264",
+    "content-hash": "da94da83ad7676a911f1b4b6d4c7f7d1",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -1390,16 +1390,16 @@
         },
         {
             "name": "meuhmeuhconcept/fos-user-bundle",
-            "version": "2.0.1",
+            "version": "2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MeuhMeuhConcept/FosUserBundle.git",
-                "reference": "e695ca08bf33c744b7ab8131a29220c71a9f84cb"
+                "reference": "325162848c849bd6e6c417a330445359e824c59c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MeuhMeuhConcept/FosUserBundle/zipball/e695ca08bf33c744b7ab8131a29220c71a9f84cb",
-                "reference": "e695ca08bf33c744b7ab8131a29220c71a9f84cb",
+                "url": "https://api.github.com/repos/MeuhMeuhConcept/FosUserBundle/zipball/325162848c849bd6e6c417a330445359e824c59c",
+                "reference": "325162848c849bd6e6c417a330445359e824c59c",
                 "shasum": ""
             },
             "require": {
@@ -1436,7 +1436,7 @@
                 }
             ],
             "description": "FosUserBundle implementation for MeuhMeuhConcept",
-            "time": "2017-12-01T22:01:39+00:00"
+            "time": "2017-12-01T22:33:49+00:00"
         },
         {
             "name": "meuhmeuhconcept/sonata-admin-bundle",

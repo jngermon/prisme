@@ -116,7 +116,7 @@ sonata_admin:
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
-    user_class: MMC\FosUserBundle\Entity\User
+    user_class: AppBundle\Entity\User
     from_email:
         address: "%fos_mail_address%"
         sender_name: "%fos_mail_name%"
