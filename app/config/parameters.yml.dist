@@ -17,7 +17,7 @@ parameters:
     database_external_password: cXM8FhTmEnQRFPCs
 
     mailer_transport: smtp
-    mailer_host: 127.0.0.1
+    mailer_host: mailer
     mailer_user: ~
     mailer_password: ~
 

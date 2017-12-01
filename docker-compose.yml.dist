@@ -27,6 +27,7 @@ appserver:
         - data
     links:
         - database
+        - mailer
     env_file:
         - ./docker/docker-compose.env
     environment:
@@ -40,6 +41,7 @@ console:
         - data
     links:
         - database
+        - mailer
     env_file:
         - ./docker/docker-compose.env
     environment:
@@ -57,3 +59,11 @@ database:
     environment:
         - DNSDOCK_IMAGE=db
     restart: always
+
+mailer:
+    image: greg0ire/mailcatcher
+    container_name: prisme_mailer
+    env_file:
+        - ./docker/docker-compose.env
+    environment:
+        - DNSDOCK_IMAGE=mailer
