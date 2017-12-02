@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -20,16 +21,20 @@ class Larp
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank()
      */
     protected $name;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\DateTime()
      */
     protected $startedAt;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\DateTime()
+     * @Assert\GreaterThan(propertyPath="startedAt")
      */
     protected $endedAt;
 
@@ -59,6 +64,11 @@ class Larp
         $this->players = new ArrayCollection();
         $this->characters = new ArrayCollection();
         $this->groups = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->getName() ?: '';
     }
 
     /**

@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="Larp">
+                <source>Larp</source>
+                <target>GN</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_larp_list">
+                <source>breadcrumb.link_larp_list</source>
+                <target>Gns</target>
+            </trans-unit>
+
+            <trans-unit id="export.label_name">
+                <source>export.label_name</source>
+                <target>Nom</target>
+            </trans-unit>
+            <trans-unit id="export.label_started_at">
+                <source>export.label_started_at</source>
+                <target>Début</target>
+            </trans-unit>
+            <trans-unit id="export.label_ended_at">
+                <source>export.label_ended_at</source>
+                <target>Fin</target>
+            </trans-unit>
+
+            <trans-unit id="filter.label_name">
+                <source>filter.label_name</source>
+                <target>Nom</target>
+            </trans-unit>
+
+            <trans-unit id="form.label_name">
+                <source>form.label_name</source>
+                <target>Nom</target>
+            </trans-unit>
+            <trans-unit id="form.label_started_at">
+                <source>form.label_started_at</source>
+                <target>Date de début</target>
+            </trans-unit>
+            <trans-unit id="form.label_ended_at">
+                <source>form.label_ended_at</source>
+                <target>Date de fin</target>
+            </trans-unit>
+
+            <trans-unit id="list.label_name">
+                <source>list.label_name</source>
+                <target>Nom</target>
+            </trans-unit>
+            <trans-unit id="list.label_started_at">
+                <source>list.label_started_at</source>
+                <target>Date de début</target>
+            </trans-unit>
+            <trans-unit id="list.label_ended_at">
+                <source>list.label_ended_at</source>
+                <target>Date de fin</target>
+            </trans-unit>
+
+            <trans-unit id="show.label_name">
+                <source>show.label_name</source>
+                <target>Nom</target>
+            </trans-unit>
+            <trans-unit id="show.label_started_at">
+                <source>show.label_started_at</source>
+                <target>Date de début</target>
+            </trans-unit>
+            <trans-unit id="show.label_ended_at">
+                <source>show.label_ended_at</source>
+                <target>Date de fin</target>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>

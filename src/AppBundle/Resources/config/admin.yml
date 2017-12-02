@@ -1,0 +1,12 @@
+services:
+    app.admin.larp:
+        class: AppBundle\Admin\Larp
+        arguments: [~, AppBundle\Entity\Larp, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Larp }
+        calls:
+            - [ setTranslationDomain, [Larp]]
+            - [ setLabelTranslatorStrategy, ['@sonata.admin.label.strategy.underscore']]
+
+
+        public: true

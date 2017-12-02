@@ -6,6 +6,10 @@
                 <source>sonata.admin.group.admin</source>
                 <target>Administration</target>
             </trans-unit>
+            <trans-unit id="sonata.admin.group.larp">
+                <source>sonata.admin.group.larp</source>
+                <target>GN</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

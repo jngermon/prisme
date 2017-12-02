@@ -109,6 +109,9 @@ sonata_admin:
     dashboard:
         blocks: []
         groups:
+            sonata.admin.group.larp:
+                items:
+                    - app.admin.larp
             sonata.admin.group.admin:
                 items:
                     - mmc_fos_user_bundle.sonata_admin.user
