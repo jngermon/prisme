@@ -8,7 +8,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class Larp extends Base
+class LarpAdmin extends BaseAdmin
 {
     protected $baseRouteName = 'app_admin_larp';
     protected $baseRoutePattern = 'larps';
@@ -19,6 +19,7 @@ class Larp extends Base
             ->add('name', 'text')
             ->add('startedAt')
             ->add('endedAt')
+            ->add('owner')
             ;
     }
 
@@ -28,6 +29,7 @@ class Larp extends Base
             ->add('name', 'text')
             ->add('startedAt', 'sonata_type_datetime_picker')
             ->add('endedAt', 'sonata_type_datetime_picker')
+            ->add('owner')
             ;
     }
 
@@ -42,6 +44,7 @@ class Larp extends Base
             ->addIdentifier('name')
             ->add('startedAt')
             ->add('endedAt')
+            ->add('owner')
             ;
     }
 
@@ -51,6 +54,7 @@ class Larp extends Base
             'name' => new DTOFieldDescription('name'),
             'started_at' => new DTOFieldDescription('startedAt', 'datetime'),
             'ended_at' => new DTOFieldDescription('endedAt', 'datetime'),
+            'owner' => new DTOFieldDescription('owner'),
         ];
     }
 }

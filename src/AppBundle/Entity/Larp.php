@@ -20,6 +20,12 @@ class Larp
     protected $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="larps")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $owner;
+
+    /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
      */
@@ -77,6 +83,24 @@ class Larp
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return User
+     */
+    public function getOwner()
+    {
+        return $this->owner;
+    }
+
+    /**
+     * @param User $owner
+     */
+    public function setOwner($owner)
+    {
+        $this->owner = $owner;
+
+        return $this;
     }
 
     /**

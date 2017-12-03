@@ -1,6 +1,6 @@
 services:
     app.admin.larp:
-        class: AppBundle\Admin\Larp
+        class: AppBundle\Admin\LarpAdmin
         arguments: [~, AppBundle\Entity\Larp, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Larp }

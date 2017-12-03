@@ -4,7 +4,7 @@ namespace AppBundle\Admin;
 
 use MMC\SonataAdminBundle\Admin\AbstractAdmin;
 
-class Base extends AbstractAdmin
+class BaseAdmin extends AbstractAdmin
 {
     public function getExportFormats()
     {
