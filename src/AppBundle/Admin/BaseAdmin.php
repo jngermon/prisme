@@ -6,6 +6,8 @@ use MMC\SonataAdminBundle\Admin\AbstractAdmin;
 
 class BaseAdmin extends AbstractAdmin
 {
+    protected $searchResultActions = ['show'];
+
     public function getExportFormats()
     {
         if (!count($this->getExportFields())) {

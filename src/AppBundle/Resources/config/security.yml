@@ -1,0 +1,7 @@
+services:
+    app.voter.larp_admin:
+        class: AppBundle\Security\Voter\LarpAdminVoter
+        arguments:
+            - '@security.access.decision_manager'
+        tags:
+            - {name: security.voter}

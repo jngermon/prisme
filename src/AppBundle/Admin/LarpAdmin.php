@@ -27,9 +27,13 @@ class LarpAdmin extends BaseAdmin
     {
         $formMapper
             ->add('name', 'text')
-            ->add('startedAt', 'sonata_type_datetime_picker')
-            ->add('endedAt', 'sonata_type_datetime_picker')
-            ->add('owner')
+            ->add('startedAt', 'sonata_type_datetime_picker', [
+                'required' => false,
+            ])
+            ->add('endedAt', 'sonata_type_datetime_picker', [
+                'required' => false,
+            ])
+            ->add('owner', null, ['disabled' => !$this->getSecurityHandler()->isGranted($this, 'CHANGE_OWNER', $this->getSubject())])
             ;
     }
 
@@ -41,10 +45,16 @@ class LarpAdmin extends BaseAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('name')
+            ->add('name')
             ->add('startedAt')
             ->add('endedAt')
             ->add('owner')
+            ->add('_action', null, [
+                'actions' => [
+                    'show' => [],
+                    'edit' => [],
+                ]
+            ])
             ;
     }
 

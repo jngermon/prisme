@@ -3,6 +3,7 @@
 security:
 
     encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
         FOS\UserBundle\Model\UserInterface: bcrypt
 
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
@@ -13,7 +14,7 @@ security:
         in_memory:
             memory:
                 users:
-                    admin: { password: '%admin_password%', roles: [ 'ROLE_ADMIN' ] }
+                    admin: { password: '%admin_password%', roles: [ 'ROLE_SUPER_ADMIN' ] }
         mmc_fos_user:
             id: fos_user.user_provider.username_email
 
@@ -46,5 +47,6 @@ security:
 
     role_hierarchy:
 
+        ROLE_APP_ADMIN_LARP_CREATE: []
         ROLE_ADMIN:             [ROLE_USER, ROLE_MMC_FOS_USER_BUNDLE_SONATA_ADMIN_USER_ALL]
         ROLE_SUPER_ADMIN:       [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH, ROLE_SONATA_ADMIN_ALL]

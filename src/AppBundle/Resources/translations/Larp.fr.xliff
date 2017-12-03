@@ -50,6 +50,10 @@
                 <target>Propriétaire</target>
             </trans-unit>
 
+            <trans-unit id="list.label__action">
+                <source>list.label__action</source>
+                <target>Actions</target>
+            </trans-unit>
             <trans-unit id="list.label_name">
                 <source>list.label_name</source>
                 <target>Nom</target>
