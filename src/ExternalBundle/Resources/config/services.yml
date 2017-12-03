@@ -1,4 +1,26 @@
 services:
-#    external.example:
-#        class: ExternalBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    #Command
+    external.command.create-larp:
+        class: ExternalBundle\Command\CreateLarpFromExternalCommand
+        arguments:
+            - '@external.domain.larp.provider'
+            - '@external.domain.larp.creator'
+        tags:
+            - { name: console.command }
+
+    #Domain
+    external.domain.larp.provider:
+        class: ExternalBundle\Domain\Larp\Provider
+        arguments:
+            - '@external.repository.larp'
+    external.domain.larp.creator:
+        class: ExternalBundle\Domain\Larp\Creator
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+
+    #Repository
+    external.repository.larp:
+        class: Doctrine\ORM\EntityRepository
+        factory: 'doctrine.orm.external_entity_manager:getRepository'
+        arguments:
+            - 'ExternalBundle\Entity\Larp'

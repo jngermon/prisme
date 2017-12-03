@@ -64,6 +64,11 @@ class Larp
      */
     protected $groups;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $externalId;
+
     public function __construct()
     {
         $this->organizers = new ArrayCollection();
@@ -283,5 +288,31 @@ class Larp
             $group->setLarp(null);
         }
         return $this;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getExternalId()
+    {
+        return $this->externalId;
+    }
+
+    /**
+     * @param integer $externalId
+     */
+    public function setExternalId($externalId)
+    {
+        $this->externalId = $externalId;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isExternal()
+    {
+        return $this->externalId != null;
     }
 }
