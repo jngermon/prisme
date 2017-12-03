@@ -116,6 +116,12 @@ sonata_admin:
                 items:
                     - mmc_fos_user_bundle.sonata_admin.user
 
+sonata_intl:
+    timezone:
+        default: Europe/Paris
+        locales:
+            fr:    Europe/Paris
+
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
