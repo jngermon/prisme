@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use MMC\FosUserBundle\Entity\User as BaseUser;
 
 /**
@@ -12,6 +13,8 @@ use MMC\FosUserBundle\Entity\User as BaseUser;
  */
 class User extends BaseUser
 {
+    use TimestampableEntity;
+
     /**
      * @ORM\OneToMany(targetEntity="Organizer", mappedBy="user")
      */
