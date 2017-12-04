@@ -1,10 +1,10 @@
 services:
     #Command
-    external.command.create-larp:
-        class: ExternalBundle\Command\CreateLarpFromExternalCommand
+    external.command.import-larp:
+        class: ExternalBundle\Command\ImportLarpFromExternalCommand
         arguments:
             - '@external.domain.larp.provider'
-            - '@external.domain.larp.creator'
+            - '@external.domain.import.larp.importer'
         tags:
             - { name: console.command }
 
@@ -12,15 +12,16 @@ services:
     external.domain.larp.provider:
         class: ExternalBundle\Domain\Larp\Provider
         arguments:
-            - '@external.repository.larp'
-    external.domain.larp.creator:
-        class: ExternalBundle\Domain\Larp\Creator
+            - '@doctrine.dbal.external_connection'
+
+    ## Import
+    external.domain.import.larp.importer:
+        class: ExternalBundle\Domain\Import\Larp\Importer
+        arguments:
+            - '@doctrine.dbal.external_connection'
+            - '@external.domain.import.larp.writer'
+
+    external.domain.import.larp.writer:
+        class: ExternalBundle\Domain\Import\Larp\Writer
         arguments:
             - '@doctrine.orm.default_entity_manager'
-
-    #Repository
-    external.repository.larp:
-        class: Doctrine\ORM\EntityRepository
-        factory: 'doctrine.orm.external_entity_manager:getRepository'
-        arguments:
-            - 'ExternalBundle\Entity\Larp'

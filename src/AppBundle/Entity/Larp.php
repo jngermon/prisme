@@ -6,14 +6,17 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use ExternalBundle\Domain\Import\Common\SynchronizableInterface;
+use ExternalBundle\Domain\Import\Common\SynchronizableTrait;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="larp")
  */
-class Larp
+class Larp implements SynchronizableInterface
 {
     use TimestampableEntity;
+    use SynchronizableTrait;
 
     /**
      * @ORM\Id
@@ -66,11 +69,6 @@ class Larp
      * @ORM\OneToMany(targetEntity="Group", mappedBy="larp")
      */
     protected $groups;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    protected $externalId;
 
     public function __construct()
     {
@@ -291,31 +289,5 @@ class Larp
             $group->setLarp(null);
         }
         return $this;
-    }
-
-    /**
-     * @return integer
-     */
-    public function getExternalId()
-    {
-        return $this->externalId;
-    }
-
-    /**
-     * @param integer $externalId
-     */
-    public function setExternalId($externalId)
-    {
-        $this->externalId = $externalId;
-
-        return $this;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isExternal()
-    {
-        return $this->externalId != null;
     }
 }

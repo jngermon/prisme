@@ -2,23 +2,19 @@
 
 namespace ExternalBundle\Domain\Larp;
 
-use ExternalBundle\Entity\Larp;
-use Doctrine\ORM\EntityRepository;
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Query\QueryBuilder;
 
 class Provider
 {
-    protected $repository;
+    protected $connection;
 
     protected $larps = null;
 
     public function __construct(
-        EntityRepository $repository
+        Connection $connection
     ) {
-        $this->repository = $repository;
-
-        if ($repository->getClassName() != Larp::class) {
-            throw new \RuntimeException('Bad repository for Larp Provider');
-        }
+        $this->connection = $connection;
     }
 
     public function getAll()
@@ -32,11 +28,13 @@ class Provider
 
     protected function loadAll()
     {
-        $qb = $this->repository
-            ->createQueryBuilder('g')
-            ->orderBy('g.startedAt', 'desc')
+        $queryBuilder = new QueryBuilder($this->connection);
+        $queryBuilder
+            ->select('*')
+            ->from('gn')
+            ->orderBy('date_deb', 'desc')
             ;
 
-        return $qb->getQuery()->getResult();
+        return $queryBuilder->execute()->fetchAll();
     }
 }

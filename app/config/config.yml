@@ -74,11 +74,6 @@ doctrine:
                 auto_mapping: true
                 mappings:
                     AppBundle:  ~
-            external:
-                connection: external
-                naming_strategy: doctrine.orm.naming_strategy.underscore
-                mappings:
-                    ExternalBundle:  ~
 
 # Swiftmailer Configuration
 swiftmailer:
