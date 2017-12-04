@@ -27,6 +27,7 @@
     },
     "require": {
         "php": "~7.1",
+        "ddeboer/data-import": "0.20",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/doctrine-migrations-bundle": "^1.3",
         "doctrine/migrations": "^1.6",
