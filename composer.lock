@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b1379446dc7de3b200a4ab009704f8e8",
+    "content-hash": "e40c591487559c279ff623489cb42183",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1357,6 +1357,83 @@
                 "uploadable"
             ],
             "time": "2017-10-12T06:26:21+00:00"
+        },
+        {
+            "name": "greg0ire/enum",
+            "version": "v4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/greg0ire/enum.git",
+                "reference": "bb7bdc954e81be3bcb7fc351856cc5f8a561a8d1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/greg0ire/enum/zipball/bb7bdc954e81be3bcb7fc351856cc5f8a561a8d1",
+                "reference": "bb7bdc954e81be3bcb7fc351856cc5f8a561a8d1",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/inflector": "^1.0",
+                "php": "^7.1"
+            },
+            "conflict": {
+                "symfony/form": "<3.2 || >=5.0 <999",
+                "symfony/validator": "<3.2 || >=5.0 <999"
+            },
+            "require-dev": {
+                "matthiasnoback/symfony-dependency-injection-test": "^2.0",
+                "symfony/config": "^3.2 || ^4.0",
+                "symfony/dependency-injection": "^3.2 || ^4.0",
+                "symfony/form": "^3.2.5 || ^4.0",
+                "symfony/framework-bundle": "^3.2.5 || ^4.0",
+                "symfony/http-kernel": "^3.2 || ^4.0",
+                "symfony/options-resolver": "^3.2 || ^4.0",
+                "symfony/phpunit-bridge": "^3.3 || ^4.0",
+                "symfony/translation": "^3.2 || ^4.0",
+                "symfony/twig-bundle": "^3.2 || ^4.0",
+                "symfony/validator": "^3.2.5 || ^4.0",
+                "twig/twig": "^2.4.2"
+            },
+            "suggest": {
+                "symfony/form": "To use enum form type",
+                "symfony/validator": "To use enum validator"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-legacy-stable": "3.x-dev",
+                    "dev-master": "4.x-dev",
+                    "dev-unstable": "5.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Greg0ire\\Enum\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "CC-BY-SA-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Grégoire Paris",
+                    "email": "postmaster@greg0ire.fr"
+                },
+                {
+                    "name": "Sullivan Sénéchal",
+                    "email": "soullivaneuh@gmail.com"
+                }
+            ],
+            "description": "work around the missing enum type in php",
+            "keywords": [
+                "enum",
+                "enumeration",
+                "form",
+                "symfony",
+                "validator"
+            ],
+            "time": "2017-12-02T17:01:43+00:00"
         },
         {
             "name": "incenteev/composer-parameter-handler",
