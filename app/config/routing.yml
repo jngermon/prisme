@@ -2,6 +2,10 @@ app:
     resource: "@AppBundle/Controller/"
     type:     annotation
 
+external:
+    resource: "@ExternalBundle/Controller/"
+    type:     annotation
+
 mmc_sonata_admin:
     resource: "@MMCSonataAdminBundle/Resources/config/routing.yml"
     prefix:   /

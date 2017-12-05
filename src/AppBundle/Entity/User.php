@@ -25,6 +25,11 @@ class User extends BaseUser
      */
     protected $players;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $externalId;
+
     public function __construct()
     {
         parent::__construct();
@@ -99,6 +104,24 @@ class User extends BaseUser
             $this->players->remove($player);
             $player->setLarp(null);
         }
+        return $this;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getExternalId()
+    {
+        return $this->externalId;
+    }
+
+    /**
+     * @param integer $externalId
+     */
+    public function setExternalId($externalId)
+    {
+        $this->externalId = $externalId;
+
         return $this;
     }
 }

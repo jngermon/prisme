@@ -1,0 +1,29 @@
+{% extends 'AppBundle::sonata_layout.html.twig' %}
+
+{% trans_default_domain 'UserConnect' %}
+
+{% block sonata_admin_content %}
+    <div class="row">
+        <div class="col-xs-12 col-lg-6 col-lg-offset-3">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{ 'success.title'|trans }}</h3>
+                </div>
+
+                <div class="box-body">
+                    <div class="alert alert-success alert-dismissible">
+                        {{ 'success.text'|trans({
+                            '%email%': externalUser.email,
+                            '%firstname%': externalUser.prenom,
+                            '%lastname%': externalUser.nom,
+                        }) }}
+                    </div>
+                </div>
+
+                <div class="box-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock sonata_admin_content %}

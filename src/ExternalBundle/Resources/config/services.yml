@@ -1,5 +1,5 @@
 services:
-    #Command
+    # Command
     external.command.import-larp:
         class: ExternalBundle\Command\ImportLarpFromExternalCommand
         arguments:
@@ -8,11 +8,18 @@ services:
         tags:
             - { name: console.command }
 
-    #Domain
-    external.domain.larp.provider:
-        class: ExternalBundle\Domain\Larp\Provider
+    # Controller
+    external.controller.user_connect:
+        class: ExternalBundle\Controller\UserConnectController
         arguments:
-            - '@doctrine.dbal.external_connection'
+            - '@external.domain.user.provider'
+            - '@templating'
+            - '@form.factory'
+            - '@security.token_storage'
+            - '@doctrine.orm.default_entity_manager'
+            - '@router'
+
+    # Domain
 
     ## Import
     external.domain.import.larp.importer:
@@ -25,3 +32,22 @@ services:
         class: ExternalBundle\Domain\Import\Larp\Writer
         arguments:
             - '@doctrine.orm.default_entity_manager'
+
+    ## Larp
+    external.domain.larp.provider:
+        class: ExternalBundle\Domain\Larp\Provider
+        arguments:
+            - '@doctrine.dbal.external_connection'
+
+    ## User
+    external.domain.user.provider:
+        class: ExternalBundle\Domain\User\Provider
+        arguments:
+            - '@doctrine.dbal.external_connection'
+
+    external.domain.user.connect.check_external_credentials_validator:
+        class: ExternalBundle\Domain\User\Connect\CheckExternalCredentialsValidator
+        arguments:
+            - '@external.domain.user.provider'
+        tags:
+            - { name: validator.constraint_validator }

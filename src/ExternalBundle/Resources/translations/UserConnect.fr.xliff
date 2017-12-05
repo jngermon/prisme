@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="form.title">
+                <source>form.title</source>
+                <target>Connection à un utilisateur externe</target>
+            </trans-unit>
+            <trans-unit id="form.email">
+                <source>form.email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="form.email.placeholder">
+                <source>form.email.placeholder</source>
+                <target>Adresse email du compte externe</target>
+            </trans-unit>
+            <trans-unit id="form.password">
+                <source>form.password</source>
+                <target>Mot de passe</target>
+            </trans-unit>
+            <trans-unit id="form.password.placeholder">
+                <source>form.password.placeholder</source>
+                <target>Mot de passe du compte externe</target>
+            </trans-unit>
+            <trans-unit id="form.submit">
+                <source>form.submit</source>
+                <target>Connecter le compte externe à mon compte</target>
+            </trans-unit>
+
+            <trans-unit id="success.title">
+                <source>success.title</source>
+                <target>Compte externe connecté</target>
+            </trans-unit>
+            <trans-unit id="success.text">
+                <source>success.text</source>
+                <target>Votre compte est connecté au compte externe de %firstname% %lastname% (%email%).</target>
+            </trans-unit>
+
+            <trans-unit id="link">
+                <source>link</source>
+                <target>Compte Collectif Prisme</target>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>
