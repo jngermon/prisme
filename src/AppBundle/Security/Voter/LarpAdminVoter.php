@@ -65,6 +65,10 @@ class LarpAdminVoter extends Voter
             return false;
         }
 
-        return $larp->getOwner() == $user;
+        if (!$larp->getOwner()->getUser()) {
+            return false;
+        }
+
+        return $larp->getOwner()->getUser() == $user;
     }
 }
