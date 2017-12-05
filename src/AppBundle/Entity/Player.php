@@ -27,20 +27,10 @@ class Player
     protected $larp;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="players")
+     * @ORM\ManyToOne(targetEntity="Person", inversedBy="players")
      * @ORM\JoinColumn(nullable=false)
      */
-    protected $user;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected $firstname;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected $lastname;
+    protected $person;
 
     /**
      * @ORM\OneToMany(targetEntity="Character", mappedBy="player")
@@ -83,55 +73,19 @@ class Player
     }
 
     /**
-     * @return User
+     * @return Person
      */
-    public function getUser()
+    public function getPerson()
     {
-        return $this->user;
+        return $this->person;
     }
 
     /**
-     * @param User $user
+     * @param Person $person
      */
-    public function setUser($user)
+    public function setPerson($person)
     {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFirstname()
-    {
-        return $this->firstname;
-    }
-
-    /**
-     * @param string $firstname
-     */
-    public function setFirstname($firstname)
-    {
-        $this->firstname = $firstname;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLastname()
-    {
-        return $this->lastname;
-    }
-
-    /**
-     * @param string $lastname
-     */
-    public function setLastname($lastname)
-    {
-        $this->lastname = $lastname;
+        $this->person = $person;
 
         return $this;
     }

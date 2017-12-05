@@ -26,7 +26,7 @@ class Larp implements SynchronizableInterface
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="larps")
+     * @ORM\ManyToOne(targetEntity="Person", inversedBy="larps")
      * @ORM\JoinColumn(nullable=true)
      */
     protected $owner;
@@ -92,7 +92,7 @@ class Larp implements SynchronizableInterface
     }
 
     /**
-     * @return User
+     * @return Person
      */
     public function getOwner()
     {
@@ -100,7 +100,7 @@ class Larp implements SynchronizableInterface
     }
 
     /**
-     * @param User $owner
+     * @param Person $owner
      */
     public function setOwner($owner)
     {

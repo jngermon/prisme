@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use MMC\FosUserBundle\Entity\User as BaseUser;
@@ -16,27 +15,14 @@ class User extends BaseUser
     use TimestampableEntity;
 
     /**
-     * @ORM\OneToMany(targetEntity="Organizer", mappedBy="user")
+     * @ORM\OneToOne(targetEntity="Person", mappedBy="user")
      */
-    protected $organizers;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Player", mappedBy="user")
-     */
-    protected $players;
+    protected $person;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $externalId;
-
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->organizers = new ArrayCollection();
-        $this->players = new ArrayCollection();
-    }
 
     public function __toString()
     {
@@ -44,66 +30,20 @@ class User extends BaseUser
     }
 
     /**
-     * @return ArrayCollection
+     * @return Person
      */
-    public function getOrganizers()
+    public function getPerson()
     {
-        return $this->organizers;
+        return $this->person;
     }
 
     /**
-     * @param Organizer $organizer
+     * @param Person $person
      */
-    public function addOrganizer(Organizer $organizer)
+    public function setPerson($person)
     {
-        if (!$this->organizers->contains($organizer)) {
-            $this->organizers->push($organizer);
-            $organizer->setLarp($this);
-        }
-        return $this;
-    }
+        $this->person = $person;
 
-    /**
-     * @param Organizer $organizer
-     */
-    public function removeOrganizer(Organizer $organizer)
-    {
-        if ($this->organizers->contains($organizer)) {
-            $this->organizers->remove($organizer);
-            $organizer->setLarp(null);
-        }
-        return $this;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getPlayers()
-    {
-        return $this->players;
-    }
-
-    /**
-     * @param Player $player
-     */
-    public function addPlayer(Player $player)
-    {
-        if (!$this->players->contains($player)) {
-            $this->players->push($player);
-            $player->setLarp($this);
-        }
-        return $this;
-    }
-
-    /**
-     * @param Player $player
-     */
-    public function removePlayer(Player $player)
-    {
-        if ($this->players->contains($player)) {
-            $this->players->remove($player);
-            $player->setLarp(null);
-        }
         return $this;
     }
 

@@ -27,25 +27,15 @@ class Organizer
     protected $larp;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="organizers")
+     * @ORM\ManyToOne(targetEntity="Person", inversedBy="organizers")
      * @ORM\JoinColumn(nullable=false)
      */
-    protected $user;
+    protected $person;
 
     /**
      * @ORM\OneToMany(targetEntity="CharacterOrganizer", mappedBy="organizer")
      */
     protected $characterOrganizers;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected $firstname;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected $lastname;
 
     public function __construct()
     {
@@ -83,19 +73,19 @@ class Organizer
     }
 
     /**
-     * @return User
+     * @return Person
      */
-    public function getUser()
+    public function getPerson()
     {
-        return $this->user;
+        return $this->person;
     }
 
     /**
-     * @param User $user
+     * @param Person $person
      */
-    public function setUser($user)
+    public function setPerson($person)
     {
-        $this->user = $user;
+        $this->person = $person;
 
         return $this;
     }
@@ -129,42 +119,6 @@ class Organizer
             $this->characterOrganizers->remove($characterOrganizer);
             $characterOrganizer->setOrganizer(null);
         }
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFirstname()
-    {
-        return $this->firstname;
-    }
-
-    /**
-     * @param string $firstname
-     */
-    public function setFirstname($firstname)
-    {
-        $this->firstname = $firstname;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLastname()
-    {
-        return $this->lastname;
-    }
-
-    /**
-     * @param string $lastname
-     */
-    public function setLastname($lastname)
-    {
-        $this->lastname = $lastname;
-
         return $this;
     }
 }
