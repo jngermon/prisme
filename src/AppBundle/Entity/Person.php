@@ -4,9 +4,10 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
 use ExternalBundle\Domain\Import\Common\SynchronizableInterface;
 use ExternalBundle\Domain\Import\Common\SynchronizableTrait;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Greg0ire\Enum\Bridge\Symfony\Validator\Constraint\Enum as EnumAssert;
 
 /**
  * @ORM\Entity
@@ -39,6 +40,22 @@ class Person implements SynchronizableInterface
      * @ORM\Column(type="string")
      */
     protected $lastname;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $phone;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    protected $birthDate;
+
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     * @EnumAssert("AppBundle\Entity\Enum\Gender")
+     */
+    protected $gender;
 
     /**
      * @ORM\OneToMany(targetEntity="Player", mappedBy="person")
@@ -124,6 +141,60 @@ class Person implements SynchronizableInterface
     public function setLastname($lastname)
     {
         $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param string $phone
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * @return \Datetime
+     */
+    public function getBirthDate()
+    {
+        return $this->birthDate;
+    }
+
+    /**
+     * @param \Datetime $birthDate
+     */
+    public function setBirthDate($birthDate)
+    {
+        $this->birthDate = $birthDate;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGender()
+    {
+        return $this->gender;
+    }
+
+    /**
+     * @param string $gender
+     */
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
 
         return $this;
     }

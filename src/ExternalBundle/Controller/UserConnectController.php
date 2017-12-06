@@ -2,11 +2,13 @@
 
 namespace ExternalBundle\Controller;
 
+use AppBundle\Entity\Person;
 use AppBundle\Entity\User;
 use Doctrine\ORM\entityManager;
 use ExternalBundle\Domain\User\Connect\CredentialsType;
 use ExternalBundle\Domain\User\Provider as ExternalUserProvider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,6 +51,7 @@ class UserConnectController
 
     /**
      * @Route("/user-connect", name="user_connect")
+     * @Security("is_granted('ROLE_APP_ADMIN_PERSON_CREATE')")
      */
     public function connectAction(Request $request)
     {
@@ -59,7 +62,7 @@ class UserConnectController
         }
 
         if ($user->getPerson()) {
-            return new RedirectResponse($this->router->generate('user_connected'));
+            return new RedirectResponse($this->getRouteToPerson($user->getPerson()));
         }
 
         $form = $this->formFactory->create(CredentialsType::class);
@@ -73,7 +76,7 @@ class UserConnectController
             $this->entityManager->persist($person);
             $this->entityManager->flush();
 
-            return new RedirectResponse($this->router->generate('user_connected'));
+            return new RedirectResponse($this->getRouteToPerson($person));
         }
 
         return $this->templating->renderResponse('ExternalBundle::user/connect.html.twig', [
@@ -81,24 +84,8 @@ class UserConnectController
         ]);
     }
 
-    /**
-     * @Route("/user-connected", name="user_connected")
-     */
-    public function connectedAction(Request $request)
+    protected function getRouteToPerson(Person $person)
     {
-        $user = $this->tokenStorage->getToken()->getUser();
-
-        if (!$user->getPerson()) {
-            return new RedirectResponse($this->router->generate('user_connect'));
-        }
-
-        $externalUser = $user->getPerson()->getExternalId()
-            ? $this->externalUserProvider->getUserById($user->getPerson()->getExternalId())
-            : null;
-
-        return $this->templating->renderResponse('ExternalBundle::user/connected.html.twig', [
-            'externalUser' => $externalUser,
-            'person' => $user->getPerson(),
-        ]);
+        return $this->router->generate('app_admin_person_show', ['id' => $person->getId()]);
     }
 }

@@ -2,9 +2,18 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" datatype="plaintext" original="file.ext">
         <body>
+            <trans-unit id="create.title">
+                <source>create.title</source>
+                <target>Création d'un nouveau profil</target>
+            </trans-unit>
+            <trans-unit id="create.link">
+                <source>create.link</source>
+                <target>Créer un profil</target>
+            </trans-unit>
+
             <trans-unit id="form.title">
                 <source>form.title</source>
-                <target>Connection à un utilisateur externe</target>
+                <target>Connection à un profil existant</target>
             </trans-unit>
             <trans-unit id="form.email">
                 <source>form.email</source>

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="bloc.sync">
+                <source>bloc.sync</source>
+                <target>Synchronisation</target>
+            </trans-unit>
+
+            <trans-unit id="show.label_synced_at">
+                <source>show.label_synced_at</source>
+                <target>Date de synchronisation</target>
+            </trans-unit>
+            <trans-unit id="show.label_sync_status">
+                <source>show.label_sync_status</source>
+                <target>Statut</target>
+            </trans-unit>
+            <trans-unit id="show.label_external_id">
+                <source>show.label_external_id</source>
+                <target>Identifiant externe</target>
+            </trans-unit>
+            <trans-unit id="show.label_sync_errors">
+                <source>show.label_sync_errors</source>
+                <target>Erreurs</target>
+            </trans-unit>
+
+
+            <trans-unit id="synced">
+                <source>synced</source>
+                <target>Synchronisé</target>
+            </trans-unit>
+            <trans-unit id="pending">
+                <source>pending</source>
+                <target>En cours de synchronisation</target>
+            </trans-unit>
+            <trans-unit id="error">
+                <source>error</source>
+                <target>Erreur lors de la synchronisation</target>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>

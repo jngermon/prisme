@@ -114,6 +114,7 @@ sonata_admin:
                     - app.admin.larp
             sonata.admin.group.admin:
                 items:
+                    - app.admin.person
                     - mmc_fos_user_bundle.sonata_admin.user
 
 sonata_intl:

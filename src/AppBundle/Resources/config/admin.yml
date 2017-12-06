@@ -7,6 +7,15 @@ services:
         calls:
             - [ setTranslationDomain, [Larp]]
             - [ setLabelTranslatorStrategy, ['@sonata.admin.label.strategy.underscore']]
+        public: true
 
-
+    app.admin.person:
+        class: AppBundle\Admin\PersonAdmin
+        arguments: [~, AppBundle\Entity\Person, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Person }
+        calls:
+            - [ setTranslationDomain, [Person]]
+            - [ setLabelTranslatorStrategy, ['@sonata.admin.label.strategy.underscore']]
+            - [ setTokenStorage, ['@security.token_storage']]
         public: true

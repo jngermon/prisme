@@ -4,9 +4,9 @@ namespace ExternalBundle\Domain\Import\Person;
 
 use Ddeboer\DataImport\Step\MappingStep;
 use Ddeboer\DataImport\Step\ValueConverterStep;
-use Ddeboer\DataImport\ValueConverter\DateTimeValueConverter;
 use Ddeboer\DataImport\Workflow;
 use Doctrine\DBAL\Query\QueryBuilder;
+use ExternalBundle\Domain\Import\Common\DateTimeValueConverter;
 use ExternalBundle\Domain\Import\Common\Importer as BaseImporter;
 
 class Importer extends BaseImporter
@@ -41,6 +41,15 @@ class Importer extends BaseImporter
             '[idu]' => '[externalId]',
             '[nom]' => '[lastname]',
             '[prenom]' => '[firstname]',
+            '[tel]' => '[phone]',
+            '[birth]' => '[birthDate]',
+            '[sexe]' => '[gender]',
         ]));
+
+        $step = new ValueConverterStep();
+        $step->add('[birthDate]', new DateTimeValueConverter());
+        $step->add('[gender]', new GenderConverter());
+
+        $workflow->addStep($step);
     }
 }

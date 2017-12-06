@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="Person">
+                <source>Person</source>
+                <target>Personnes</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_person_list">
+                <source>breadcrumb.link_person_list</source>
+                <target>Personnes</target>
+            </trans-unit>
+
+            <trans-unit id="export.label_firstname">
+                <source>export.label_firstname</source>
+                <target>Prénom</target>
+            </trans-unit>
+            <trans-unit id="export.label_lastname">
+                <source>export.label_lastname</source>
+                <target>Nom</target>
+            </trans-unit>
+
+            <trans-unit id="filter.label_firstname">
+                <source>filter.label_firstname</source>
+                <target>Prénom</target>
+            </trans-unit>
+            <trans-unit id="filter.label_lastname">
+                <source>filter.label_lastname</source>
+                <target>Nom</target>
+            </trans-unit>
+
+            <trans-unit id="form.label_firstname">
+                <source>form.label_firstname</source>
+                <target>Prénom</target>
+            </trans-unit>
+            <trans-unit id="form.label_lastname">
+                <source>form.label_lastname</source>
+                <target>Nom</target>
+            </trans-unit>
+            <trans-unit id="form.label_phone">
+                <source>form.label_phone</source>
+                <target>Téléphone</target>
+            </trans-unit>
+            <trans-unit id="form.label_birth_date">
+                <source>form.label_birth_date</source>
+                <target>Date de naissance</target>
+            </trans-unit>
+            <trans-unit id="form.label_gender">
+                <source>form.label_gender</source>
+                <target>Genre</target>
+            </trans-unit>
+
+            <trans-unit id="list.label__action">
+                <source>list.label__action</source>
+                <target>Actions</target>
+            </trans-unit>
+            <trans-unit id="list.label_firstname">
+                <source>list.label_firstname</source>
+                <target>Prénom</target>
+            </trans-unit>
+            <trans-unit id="list.label_lastname">
+                <source>list.label_lastname</source>
+                <target>Nom</target>
+            </trans-unit>
+            <trans-unit id="list.label_gender">
+                <source>list.label_gender</source>
+                <target>Genre</target>
+            </trans-unit>
+
+            <trans-unit id="show.label_firstname">
+                <source>show.label_firstname</source>
+                <target>Prénom</target>
+            </trans-unit>
+            <trans-unit id="show.label_lastname">
+                <source>show.label_lastname</source>
+                <target>Nom</target>
+            </trans-unit>
+            <trans-unit id="show.label_created_at">
+                <source>show.label_created_at</source>
+                <target>Date de création</target>
+            </trans-unit>
+            <trans-unit id="show.label_updated_at">
+                <source>show.label_updated_at</source>
+                <target>Date de modification</target>
+            </trans-unit>
+            <trans-unit id="show.label_phone">
+                <source>show.label_phone</source>
+                <target>Téléphone</target>
+            </trans-unit>
+            <trans-unit id="show.label_birth_date">
+                <source>show.label_birth_date</source>
+                <target>Date de naissance</target>
+            </trans-unit>
+            <trans-unit id="show.label_gender">
+                <source>show.label_gender</source>
+                <target>Genre</target>
+            </trans-unit>
+
+            <trans-unit id="bloc.identity">
+                <source>bloc.identity</source>
+                <target>Identité</target>
+            </trans-unit>
+            <trans-unit id="bloc.info">
+                <source>bloc.info</source>
+                <target>Informations</target>
+            </trans-unit>
+
+            <trans-unit id="menu.show.link">
+                <source>menu.show.link</source>
+                <target>Voir mon profil</target>
+            </trans-unit>
+            <trans-unit id="menu.create.link">
+                <source>menu.create.link</source>
+                <target>Créer un profil</target>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>
