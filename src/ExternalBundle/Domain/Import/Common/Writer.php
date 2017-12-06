@@ -126,6 +126,8 @@ class Writer extends DoctrineWriter
             ->setParameter('newSyncStatus', Status::ERROR)
             ->set('x.syncErrors', ':error')
             ->setParameter('error', 'Not found on external')
+            ->set('x.syncedAt', ':syncedAt')
+            ->setParameter('syncedAt', new \Datetime())
             ;
 
         $queryBuilder->getQuery()->execute();

@@ -3,6 +3,7 @@
 namespace ExternalBundle\Domain\Import\Common;
 
 use Doctrine\ORM\Mapping as ORM;
+use Greg0ire\Enum\Bridge\Symfony\Validator\Constraint\Enum as EnumAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
 trait SynchronizableTrait
@@ -25,6 +26,7 @@ trait SynchronizableTrait
 
     /**
      * @ORM\Column(type="string", length=10, nullable = true)
+     * @EnumAssert("ExternalBundle\Domain\Import\Common\Status")
      */
     protected $syncStatus;
 
