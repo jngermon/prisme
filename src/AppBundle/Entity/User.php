@@ -19,11 +19,6 @@ class User extends BaseUser
      */
     protected $person;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    protected $externalId;
-
     public function __toString()
     {
         return $this->getUsername() ?: '';
@@ -43,24 +38,6 @@ class User extends BaseUser
     public function setPerson($person)
     {
         $this->person = $person;
-
-        return $this;
-    }
-
-    /**
-     * @return integer
-     */
-    public function getExternalId()
-    {
-        return $this->externalId;
-    }
-
-    /**
-     * @param integer $externalId
-     */
-    public function setExternalId($externalId)
-    {
-        $this->externalId = $externalId;
 
         return $this;
     }

@@ -36,27 +36,13 @@ abstract class Importer
 
         $options = $this->createOptionsResolver()->resolve($options);
 
-        if (empty($options['larp_id']) && empty($options['ids'])) {
-            throw new \RuntimeException('You must set at least one option between larp_id and ids');
-        }
-
-        $queryBuilder = $this->createQueryBuilder($options['larp_id'], $options['ids']);
+        $queryBuilder = $this->createQueryBuilder($options);
         $countQueryBuilderModifier = $this->createCountQueryBuilder($queryBuilder);
 
         $adapter = new DoctrineDbalAdapter($queryBuilder, $countQueryBuilderModifier);
         $pagerfanta = new Pagerfanta($adapter);
         $pagerfanta->setMaxPerPage($options['batch_size']);
         $reader = new PagerfantaReader($pagerfanta);
-
-        if ($options['larp_id']) {
-            $this->writer->setLarpIdProcessing($options['larp_id']);
-        }
-
-        if ($options['ids']) {
-            $this->writer->setIdsProcessing($options['ids']);
-        }
-
-        $this->writer->setSyncUuid($syncUuid);
 
         $workflow = new StepAggregator($reader);
         $workflow
@@ -70,10 +56,15 @@ abstract class Importer
             $workflow->addWriter(new ConsoleProgressWriter($options['output'], $reader, 'debug', 100));
         }
 
+        unset($options['batch_size']);
+        unset($options['output']);
+
+        $this->writer->initProcessing($syncUuid, $options);
+
         return $workflow->process();
     }
 
-    abstract protected function createQueryBuilder($larpId = null, $ids = []);
+    abstract protected function createQueryBuilder($options);
 
     abstract protected function createCountQueryBuilder(QueryBuilder $queryBuilder);
 
@@ -87,19 +78,28 @@ abstract class Importer
         $resolver = new OptionsResolver();
         $resolver->setDefaults([
             'batch_size' => 100,
-            'larp_id' => null,
-            'larp_external_id' => null,
             'ids' => null,
             'output' => null,
         ]);
 
-        $resolver->setNormalizer('larp_id', function (Options $options, $value) {
-            return intval($value);
+        $resolver->setNormalizer('ids', function (Options $options, $value) {
+            if ($value === null) {
+                return $value;
+            }
+
+            if (is_string($value)) {
+                $value = intval($value);
+            }
+
+            if (!is_array($value)) {
+                $value = [$value];
+            }
+
+            return $value;
         });
 
         $resolver->setAllowedTypes('batch_size', 'integer');
-        $resolver->setAllowedTypes('larp_id', ['integer', 'null' ,'string']);
-        $resolver->setAllowedTypes('ids', ['array', 'null']);
+        $resolver->setAllowedTypes('ids', ['array', 'null', 'string', 'integer']);
         $resolver->setAllowedTypes('output', [OutputInterface::class, 'null']);
 
         return $resolver;

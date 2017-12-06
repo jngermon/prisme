@@ -1,6 +1,6 @@
 <?php
 
-namespace ExternalBundle\Domain\Import\Larp;
+namespace ExternalBundle\Domain\Import\Person;
 
 use Ddeboer\DataImport\Step\MappingStep;
 use Ddeboer\DataImport\Step\ValueConverterStep;
@@ -16,11 +16,11 @@ class Importer extends BaseImporter
         $queryBuilder = new QueryBuilder($this->connection);
         $queryBuilder
             ->select('*')
-            ->from('gn')
+            ->from('users')
             ;
 
         if ($options['ids']) {
-            $queryBuilder->andWhere($queryBuilder->expr()->in('idgn', $options['ids']));
+            $queryBuilder->andWhere($queryBuilder->expr()->in('idu', $options['ids']));
         }
 
         return $queryBuilder;
@@ -29,7 +29,7 @@ class Importer extends BaseImporter
     protected function createCountQueryBuilder(QueryBuilder $queryBuilder)
     {
         return function ($queryBuilder) {
-            $queryBuilder->select('COUNT(DISTINCT idgn) AS total')
+            $queryBuilder->select('COUNT(DISTINCT idu) AS total')
                 ->setMaxResults(1)
                 ;
         };
@@ -38,16 +38,9 @@ class Importer extends BaseImporter
     protected function configureWorkflow(Workflow $workflow)
     {
         $workflow->addStep(new MappingStep([
-            '[idgn]' => '[externalId]',
-            '[nom]' => '[name]',
-            '[date_deb]' => '[startedAt]',
-            '[date_fin]' => '[endedAt]',
+            '[idu]' => '[externalId]',
+            '[nom]' => '[lastname]',
+            '[prenom]' => '[firstname]',
         ]));
-
-        $step = new ValueConverterStep();
-        $step->add('[startedAt]', new DateTimeValueConverter());
-        $step->add('[endedAt]', new DateTimeValueConverter());
-
-        $workflow->addStep($step);
     }
 }

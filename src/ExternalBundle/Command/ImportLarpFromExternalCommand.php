@@ -28,7 +28,7 @@ class ImportLarpFromExternalCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('external:import-larp')
+            ->setName('external:import:larp')
             ->setDescription('Import Larp from external.')
         ;
     }
@@ -45,6 +45,6 @@ class ImportLarpFromExternalCommand extends Command
 
         $larpId = $helper->ask($input, $output, $question);
 
-        $this->importer->import(['larp_id' => $larpId, 'output' => $output]);
+        $this->importer->import(['ids' => $larpId, 'output' => $output]);
     }
 }

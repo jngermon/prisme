@@ -5,6 +5,8 @@ namespace ExternalBundle\Domain\Import\Common;
 use AppBundle\Entity\Larp;
 use Ddeboer\DataImport\Writer\DoctrineWriter;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\OptionsResolver\Options;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class Writer extends DoctrineWriter
 {
@@ -12,9 +14,7 @@ class Writer extends DoctrineWriter
 
     protected $syncUuid;
 
-    protected $larpIdProcessing;
-
-    protected $idsProcessing;
+    protected $optionsProcessing;
 
     public function __construct(
         EntityManager $em,
@@ -30,30 +30,10 @@ class Writer extends DoctrineWriter
         $this->lookupFields = ['externalId'];
     }
 
-    /**
-     * @param string $syncUuid
-     */
-    public function setSyncUuid($syncUuid)
+    public function initProcessing($syncUuid, $options = [])
     {
         $this->syncUuid = $syncUuid;
-        return $this;
-    }
-
-    /**
-     * @param integer $larpIdProcessing
-     */
-    public function setLarpIdProcessing($larpIdProcessing)
-    {
-        $this->larpIdProcessing = $larpIdProcessing;
-        return $this;
-    }
-
-    /**
-     * @param array $idsProcessing
-     */
-    public function setIdsProcessing($idsProcessing)
-    {
-        $this->idsProcessing = $idsProcessing;
+        $this->optionsProcessing = $this->createOptionsResolver()->resolve($options);
         return $this;
     }
 
@@ -71,8 +51,7 @@ class Writer extends DoctrineWriter
         $this->markNotUpdate();
 
         $this->syncUuid = null;
-        $this->larpIdProcessing = null;
-        $this->idsProcessing = null;
+        $this->optionsProcessing = null;
     }
 
     /**
@@ -84,6 +63,7 @@ class Writer extends DoctrineWriter
 
         try {
             $entity->setExternalId($item['externalId'])
+                ->setSyncUuid($this->syncUuid)
                 ->setSyncErrors();
 
             $this->loadAssociationObjectsToEntity($item, $entity);
@@ -103,41 +83,36 @@ class Writer extends DoctrineWriter
 
     protected function markEntities()
     {
-        if (empty($this->syncUuid) || (empty($this->larpIdProcessing) && empty($this->idsProcessing))) {
+        if (empty($this->syncUuid)) {
             return;
         }
 
+        $queryBuilder = $this->createMarkEntitiesQueryBuilder();
+
+        $queryBuilder->getQuery()->execute();
+    }
+
+    protected function createMarkEntitiesQueryBuilder()
+    {
         $queryBuilder = $this->entityRepository->createQueryBuilder('x')
             ->update()
             ->set('x.syncUuid', ':syncUuid')
             ->setParameter('syncUuid', $this->syncUuid)
             ->set('x.syncStatus', ':syncStatus')
             ->setParameter('syncStatus', Status::PENDING)
+            ->andWhere('x.externalId IS NOT NULL')
             ;
 
-        if ($this->larpIdProcessing) {
-            if ($this->entityName == Larp::class) {
-                $queryBuilder->andWhere('x.externalId = :larpId');
-            } else {
-                $queryBuilder->innerJoin('x.larp', 'l')
-                    ->andWhere('l.externalId = :larpId')
-                    ;
-            }
-
-            $queryBuilder->setParameter('larpId', $this->larpIdProcessing);
+        if (!empty($this->optionsProcessing['ids'])) {
+            $queryBuilder->andWhere($queryBuilder->expr()->in('x.externalId', $this->optionsProcessing['ids']));
         }
 
-        if (!empty($this->idsProcessing)) {
-            $queryBuilder->andWhere($queryBuilder->expr()->in('x.externalId', ':ids'))
-                ->setParameter('ids', $ids);
-        }
-
-        $queryBuilder->getQuery()->execute();
+        return $queryBuilder;
     }
 
     protected function markNotUpdate()
     {
-        if (empty($this->syncUuid) || (empty($this->larpIdProcessing) && empty($this->idsProcessing))) {
+        if (empty($this->syncUuid)) {
             return;
         }
 
@@ -154,5 +129,33 @@ class Writer extends DoctrineWriter
             ;
 
         $queryBuilder->getQuery()->execute();
+    }
+
+    protected function createOptionsResolver()
+    {
+        $resolver = new OptionsResolver();
+        $resolver->setDefaults([
+            'ids' => null,
+        ]);
+
+        $resolver->setNormalizer('ids', function (Options $options, $value) {
+            if ($value === null) {
+                return $value;
+            }
+
+            if (is_string($value)) {
+                $value = intval($value);
+            }
+
+            if (!is_array($value)) {
+                $value = [$value];
+            }
+
+            return $value;
+        });
+
+        $resolver->setAllowedTypes('ids', ['array', 'null', 'string', 'integer']);
+
+        return $resolver;
     }
 }

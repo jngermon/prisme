@@ -5,14 +5,17 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use ExternalBundle\Domain\Import\Common\SynchronizableInterface;
+use ExternalBundle\Domain\Import\Common\SynchronizableTrait;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="person")
  */
-class Person
+class Person implements SynchronizableInterface
 {
     use TimestampableEntity;
+    use SynchronizableTrait;
 
     /**
      * @ORM\Id

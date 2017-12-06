@@ -8,6 +8,13 @@ services:
         tags:
             - { name: console.command }
 
+    external.command.import-persons:
+        class: ExternalBundle\Command\ImportPersonsFromExternalCommand
+        arguments:
+            - '@external.domain.import.person.importer'
+        tags:
+            - { name: console.command }
+
     # Controller
     external.controller.user_connect:
         class: ExternalBundle\Controller\UserConnectController
@@ -30,6 +37,17 @@ services:
 
     external.domain.import.larp.writer:
         class: ExternalBundle\Domain\Import\Larp\Writer
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+
+    external.domain.import.person.importer:
+        class: ExternalBundle\Domain\Import\Person\Importer
+        arguments:
+            - '@doctrine.dbal.external_connection'
+            - '@external.domain.import.person.writer'
+
+    external.domain.import.person.writer:
+        class: ExternalBundle\Domain\Import\Person\Writer
         arguments:
             - '@doctrine.orm.default_entity_manager'
 

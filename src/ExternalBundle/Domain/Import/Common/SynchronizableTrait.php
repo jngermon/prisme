@@ -3,6 +3,7 @@
 namespace ExternalBundle\Domain\Import\Common;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 trait SynchronizableTrait
 {
