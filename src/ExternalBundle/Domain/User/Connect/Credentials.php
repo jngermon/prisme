@@ -19,7 +19,7 @@ class Credentials
      */
     protected $password;
 
-    protected $externalId;
+    protected $person;
 
     public function getEmail()
     {
@@ -55,19 +55,19 @@ class Credentials
     }
 
     /**
-     * @return integer
+     * @return Person
      */
-    public function getExternalId()
+    public function getPerson()
     {
-        return $this->externalId;
+        return $this->person;
     }
 
     /**
-     * @param integer $externalId
+     * @param Person $person
      */
-    public function setExternalId($externalId)
+    public function setPerson($person)
     {
-        $this->externalId = $externalId;
+        $this->person = $person;
 
         return $this;
     }

@@ -6,6 +6,11 @@
                 <source>external.user.connect.bad_credentials</source>
                 <target>Couple email / mot de passe  incorrect.</target>
             </trans-unit>
+            <trans-unit id="external.user.connect.person_unknown">
+                <source>external.user.connect.person_unknown</source>
+                <target>Ce compte externe n'est pas encore enregistré ici. Recommencer l'opération plus tard.</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>

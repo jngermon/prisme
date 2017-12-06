@@ -67,5 +67,7 @@ services:
         class: ExternalBundle\Domain\User\Connect\CheckExternalCredentialsValidator
         arguments:
             - '@external.domain.user.provider'
+            - '@app.repository.person'
+            - '@external.domain.import.person.importer'
         tags:
             - { name: validator.constraint_validator }

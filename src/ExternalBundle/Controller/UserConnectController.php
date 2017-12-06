@@ -58,7 +58,7 @@ class UserConnectController
             return new RedirectResponse($this->router->generate('sonata_admin_dashboard'));
         }
 
-        if ($user->getExternalId()) {
+        if ($user->getPerson()) {
             return new RedirectResponse($this->router->generate('user_connected'));
         }
 
@@ -68,8 +68,9 @@ class UserConnectController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $user->setExternalId($form->getData()->getExternalId());
-            $this->entityManager->persist($user);
+            $person = $form->getData()->getPerson();
+            $person->setUser($user);
+            $this->entityManager->persist($person);
             $this->entityManager->flush();
 
             return new RedirectResponse($this->router->generate('user_connected'));
@@ -87,14 +88,17 @@ class UserConnectController
     {
         $user = $this->tokenStorage->getToken()->getUser();
 
-        if (!$user->getExternalId()) {
+        if (!$user->getPerson()) {
             return new RedirectResponse($this->router->generate('user_connect'));
         }
 
-        $externalUser = $this->externalUserProvider->getUserById($user->getExternalId());
+        $externalUser = $user->getPerson()->getExternalId()
+            ? $this->externalUserProvider->getUserById($user->getPerson()->getExternalId())
+            : null;
 
         return $this->templating->renderResponse('ExternalBundle::user/connected.html.twig', [
             'externalUser' => $externalUser,
+            'person' => $user->getPerson(),
         ]);
     }
 }
