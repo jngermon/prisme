@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Sonata\IntlBundle\SonataIntlBundle(),
+            new Greg0ire\Enum\Bridge\Symfony\Bundle\Greg0ireEnumBundle(),
 
             new MMC\FosUserBundle\MMCFosUserBundle(),
             new FOS\UserBundle\FOSUserBundle(),
