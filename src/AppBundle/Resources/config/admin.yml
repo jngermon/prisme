@@ -19,3 +19,9 @@ services:
             - [ setLabelTranslatorStrategy, ['@sonata.admin.label.strategy.underscore']]
             - [ setTokenStorage, ['@security.token_storage']]
         public: true
+
+    ## Filter
+    admin.filter.insensitive_string:
+        class: AppBundle\Admin\Filter\CaseInsensitiveStringFilter
+        tags:
+            - { name: sonata.admin.filter.type, alias: doctrine_orm_istring }

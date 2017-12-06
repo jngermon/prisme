@@ -86,8 +86,8 @@ class PersonAdmin extends BaseAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('firstname')
-            ->add('lastname')
+            ->add('firstname', 'doctrine_orm_istring')
+            ->add('lastname', 'doctrine_orm_istring')
             ;
     }
 

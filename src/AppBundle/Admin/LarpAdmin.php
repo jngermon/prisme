@@ -39,7 +39,7 @@ class LarpAdmin extends BaseAdmin
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        $datagridMapper->add('name');
+        $datagridMapper->add('name', 'doctrine_orm_istring');
     }
 
     protected function configureListFields(ListMapper $listMapper)
