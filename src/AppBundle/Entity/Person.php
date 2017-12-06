@@ -63,7 +63,7 @@ class Person implements SynchronizableInterface
 
     public function __toString()
     {
-        return $this->getFirstname() . '' . $this->getLastname();
+        return $this->getFirstname() . ' ' . $this->getLastname();
     }
 
     /**
