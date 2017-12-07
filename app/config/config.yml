@@ -116,7 +116,10 @@ sonata_admin:
                 items:
                     - app.admin.person
                     - mmc_fos_user_bundle.sonata_admin.user
-
+    extensions:
+        external.synchronize.extension:
+            implements:
+                - ExternalBundle\Domain\Import\Common\SynchronizableInterface
 sonata_intl:
     timezone:
         default: Europe/Paris

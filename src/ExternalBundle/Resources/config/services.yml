@@ -1,4 +1,8 @@
 services:
+    # Admin
+    external.synchronize.extension:
+        class: ExternalBundle\Admin\SynchronizeAdminExtension
+
     # Command
     external.command.import-larp:
         class: ExternalBundle\Command\ImportLarpFromExternalCommand

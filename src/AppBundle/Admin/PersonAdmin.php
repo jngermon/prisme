@@ -50,8 +50,6 @@ class PersonAdmin extends BaseAdmin
                 ->add('updatedAt')
             ->end()
             ;
-
-        $this->configureShowFieldsSynchronizable($showMapper);
     }
 
     protected function configureFormFields(FormMapper $formMapper)
