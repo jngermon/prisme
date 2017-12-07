@@ -5,3 +5,10 @@ services:
             - '@security.access.decision_manager'
         tags:
             - {name: security.voter}
+
+    app.voter.person_admin:
+        class: AppBundle\Security\Voter\PersonAdminVoter
+        arguments:
+            - '@security.access.decision_manager'
+        tags:
+            - {name: security.voter}
