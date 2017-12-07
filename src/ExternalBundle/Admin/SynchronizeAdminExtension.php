@@ -54,4 +54,19 @@ class SynchronizeAdminExtension extends AbstractAdminExtension
                 ;
         }
     }
+
+    public function configureActionButtons(AdminInterface $admin, $list, $action, $object)
+    {
+        if ($object->isExternal() && $action == 'show') {
+            $list['synchronize'] = [
+                'template' => 'ExternalBundle:Admin:Button/synchronize_button.html.twig',
+                'link_parameters' => [
+                    'class' => get_class($object),
+                    'ids' => [$object->getExternalId()],
+                ],
+            ];
+        }
+
+        return $list;
+    }
 }

@@ -38,6 +38,11 @@
                 <target>Erreur lors de la synchronisation</target>
             </trans-unit>
 
+            <trans-unit id="link_action_sync">
+                <source>link_action_sync</source>
+                <target>Synchroniser</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>

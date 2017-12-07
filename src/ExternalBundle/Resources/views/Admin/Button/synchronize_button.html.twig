@@ -1,0 +1,8 @@
+{% if item.link_parameters|default(false) %}
+<li>
+    <a class="sonata-action-element" href="{{ path('synchronize', item.link_parameters) }}">
+        <i class="fa fa-flash" aria-hidden="true"></i>
+        {{ 'link_action_sync'|trans({}, 'Sync') }}
+    </a>
+</li>
+{% endif %}

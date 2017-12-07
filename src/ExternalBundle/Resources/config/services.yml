@@ -30,6 +30,9 @@ services:
             - '@doctrine.orm.default_entity_manager'
             - '@router'
 
+    external.controller.sync:
+        class: ExternalBundle\Controller\SyncController
+
     # Domain
 
     ## Import
