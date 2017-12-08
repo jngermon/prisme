@@ -63,11 +63,7 @@ class Organizer
      */
     public function setLarp($larp)
     {
-        if ($this->larp) {
-            $this->larp->remove($this);
-        }
         $this->larp = $larp;
-        $larp->addOrganizer($this);
 
         return $this;
     }
@@ -104,8 +100,7 @@ class Organizer
     public function addCharacterOrganizer(CharacterOrganizer $characterOrganizer)
     {
         if (!$this->characterOrganizers->contains($characterOrganizer)) {
-            $this->characterOrganizers->push($characterOrganizer);
-            $characterOrganizer->setOrganizer($this);
+            $this->characterOrganizers->add($characterOrganizer);
         }
         return $this;
     }
@@ -117,7 +112,6 @@ class Organizer
     {
         if ($this->characterOrganizers->contains($characterOrganizer)) {
             $this->characterOrganizers->remove($characterOrganizer);
-            $characterOrganizer->setOrganizer(null);
         }
         return $this;
     }

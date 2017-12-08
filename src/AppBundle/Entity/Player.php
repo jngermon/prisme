@@ -63,11 +63,7 @@ class Player
      */
     public function setLarp($larp)
     {
-        if ($this->larp) {
-            $this->larp->remove($this);
-        }
         $this->larp = $larp;
-        $larp->addPlayer($this);
 
         return $this;
     }
@@ -104,8 +100,7 @@ class Player
     public function addCharacter(Character $character)
     {
         if (!$this->characters->contains($character)) {
-            $this->characters->push($character);
-            $character->setLarp($this);
+            $this->characters->add($character);
         }
         return $this;
     }
@@ -117,7 +112,6 @@ class Player
     {
         if ($this->characters->contains($character)) {
             $this->characters->remove($character);
-            $character->setLarp(null);
         }
         return $this;
     }

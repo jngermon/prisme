@@ -74,11 +74,7 @@ class Character
      */
     public function setLarp($larp)
     {
-        if ($this->larp) {
-            $this->larp->remove($this);
-        }
         $this->larp = $larp;
-        $larp->addCharacter($this);
 
         return $this;
     }
@@ -115,8 +111,7 @@ class Character
     public function addCharacterOrganizer(CharacterOrganizer $characterOrganizer)
     {
         if (!$this->characterOrganizers->contains($characterOrganizer)) {
-            $this->characterOrganizers->push($characterOrganizer);
-            $characterOrganizer->setCharacter($this);
+            $this->characterOrganizers->add($characterOrganizer);
         }
         return $this;
     }
@@ -128,7 +123,6 @@ class Character
     {
         if ($this->characterOrganizers->contains($characterOrganizer)) {
             $this->characterOrganizers->remove($characterOrganizer);
-            $characterOrganizer->setCharacter(null);
         }
         return $this;
     }
@@ -147,8 +141,7 @@ class Character
     public function addCharacterGroup(CharacterGroup $characterGroup)
     {
         if (!$this->characterGroups->contains($characterGroup)) {
-            $this->characterGroups->push($characterGroup);
-            $characterGroup->setCharacter($this);
+            $this->characterGroups->add($characterGroup);
         }
         return $this;
     }
@@ -160,7 +153,6 @@ class Character
     {
         if ($this->characterGroups->contains($characterGroup)) {
             $this->characterGroups->remove($characterGroup);
-            $characterGroup->setCharacter(null);
         }
         return $this;
     }

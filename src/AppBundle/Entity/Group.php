@@ -62,11 +62,7 @@ class Group
      */
     public function setLarp($larp)
     {
-        if ($this->larp) {
-            $this->larp->remove($this);
-        }
         $this->larp = $larp;
-        $larp->addGroup($this);
 
         return $this;
     }
@@ -85,8 +81,7 @@ class Group
     public function addCharacterGroup(CharacterGroup $characterGroup)
     {
         if (!$this->characterGroups->contains($characterGroup)) {
-            $this->characterGroups->push($characterGroup);
-            $characterGroup->setGroup($this);
+            $this->characterGroups->add($characterGroup);
         }
         return $this;
     }
@@ -98,7 +93,6 @@ class Group
     {
         if ($this->characterGroups->contains($characterGroup)) {
             $this->characterGroups->remove($characterGroup);
-            $characterGroup->setGroup(null);
         }
         return $this;
     }

@@ -52,11 +52,7 @@ class CharacterGroup
      */
     public function setCharacter($character)
     {
-        if ($this->character) {
-            $this->character->remove($this);
-        }
         $this->character = $character;
-        $character->addCharacterGroup($this);
 
         return $this;
     }
@@ -74,11 +70,7 @@ class CharacterGroup
      */
     public function setGroup($group)
     {
-        if ($this->group) {
-            $this->group->remove($this);
-        }
         $this->group = $group;
-        $group->addCharacterGroup($this);
 
         return $this;
     }

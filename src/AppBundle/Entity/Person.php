@@ -213,8 +213,7 @@ class Person implements SynchronizableInterface
     public function addLarp(Larp $larp)
     {
         if (!$this->larps->contains($larp)) {
-            $this->larps->push($larp);
-            $larp->setPerson($this);
+            $this->larps->add($larp);
         }
         return $this;
     }
@@ -226,7 +225,6 @@ class Person implements SynchronizableInterface
     {
         if ($this->larps->contains($larp)) {
             $this->larps->remove($larp);
-            $larp->setPerson(null);
         }
         return $this;
     }
@@ -244,9 +242,8 @@ class Person implements SynchronizableInterface
      */
     public function addOrganizer(Organizer $organizer)
     {
-        if (!$this->organizers->contains($organizer)) {
-            $this->organizers->push($organizer);
-            $organizer->setPerson($this);
+        if (!$this->getOrganizers()->contains($organizer)) {
+            $this->getOrganizers()->add($organizer);
         }
         return $this;
     }
@@ -256,9 +253,8 @@ class Person implements SynchronizableInterface
      */
     public function removeOrganizer(Organizer $organizer)
     {
-        if ($this->organizers->contains($organizer)) {
-            $this->organizers->remove($organizer);
-            $organizer->setPerson(null);
+        if ($this->getOrganizers()->contains($organizer)) {
+            $this->getOrganizers()->remove($organizer);
         }
         return $this;
     }
@@ -277,8 +273,7 @@ class Person implements SynchronizableInterface
     public function addPlayer(Player $player)
     {
         if (!$this->players->contains($player)) {
-            $this->players->push($player);
-            $player->setPerson($this);
+            $this->players->add($player);
         }
         return $this;
     }
@@ -290,7 +285,6 @@ class Person implements SynchronizableInterface
     {
         if ($this->players->contains($player)) {
             $this->players->remove($player);
-            $player->setPerson(null);
         }
         return $this;
     }

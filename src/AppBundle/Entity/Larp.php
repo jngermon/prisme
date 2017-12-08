@@ -177,8 +177,7 @@ class Larp implements SynchronizableInterface
     public function addOrganizer(Organizer $organizer)
     {
         if (!$this->organizers->contains($organizer)) {
-            $this->organizers->push($organizer);
-            $organizer->setLarp($this);
+            $this->organizers->add($organizer);
         }
         return $this;
     }
@@ -190,7 +189,6 @@ class Larp implements SynchronizableInterface
     {
         if ($this->organizers->contains($organizer)) {
             $this->organizers->remove($organizer);
-            $organizer->setLarp(null);
         }
         return $this;
     }
@@ -209,8 +207,7 @@ class Larp implements SynchronizableInterface
     public function addPlayer(Player $player)
     {
         if (!$this->players->contains($player)) {
-            $this->players->push($player);
-            $player->setLarp($this);
+            $this->players->add($player);
         }
         return $this;
     }
@@ -222,7 +219,6 @@ class Larp implements SynchronizableInterface
     {
         if ($this->players->contains($player)) {
             $this->players->remove($player);
-            $player->setLarp(null);
         }
         return $this;
     }
@@ -241,8 +237,7 @@ class Larp implements SynchronizableInterface
     public function addCharacter(Character $character)
     {
         if (!$this->characters->contains($character)) {
-            $this->characters->push($character);
-            $character->setLarp($this);
+            $this->characters->add($character);
         }
         return $this;
     }
@@ -254,7 +249,6 @@ class Larp implements SynchronizableInterface
     {
         if ($this->characters->contains($character)) {
             $this->characters->remove($character);
-            $character->setLarp(null);
         }
         return $this;
     }
@@ -273,8 +267,7 @@ class Larp implements SynchronizableInterface
     public function addGroup(Group $group)
     {
         if (!$this->groups->contains($group)) {
-            $this->groups->push($group);
-            $group->setLarp($this);
+            $this->groups->add($group);
         }
         return $this;
     }
@@ -286,7 +279,6 @@ class Larp implements SynchronizableInterface
     {
         if ($this->groups->contains($group)) {
             $this->groups->remove($group);
-            $group->setLarp(null);
         }
         return $this;
     }

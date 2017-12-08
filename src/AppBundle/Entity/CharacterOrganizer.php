@@ -52,11 +52,7 @@ class CharacterOrganizer
      */
     public function setCharacter($character)
     {
-        if ($this->character) {
-            $this->character->remove($this);
-        }
         $this->character = $character;
-        $character->addCharacterGroup($this);
 
         return $this;
     }
@@ -74,11 +70,7 @@ class CharacterOrganizer
      */
     public function setOrganizer($organizer)
     {
-        if ($this->organizer) {
-            $this->organizer->remove($this);
-        }
         $this->organizer = $organizer;
-        $organizer->addCharacterGroup($this);
 
         return $this;
     }
