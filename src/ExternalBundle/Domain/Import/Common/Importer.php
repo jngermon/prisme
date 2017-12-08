@@ -3,6 +3,7 @@
 namespace ExternalBundle\Domain\Import\Common;
 
 use Ddeboer\DataImport\Step\MappingStep;
+use Ddeboer\DataImport\Step\ValidatorStep;
 use Ddeboer\DataImport\Workflow;
 use Ddeboer\DataImport\Workflow\StepAggregator;
 use Ddeboer\DataImport\Writer;
@@ -16,12 +17,15 @@ use Ramsey\Uuid\Uuid;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class Importer
 {
     protected $connection;
 
     protected $writer;
+
+    protected $validator;
 
     public function __construct(
         Connection $connection,
@@ -34,6 +38,11 @@ abstract class Importer
     public function getImportedClassName()
     {
         return $this->writer->getEntityName();
+    }
+
+    public function setValidator(ValidatorInterface $validator)
+    {
+        $this->validator = $validator;
     }
 
     public function import($options)
@@ -60,9 +69,16 @@ abstract class Importer
         foreach ($this->getMappings() as $from => $to) {
             $mappingStep->map('['.$from.']', '['.$to.']');
         }
-        $workflow->addStep($mappingStep);
+        $workflow->addStep($mappingStep, 100);
 
-        $workflow->addStep(new CleanStep($this->getMappings()));
+        $workflow->addStep(new CleanStep($this->getMappings()), 99);
+
+        if ($this->validator) {
+            $validatorStep = new ValidatorStep($this->validator);
+            $validatorStep->add('externalId', new \Symfony\Component\Validator\Constraints\NotNull());
+            $this->configreValidatorStep($validatorStep);
+            $workflow->addStep($validatorStep, 0);
+        }
 
         $this->configureWorkflow($workflow);
 
@@ -85,6 +101,11 @@ abstract class Importer
     abstract protected function createCountQueryBuilder(QueryBuilder $queryBuilder);
 
     protected function configureWorkflow(Workflow $workflow)
+    {
+
+    }
+
+    protected function configreValidatorStep(ValidatorStep $validatorStep)
     {
 
     }
