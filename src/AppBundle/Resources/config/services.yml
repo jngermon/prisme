@@ -1,4 +1,9 @@
 services:
+    app.repository.larp:
+        class: Doctrine\Common\Persistence\ObjectRepository
+        factory: 'doctrine:getRepository'
+        arguments: [ 'AppBundle:Larp' ]
+
     app.repository.person:
         class: Doctrine\Common\Persistence\ObjectRepository
         factory: 'doctrine:getRepository'

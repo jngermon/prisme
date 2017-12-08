@@ -38,6 +38,21 @@ services:
     # Domain
 
     ## Import
+
+    ### Common
+
+    #### Converter
+    external.domain.import.converter.larp:
+        class: ExternalBundle\Domain\Import\Common\Converter\EntityConverter
+        arguments:
+            - '@app.repository.larp'
+
+    external.domain.import.converter.person:
+        class: ExternalBundle\Domain\Import\Common\Converter\EntityConverter
+        arguments:
+            - '@app.repository.person'
+
+    ### Larp
     external.domain.import.larp.importer:
         class: ExternalBundle\Domain\Import\Larp\Importer
         arguments:
@@ -49,6 +64,7 @@ services:
         arguments:
             - '@doctrine.orm.default_entity_manager'
 
+    ### Person
     external.domain.import.person.importer:
         class: ExternalBundle\Domain\Import\Person\Importer
         arguments:
