@@ -16,24 +16,36 @@ class LarpAdmin extends BaseAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('name', 'text')
-            ->add('startedAt')
-            ->add('endedAt')
-            ->add('owner')
+            ->with('bloc.main', [
+                'class'       => 'col-md-7',
+                'box_class'   => 'box box-primary',
+                'translation_domain' => 'Larp',
+            ])
+                ->add('name', 'text')
+                ->add('startedAt')
+                ->add('endedAt')
+                ->add('owner')
+            ->end()
             ;
     }
 
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('name', 'text')
-            ->add('startedAt', 'sonata_type_datetime_picker', [
-                'required' => false,
+            ->with('bloc.main', [
+                'class'       => 'col-md-7',
+                'box_class'   => 'box box-primary',
+                'translation_domain' => 'Larp',
             ])
-            ->add('endedAt', 'sonata_type_datetime_picker', [
-                'required' => false,
-            ])
-            ->add('owner', null, ['disabled' => !$this->getSecurityHandler()->isGranted($this, 'CHANGE_OWNER', $this->getSubject())])
+                ->add('name', 'text')
+                ->add('startedAt', 'sonata_type_datetime_picker', [
+                    'required' => false,
+                ])
+                ->add('endedAt', 'sonata_type_datetime_picker', [
+                    'required' => false,
+                ])
+                ->add('owner', null, ['disabled' => !$this->getSecurityHandler()->isGranted($this, 'CHANGE_OWNER', $this->getSubject())])
+            ->end()
             ;
     }
 

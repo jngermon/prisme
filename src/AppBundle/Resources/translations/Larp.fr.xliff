@@ -88,6 +88,11 @@
                 <target>Propriétaire</target>
             </trans-unit>
 
+            <trans-unit id="bloc.main">
+                <source>bloc.main</source>
+                <target>GN</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>
