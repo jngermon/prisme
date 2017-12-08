@@ -30,6 +30,11 @@ class Writer extends DoctrineWriter
         $this->lookupFields = ['externalId'];
     }
 
+    public function getEntityName()
+    {
+        return $this->entityName;
+    }
+
     public function initProcessing($syncUuid, $options = [])
     {
         $this->syncUuid = $syncUuid;

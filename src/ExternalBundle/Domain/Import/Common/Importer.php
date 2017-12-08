@@ -31,6 +31,11 @@ abstract class Importer
         $this->writer = $writer;
     }
 
+    public function getImportedClassName()
+    {
+        return $this->writer->getEntityName();
+    }
+
     public function import($options)
     {
         $syncUuid = Uuid::uuid4();

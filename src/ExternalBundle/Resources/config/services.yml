@@ -64,6 +64,19 @@ services:
         arguments:
             - '@doctrine.dbal.external_connection'
 
+    ## Synchronizer
+    external.domain.synchronizer:
+        class: ExternalBundle\Domain\Synchronizer\ChainSynchronizer
+        tags:
+            - { name: 'mmc.processor.chain' }
+
+    external.domain.synchronizer.person:
+        class: ExternalBundle\Domain\Synchronizer\Synchronizer
+        arguments:
+            - '@external.domain.import.person.importer'
+        tags:
+            - { name: 'external.domain.synchronizer' }
+
     ## User
     external.domain.user.provider:
         class: ExternalBundle\Domain\User\Provider
