@@ -59,20 +59,12 @@ class PersonAdmin extends BaseAdmin
                 'class'       => '',
                 'box_class'   => 'box box-primary',
             ])
-                ->add('firstname', 'text', [
-                    'disabled' => $this->getSubject()->isExternal(),
-                ])
-                ->add('lastname', 'text', [
-                    'disabled' => $this->getSubject()->isExternal(),
-                ])
-                ->add('phone', 'text', [
-                    'disabled' => $this->getSubject()->isExternal(),
-                ])
+                ->add('firstname')
+                ->add('lastname')
+                ->add('phone')
                 ->add('birthDate', 'sonata_type_date_picker', [
                     'format' => 'dd/MM/yyyy',
-                    'disabled' => $this->getSubject()->isExternal(),
                 ])
-
                 ->add('gender', EnumType::class, [
                     'class' => \AppBundle\Entity\Enum\Gender::class,
                     'choice_translation_domain' => 'Gender',

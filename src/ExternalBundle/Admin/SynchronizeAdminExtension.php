@@ -3,12 +3,22 @@
 namespace ExternalBundle\Admin;
 
 use ExternalBundle\Domain\Import\Common\Status;
+use ExternalBundle\Domain\Synchronizer\SynchronizerInterface;
 use Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use Sonata\AdminBundle\Admin\AdminInterface;
+use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 class SynchronizeAdminExtension extends AbstractAdminExtension
 {
+    protected $synchronizer;
+
+    public function __construct(
+        SynchronizerInterface $synchronizer
+    ) {
+        $this->synchronizer = $synchronizer;
+    }
+
     public function configureShowFields(ShowMapper $showMapper)
     {
         $subject = $showMapper->getAdmin()->getSubject();
@@ -68,5 +78,20 @@ class SynchronizeAdminExtension extends AbstractAdminExtension
         }
 
         return $list;
+    }
+
+    public function configureFormFields(FormMapper $formMapper)
+    {
+        $subject = $formMapper->getAdmin()->getSubject();
+
+        $externalFields = $this->synchronizer->getMappings($subject);
+
+        if ($subject->isExternal()) {
+            foreach ($formMapper->getFormBuilder() as $field) {
+                if ($field->getMapped() && in_array($field->getPropertyPath()->__toString(), $externalFields)) {
+                    $field->setDisabled(true);
+                }
+            }
+        }
     }
 }

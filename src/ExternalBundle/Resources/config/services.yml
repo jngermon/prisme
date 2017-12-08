@@ -2,6 +2,8 @@ services:
     # Admin
     external.synchronize.extension:
         class: ExternalBundle\Admin\SynchronizeAdminExtension
+        arguments:
+            - '@external.domain.synchronizer'
 
     # Command
     external.command.import-larp:

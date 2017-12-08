@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d8f5bd545999e95aa281fcde0fcfc203",
+    "content-hash": "879d0e18057891acf02377ccec6f0cee",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1759,16 +1759,16 @@
         },
         {
             "name": "meuhmeuhconcept/sonata-admin-bundle",
-            "version": "1.3.1",
+            "version": "1.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MeuhMeuhConcept/SonataAdminBundle.git",
-                "reference": "3c46686080bf4131b41577ba488ebbb18540aa28"
+                "reference": "ae9e806f0420923de26834681c00ca59e5e73b8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MeuhMeuhConcept/SonataAdminBundle/zipball/3c46686080bf4131b41577ba488ebbb18540aa28",
-                "reference": "3c46686080bf4131b41577ba488ebbb18540aa28",
+                "url": "https://api.github.com/repos/MeuhMeuhConcept/SonataAdminBundle/zipball/ae9e806f0420923de26834681c00ca59e5e73b8f",
+                "reference": "ae9e806f0420923de26834681c00ca59e5e73b8f",
                 "shasum": ""
             },
             "require": {
@@ -1809,7 +1809,7 @@
                 }
             ],
             "description": "SonataAdmin implementation for MeuhMeuhConcept",
-            "time": "2017-06-23T12:21:25+00:00"
+            "time": "2017-12-02T21:28:28+00:00"
         },
         {
             "name": "monolog/monolog",
