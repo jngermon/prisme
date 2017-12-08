@@ -2,6 +2,7 @@
 
 namespace ExternalBundle\Domain\Import\Common;
 
+use Ddeboer\DataImport\Step\MappingStep;
 use Ddeboer\DataImport\Workflow;
 use Ddeboer\DataImport\Workflow\StepAggregator;
 use Ddeboer\DataImport\Writer;
@@ -50,6 +51,14 @@ abstract class Importer
             ->setSkipItemOnFailure(false)
         ;
 
+        $mappingStep = new MappingStep();
+        foreach ($this->getMappings() as $from => $to) {
+            $mappingStep->map('['.$from.']', '['.$to.']');
+        }
+        $workflow->addStep($mappingStep);
+
+        $workflow->addStep(new CleanStep($this->getMappings()));
+
         $this->configureWorkflow($workflow);
 
         if ($options['output']) {
@@ -63,6 +72,8 @@ abstract class Importer
 
         return $workflow->process();
     }
+
+    abstract public function getMappings();
 
     abstract protected function createQueryBuilder($options);
 

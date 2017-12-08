@@ -2,7 +2,6 @@
 
 namespace ExternalBundle\Domain\Import\Larp;
 
-use Ddeboer\DataImport\Step\MappingStep;
 use Ddeboer\DataImport\Step\ValueConverterStep;
 use Ddeboer\DataImport\ValueConverter\DateTimeValueConverter;
 use Ddeboer\DataImport\Workflow;
@@ -11,6 +10,16 @@ use ExternalBundle\Domain\Import\Common\Importer as BaseImporter;
 
 class Importer extends BaseImporter
 {
+    public function getMappings()
+    {
+        return [
+            'idgn' => 'externalId',
+            'nom' => 'name',
+            'date_deb' => 'startedAt',
+            'date_fin' => 'endedAt',
+        ];
+    }
+
     protected function createQueryBuilder($options)
     {
         $queryBuilder = new QueryBuilder($this->connection);
@@ -37,13 +46,6 @@ class Importer extends BaseImporter
 
     protected function configureWorkflow(Workflow $workflow)
     {
-        $workflow->addStep(new MappingStep([
-            '[idgn]' => '[externalId]',
-            '[nom]' => '[name]',
-            '[date_deb]' => '[startedAt]',
-            '[date_fin]' => '[endedAt]',
-        ]));
-
         $step = new ValueConverterStep();
         $step->add('[startedAt]', new DateTimeValueConverter());
         $step->add('[endedAt]', new DateTimeValueConverter());

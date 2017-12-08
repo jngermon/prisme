@@ -2,7 +2,6 @@
 
 namespace ExternalBundle\Domain\Import\Person;
 
-use Ddeboer\DataImport\Step\MappingStep;
 use Ddeboer\DataImport\Step\ValueConverterStep;
 use Ddeboer\DataImport\Workflow;
 use Doctrine\DBAL\Query\QueryBuilder;
@@ -11,6 +10,18 @@ use ExternalBundle\Domain\Import\Common\Importer as BaseImporter;
 
 class Importer extends BaseImporter
 {
+    public function getMappings()
+    {
+        return [
+            'idu' => 'externalId',
+            'nom' => 'lastname',
+            'prenom' => 'firstname',
+            'tel' => 'phone',
+            'birth' => 'birthDate',
+            'sexe' => 'gender',
+        ];
+    }
+
     protected function createQueryBuilder($options)
     {
         $queryBuilder = new QueryBuilder($this->connection);
@@ -37,15 +48,6 @@ class Importer extends BaseImporter
 
     protected function configureWorkflow(Workflow $workflow)
     {
-        $workflow->addStep(new MappingStep([
-            '[idu]' => '[externalId]',
-            '[nom]' => '[lastname]',
-            '[prenom]' => '[firstname]',
-            '[tel]' => '[phone]',
-            '[birth]' => '[birthDate]',
-            '[sexe]' => '[gender]',
-        ]));
-
         $step = new ValueConverterStep();
         $step->add('[birthDate]', new DateTimeValueConverter());
         $step->add('[gender]', new GenderConverter());
