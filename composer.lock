@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e40c591487559c279ff623489cb42183",
+    "content-hash": "d8f5bd545999e95aa281fcde0fcfc203",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1708,6 +1708,54 @@
             ],
             "description": "FosUserBundle implementation for MeuhMeuhConcept",
             "time": "2017-12-02T20:21:28+00:00"
+        },
+        {
+            "name": "meuhmeuhconcept/processor",
+            "version": "v2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MeuhMeuhConcept/processor.git",
+                "reference": "1c8b6653a60bbea0e162ed8716c300c050daaa06"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/MeuhMeuhConcept/processor/zipball/1c8b6653a60bbea0e162ed8716c300c050daaa06",
+                "reference": "1c8b6653a60bbea0e162ed8716c300c050daaa06",
+                "shasum": ""
+            },
+            "require": {
+                "greg0ire/enum": ">=3.1",
+                "php": ">5.3.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^1.12",
+                "matthiasnoback/symfony-dependency-injection-test": "^1.0",
+                "phpunit/phpunit": "^5.5",
+                "symfony/http-kernel": "^2.7 || ^3.0",
+                "symfony/options-resolver": "^2.7 || ^3.0"
+            },
+            "suggest": {
+                "symfony/http-kernel": "^2.7 || ^3.0",
+                "symfony/options-resolver": "^2.7 || ^3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Mmc\\Processor\\": "src/Mmc/Processor"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "jngermon",
+                    "email": "jn.germon@meuhmeuhconcept.com"
+                }
+            ],
+            "description": "Mechanism to process a work from a request",
+            "time": "2017-12-08T11:16:21+00:00"
         },
         {
             "name": "meuhmeuhconcept/sonata-admin-bundle",
