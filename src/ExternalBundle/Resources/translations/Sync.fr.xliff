@@ -43,6 +43,15 @@
                 <target>Synchroniser</target>
             </trans-unit>
 
+            <trans-unit id="process.successed">
+                <source>process.successed</source>
+                <target>Synchronisation réussie</target>
+            </trans-unit>
+            <trans-unit id="process.failed">
+                <source>process.failed</source>
+                <target>La synchronisation semble avoir posé problème : %error%</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>

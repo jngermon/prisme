@@ -34,6 +34,11 @@ services:
 
     external.controller.sync:
         class: ExternalBundle\Controller\SyncController
+        arguments:
+            - '@external.domain.synchronizer'
+            - '@session'
+            - '@translator'
+            - '@router'
 
     # Domain
 
