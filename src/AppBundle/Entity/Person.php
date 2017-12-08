@@ -8,6 +8,7 @@ use ExternalBundle\Domain\Import\Common\SynchronizableInterface;
 use ExternalBundle\Domain\Import\Common\SynchronizableTrait;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Greg0ire\Enum\Bridge\Symfony\Validator\Constraint\Enum as EnumAssert;
+use ExternalBundle\Annotations\External;
 
 /**
  * @ORM\Entity
@@ -33,27 +34,32 @@ class Person implements SynchronizableInterface
 
     /**
      * @ORM\Column(type="string")
+     * @External()
      */
     protected $firstname;
 
     /**
      * @ORM\Column(type="string")
+     * @External()
      */
     protected $lastname;
 
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @External()
      */
     protected $phone;
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * @External()
      */
     protected $birthDate;
 
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
      * @EnumAssert("AppBundle\Entity\Enum\Gender")
+     * @External()
      */
     protected $gender;
 

@@ -18,15 +18,6 @@ class Synchronizer extends AbstractProcessor implements SynchronizerInterface
         $this->importerFactory = $importerFactory;
     }
 
-    public function getMappings($request)
-    {
-        if (!$this->supports($request)) {
-            return null;
-        }
-
-        return $this->importerFactory->getMappings();
-    }
-
     public function supports($request)
     {
         $request = $this->resolveRequest($request);

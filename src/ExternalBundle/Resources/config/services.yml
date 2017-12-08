@@ -3,7 +3,7 @@ services:
     external.synchronize.extension:
         class: ExternalBundle\Admin\SynchronizeAdminExtension
         arguments:
-            - '@external.domain.synchronizer'
+            - '@external.mapping.external_properties_provider'
 
     # Command
     external.command.import-larp:
@@ -102,6 +102,10 @@ services:
         class: ExternalBundle\Domain\Larp\Provider
         arguments:
             - '@doctrine.dbal.external_connection'
+
+    ## Mapping
+    external.mapping.external_properties_provider:
+        class: ExternalBundle\Domain\Mapping\ExternalPropertiesProvider
 
     ## Synchronizer
     external.domain.synchronizer:

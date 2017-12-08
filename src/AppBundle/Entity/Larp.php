@@ -4,10 +4,11 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Symfony\Component\Validator\Constraints as Assert;
+use ExternalBundle\Annotations\External;
 use ExternalBundle\Domain\Import\Common\SynchronizableInterface;
 use ExternalBundle\Domain\Import\Common\SynchronizableTrait;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -34,12 +35,14 @@ class Larp implements SynchronizableInterface
     /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
+     * @External()
      */
     protected $name;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      * @Assert\DateTime()
+     * @External()
      */
     protected $startedAt;
 
@@ -47,6 +50,7 @@ class Larp implements SynchronizableInterface
      * @ORM\Column(type="datetime", nullable=true)
      * @Assert\DateTime()
      * @Assert\GreaterThan(propertyPath="startedAt")
+     * @External()
      */
     protected $endedAt;
 
