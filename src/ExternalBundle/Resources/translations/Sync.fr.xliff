@@ -51,6 +51,10 @@
                 <source>process.failed</source>
                 <target>La synchronisation semble avoir posé problème : %error%</target>
             </trans-unit>
+            <trans-unit id="process.persist">
+                <source>process.persist</source>
+                <target>La synchronisation a été lancée en arrière plan.</target>
+            </trans-unit>
 
         </body>
     </file>

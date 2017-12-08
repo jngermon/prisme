@@ -2,12 +2,15 @@
 
 namespace ExternalBundle\Controller;
 
+use Doctrine\ORM\EntityManager;
 use ExternalBundle\Domain\Synchronizer\SynchronizerInterface;
+use ExternalBundle\Entity\Synchronization;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
@@ -15,24 +18,28 @@ use Symfony\Component\Translation\TranslatorInterface;
  */
 class SyncController
 {
-    protected $synchronizer;
-
     protected $session;
 
     protected $translator;
 
     protected $router;
 
+    protected $em;
+
+    protected $serializer;
+
     public function __construct(
-        SynchronizerInterface $synchronizer,
         SessionInterface $session,
         TranslatorInterface $translator,
-        RouterInterface $router
+        RouterInterface $router,
+        EntityManager $em,
+        SerializerInterface $serializer
     ) {
-        $this->synchronizer = $synchronizer;
         $this->session = $session;
         $this->translator = $translator;
         $this->router = $router;
+        $this->em = $em;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -45,19 +52,14 @@ class SyncController
             'ids' => $request->get('ids'),
         ];
 
-        $options = [
-            'class' => \AppBundle\Entity\Organizer::class,
-            //'person_id' => 914,
-            'larp_id' => 2,
-        ];
+        $synchronization = new Synchronization();
+        $synchronization->setOptions($this->serializer->encode($options, 'json'));
+        $this->em->persist($synchronization);
+        $this->em->flush();
 
-        $res = $this->synchronizer->process($options);
+        exec("/srv/bin/console external:synchronize --continue >> /srv/var/logs/synchronize.log &");
 
-        if ($res->isSuccessed()) {
-            $this->session->getFlashBag()->add('success', $this->translator->trans('process.successed', [], 'Sync'));
-        } else {
-            $this->session->getFlashBag()->add('error', $this->translator->trans('process.failed', ['%error%' => $res->getReasonPhrase()], 'Sync'));
-        }
+        $this->session->getFlashBag()->add('success', $this->translator->trans('process.persist', [], 'Sync'));
 
         if ($referer = $request->headers->get('referer')) {
             return new RedirectResponse($referer);
