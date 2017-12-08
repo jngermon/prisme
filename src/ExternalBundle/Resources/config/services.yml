@@ -81,6 +81,22 @@ services:
         arguments:
             - '@doctrine.orm.default_entity_manager'
 
+    ### Organizer
+    external.domain.import.organizer.importer:
+        class: ExternalBundle\Domain\Import\Organizer\Importer
+        arguments:
+            - '@doctrine.dbal.external_connection'
+            - '@external.domain.import.organizer.writer'
+        calls:
+            - [setPersonConverter, ['@external.domain.import.converter.person']]
+            - [setLarpConverter, ['@external.domain.import.converter.larp']]
+            - [setValidator, ['@validator']]
+
+    external.domain.import.organizer.writer:
+        class: ExternalBundle\Domain\Import\Organizer\Writer
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+
     ## Larp
     external.domain.larp.provider:
         class: ExternalBundle\Domain\Larp\Provider
@@ -104,6 +120,16 @@ services:
         class: ExternalBundle\Domain\Synchronizer\Synchronizer
         arguments:
             - '@external.domain.import.person.importer'
+        tags:
+            - { name: 'external.domain.synchronizer' }
+
+    external.domain.synchronizer.organizer:
+        class: ExternalBundle\Domain\Synchronizer\OrganizerSynchronizer
+        arguments:
+            - '@external.domain.import.organizer.importer'
+            - '@external.domain.import.larp.importer'
+            - '@external.domain.import.person.importer'
+
         tags:
             - { name: 'external.domain.synchronizer' }
 
