@@ -67,7 +67,7 @@ class SynchronizeAdminExtension extends AbstractAdminExtension
 
     public function configureActionButtons(AdminInterface $admin, $list, $action, $object)
     {
-        if ($object->isExternal() && $action == 'show') {
+        if ($action == 'show' && $object->isExternal()) {
             $list['synchronize'] = [
                 'template' => 'ExternalBundle:Admin:Button/synchronize_button.html.twig',
                 'link_parameters' => [
@@ -86,7 +86,7 @@ class SynchronizeAdminExtension extends AbstractAdminExtension
 
         $externalFields = $this->synchronizer->getMappings($subject);
 
-        if ($subject->isExternal()) {
+        if (is_array($externalFields) && $subject->isExternal()) {
             foreach ($formMapper->getFormBuilder() as $field) {
                 if ($field->getMapped() && in_array($field->getPropertyPath()->__toString(), $externalFields)) {
                     $field->setDisabled(true);
