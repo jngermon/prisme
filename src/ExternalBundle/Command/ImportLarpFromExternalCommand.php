@@ -2,7 +2,7 @@
 
 namespace ExternalBundle\Command;
 
-use ExternalBundle\Domain\Import\Larp\Importer;
+use ExternalBundle\Domain\Import\Larp\ImporterFactory;
 use ExternalBundle\Domain\Larp\Provider as LarpProvider;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -13,16 +13,16 @@ class ImportLarpFromExternalCommand extends Command
 {
     protected $provider;
 
-    protected $importer;
+    protected $importerFactory;
 
     public function __construct(
         LarpProvider $provider,
-        Importer $importer
+        ImporterFactory $importerFactory
     ) {
         parent::__construct();
 
         $this->provider = $provider;
-        $this->importer = $importer;
+        $this->importerFactory = $importerFactory;
     }
 
     protected function configure()
@@ -45,6 +45,8 @@ class ImportLarpFromExternalCommand extends Command
 
         $larpId = $helper->ask($input, $output, $question);
 
-        $this->importer->import(['ids' => $larpId, 'output' => $output]);
+        $importer = $this->importerFactory->create(['ids' => $larpId, 'output' => $output]);
+
+        $importer->process();
     }
 }

@@ -45,6 +45,12 @@ class SyncController
             'ids' => $request->get('ids'),
         ];
 
+        $options = [
+            'class' => \AppBundle\Entity\Organizer::class,
+            //'person_id' => 914,
+            'larp_id' => 2,
+        ];
+
         $res = $this->synchronizer->process($options);
 
         if ($res->isSuccessed()) {

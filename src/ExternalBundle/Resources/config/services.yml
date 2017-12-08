@@ -10,14 +10,14 @@ services:
         class: ExternalBundle\Command\ImportLarpFromExternalCommand
         arguments:
             - '@external.domain.larp.provider'
-            - '@external.domain.import.larp.importer'
+            - '@external.domain.import.larp.importer_factory'
         tags:
             - { name: console.command }
 
     external.command.import-persons:
         class: ExternalBundle\Command\ImportPersonsFromExternalCommand
         arguments:
-            - '@external.domain.import.person.importer'
+            - '@external.domain.import.person.importer_factory'
         tags:
             - { name: console.command }
 
@@ -58,8 +58,8 @@ services:
             - '@app.repository.person'
 
     ### Larp
-    external.domain.import.larp.importer:
-        class: ExternalBundle\Domain\Import\Larp\Importer
+    external.domain.import.larp.importer_factory:
+        class: ExternalBundle\Domain\Import\Larp\ImporterFactory
         arguments:
             - '@doctrine.dbal.external_connection'
             - '@external.domain.import.larp.writer'
@@ -70,8 +70,8 @@ services:
             - '@doctrine.orm.default_entity_manager'
 
     ### Person
-    external.domain.import.person.importer:
-        class: ExternalBundle\Domain\Import\Person\Importer
+    external.domain.import.person.importer_factory:
+        class: ExternalBundle\Domain\Import\Person\ImporterFactory
         arguments:
             - '@doctrine.dbal.external_connection'
             - '@external.domain.import.person.writer'
@@ -82,8 +82,8 @@ services:
             - '@doctrine.orm.default_entity_manager'
 
     ### Organizer
-    external.domain.import.organizer.importer:
-        class: ExternalBundle\Domain\Import\Organizer\Importer
+    external.domain.import.organizer.importer_factory:
+        class: ExternalBundle\Domain\Import\Organizer\ImporterFactory
         arguments:
             - '@doctrine.dbal.external_connection'
             - '@external.domain.import.organizer.writer'
@@ -112,23 +112,23 @@ services:
     external.domain.synchronizer.larp:
         class: ExternalBundle\Domain\Synchronizer\Synchronizer
         arguments:
-            - '@external.domain.import.larp.importer'
+            - '@external.domain.import.larp.importer_factory'
         tags:
             - { name: 'external.domain.synchronizer' }
 
     external.domain.synchronizer.person:
         class: ExternalBundle\Domain\Synchronizer\Synchronizer
         arguments:
-            - '@external.domain.import.person.importer'
+            - '@external.domain.import.person.importer_factory'
         tags:
             - { name: 'external.domain.synchronizer' }
 
     external.domain.synchronizer.organizer:
         class: ExternalBundle\Domain\Synchronizer\OrganizerSynchronizer
         arguments:
-            - '@external.domain.import.organizer.importer'
-            - '@external.domain.import.larp.importer'
-            - '@external.domain.import.person.importer'
+            - '@external.domain.import.organizer.importer_factory'
+            - '@external.domain.import.larp.importer_factory'
+            - '@external.domain.import.person.importer_factory'
 
         tags:
             - { name: 'external.domain.synchronizer' }
@@ -144,6 +144,6 @@ services:
         arguments:
             - '@external.domain.user.provider'
             - '@app.repository.person'
-            - '@external.domain.import.person.importer'
+            - '@external.domain.import.person.importer_factory'
         tags:
             - { name: validator.constraint_validator }

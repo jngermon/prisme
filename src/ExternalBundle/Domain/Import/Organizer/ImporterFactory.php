@@ -8,9 +8,9 @@ use Ddeboer\DataImport\ValueConverter\DateTimeValueConverter;
 use Ddeboer\DataImport\Workflow;
 use Doctrine\DBAL\Query\QueryBuilder;
 use ExternalBundle\Domain\Import\Common\Converter\EntityConverter;
-use ExternalBundle\Domain\Import\Common\Importer as BaseImporter;
+use ExternalBundle\Domain\Import\Common\ImporterFactory as BaseImporterFactory;
 
-class Importer extends BaseImporter
+class ImporterFactory extends BaseImporterFactory
 {
     protected $larpConverter;
 

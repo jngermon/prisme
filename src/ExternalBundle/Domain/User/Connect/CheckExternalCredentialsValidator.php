@@ -3,7 +3,7 @@
 namespace ExternalBundle\Domain\User\Connect;
 
 use Doctrine\ORM\EntityRepository;
-use ExternalBundle\Domain\Import\Person\Importer;
+use ExternalBundle\Domain\Import\Person\ImporterFactory;
 use ExternalBundle\Domain\User\Provider;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -14,16 +14,16 @@ class CheckExternalCredentialsValidator extends ConstraintValidator
 
     protected $repository;
 
-    protected $importer;
+    protected $importerFactory;
 
     public function __construct(
         Provider $provider,
         EntityRepository $repository,
-        Importer $importer
+        ImporterFactory $importerFactory
     ) {
         $this->provider = $provider;
         $this->repository = $repository;
-        $this->importer = $importer;
+        $this->importerFactory = $importerFactory;
     }
 
     public function validate($value, Constraint $constraint)
@@ -47,7 +47,7 @@ class CheckExternalCredentialsValidator extends ConstraintValidator
         $person = $this->repository->findOneByExternalId($externalUser['idu']);
 
         if (!$person) {
-            $this->importer->import(['ids' => [$externalUser['idu']]]);
+            $this->importerFactory->create(['ids' => [$externalUser['idu']]])->process();
             $person = $this->repository->findOneByExternalId($externalUser['idu']);
         }
 

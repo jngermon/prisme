@@ -2,7 +2,7 @@
 
 namespace ExternalBundle\Command;
 
-use ExternalBundle\Domain\Import\Person\Importer;
+use ExternalBundle\Domain\Import\Person\ImporterFactory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -11,14 +11,14 @@ use Symfony\Component\Console\Question\Question;
 
 class ImportPersonsFromExternalCommand extends Command
 {
-    protected $importer;
+    protected $importerFactory;
 
     public function __construct(
-        Importer $importer
+        ImporterFactory $importerFactory
     ) {
         parent::__construct();
 
-        $this->importer = $importer;
+        $this->importerFactory = $importerFactory;
     }
 
     protected function configure()
@@ -34,6 +34,8 @@ class ImportPersonsFromExternalCommand extends Command
     {
         $ids = $input->getArgument('personId') ? [$input->getArgument('personId')] : null;
 
-        $this->importer->import(['ids' => $ids, 'output' => $output]);
+        $importer = $this->importerFactory->create(['ids' => $ids, 'output' => $output]);
+
+        $importer->process();
     }
 }

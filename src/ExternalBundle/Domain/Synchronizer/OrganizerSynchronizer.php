@@ -2,25 +2,25 @@
 
 namespace ExternalBundle\Domain\Synchronizer;
 
-use ExternalBundle\Domain\Import\Common\Importer;
-use ExternalBundle\Domain\Import\Organizer\Importer as OrganizerImporter;
-use ExternalBundle\Domain\Import\Larp\Importer as LarpImporter;
-use ExternalBundle\Domain\Import\Person\Importer as PersonImporter;
+use ExternalBundle\Domain\Import\Common\ImporterFactory;
+use ExternalBundle\Domain\Import\Organizer\ImporterFactory as OrganizerImporterFactory;
+use ExternalBundle\Domain\Import\Larp\ImporterFactory as LarpImporterFactory;
+use ExternalBundle\Domain\Import\Person\ImporterFactory as PersonImporterFactory;
 
 class OrganizerSynchronizer extends Synchronizer
 {
-    protected $larpImporter;
+    protected $larpImporterFactory;
 
-    protected $personImporter;
+    protected $personImporterFactory;
 
     public function __construct(
-        OrganizerImporter $importer,
-        LarpImporter $larpImporter,
-        PersonImporter $personImporter
+        OrganizerImporterFactory $importerFactory,
+        LarpImporterFactory $larpImporterFactory,
+        PersonImporterFactory $personImporterFactory
     ) {
-        parent::__construct($importer);
-        $this->larpImporter = $larpImporter;
-        $this->personImporter = $personImporter;
+        parent::__construct($importerFactory);
+        $this->larpImporterFactory = $larpImporterFactory;
+        $this->personImporterFactory = $personImporterFactory;
     }
 
 
@@ -30,12 +30,12 @@ class OrganizerSynchronizer extends Synchronizer
         if (isset($options['larp_id']) && $options['larp_id']) {
             $importOptions['ids'] = [$options['larp_id']];
         }
-        $this->larpImporter->import($importOptions);
+        $this->larpImporterFactory->create($importOptions)->process();
 
         $importOptions = [];
         if (isset($options['person_id']) && $options['person_id']) {
             $importOptions['ids'] = [$options['person_id']];
         }
-        $this->personImporter->import($importOptions);
+        $this->personImporterFactory->create($importOptions)->process();
     }
 }

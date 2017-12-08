@@ -4,18 +4,18 @@ namespace ExternalBundle\Domain\Synchronizer;
 
 use ExternalBundle\Domain\Import\Common\SynchronizableInterface;
 use Mmc\Processor\Component\AbstractProcessor;
-use ExternalBundle\Domain\Import\Common\Importer;
+use ExternalBundle\Domain\Import\Common\ImporterFactory;
 
 class Synchronizer extends AbstractProcessor implements SynchronizerInterface
 {
     protected $className;
 
-    protected $importer;
+    protected $importerFactory;
 
     public function __construct(
-        Importer $importer
+        ImporterFactory $importerFactory
     ) {
-        $this->importer = $importer;
+        $this->importerFactory = $importerFactory;
     }
 
     public function getMappings($request)
@@ -24,7 +24,7 @@ class Synchronizer extends AbstractProcessor implements SynchronizerInterface
             return null;
         }
 
-        return $this->importer->getMappings();
+        return $this->importerFactory->getMappings();
     }
 
     public function supports($request)
@@ -48,7 +48,7 @@ class Synchronizer extends AbstractProcessor implements SynchronizerInterface
 
         $this->prepare($options);
 
-        return $this->importer->import($options);
+        return $this->importerFactory->create($options)->process();
     }
 
     protected function prepare($options)
@@ -73,7 +73,7 @@ class Synchronizer extends AbstractProcessor implements SynchronizerInterface
 
     protected function getSynchronizedClassName()
     {
-        $className = $this->importer->getImportedClassName();
+        $className = $this->importerFactory->getImportedClassName();
         if (!is_subclass_of($className, SynchronizableInterface::class)) {
             throw new \RuntimeException('The className has to implements SynchronizableInterface');
         }

@@ -1,22 +1,24 @@
 <?php
 
-namespace ExternalBundle\Domain\Import\Larp;
+namespace ExternalBundle\Domain\Import\Person;
 
 use Ddeboer\DataImport\Step\ValueConverterStep;
-use Ddeboer\DataImport\ValueConverter\DateTimeValueConverter;
 use Ddeboer\DataImport\Workflow;
 use Doctrine\DBAL\Query\QueryBuilder;
-use ExternalBundle\Domain\Import\Common\Importer as BaseImporter;
+use ExternalBundle\Domain\Import\Common\DateTimeValueConverter;
+use ExternalBundle\Domain\Import\Common\ImporterFactory as BaseImporterFactory;
 
-class Importer extends BaseImporter
+class ImporterFactory extends BaseImporterFactory
 {
     public function getMappings()
     {
         return [
-            'idgn' => 'externalId',
-            'nom' => 'name',
-            'date_deb' => 'startedAt',
-            'date_fin' => 'endedAt',
+            'idu' => 'externalId',
+            'nom' => 'lastname',
+            'prenom' => 'firstname',
+            'tel' => 'phone',
+            'birth' => 'birthDate',
+            'sexe' => 'gender',
         ];
     }
 
@@ -25,11 +27,11 @@ class Importer extends BaseImporter
         $queryBuilder = new QueryBuilder($this->connection);
         $queryBuilder
             ->select('*')
-            ->from('gn')
+            ->from('users')
             ;
 
         if ($options['ids']) {
-            $queryBuilder->andWhere($queryBuilder->expr()->in('idgn', $options['ids']));
+            $queryBuilder->andWhere($queryBuilder->expr()->in('idu', $options['ids']));
         }
 
         return $queryBuilder;
@@ -38,7 +40,7 @@ class Importer extends BaseImporter
     protected function createCountQueryBuilder(QueryBuilder $queryBuilder)
     {
         return function ($queryBuilder) {
-            $queryBuilder->select('COUNT(DISTINCT idgn) AS total')
+            $queryBuilder->select('COUNT(DISTINCT idu) AS total')
                 ->setMaxResults(1)
                 ;
         };
@@ -47,8 +49,8 @@ class Importer extends BaseImporter
     protected function configureWorkflow(Workflow $workflow)
     {
         $step = new ValueConverterStep();
-        $step->add('[startedAt]', new DateTimeValueConverter());
-        $step->add('[endedAt]', new DateTimeValueConverter());
+        $step->add('[birthDate]', new DateTimeValueConverter());
+        $step->add('[gender]', new GenderConverter());
 
         $workflow->addStep($step);
     }
