@@ -20,3 +20,11 @@ services:
             - '@app.security.profile_provider'
         tags:
             - {name: security.voter}
+
+    app.security.voter.player_admin:
+        class: AppBundle\Security\Voter\PlayerAdminVoter
+        arguments:
+            - '@security.access.decision_manager'
+            - '@app.security.profile_provider'
+        tags:
+            - {name: security.voter}
