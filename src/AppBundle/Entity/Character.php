@@ -10,7 +10,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  * @ORM\Entity
  * @ORM\Table(name="character")
  */
-class Character
+class Character implements LarpRelatedInterface
 {
     use TimestampableEntity;
 

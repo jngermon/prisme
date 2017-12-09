@@ -14,7 +14,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  * @ORM\Table(name="player", uniqueConstraints={
  *      @ORM\UniqueConstraint(name="larp_person_idx", columns={"larp_id", "person_id"})})
  */
-class Player implements ProfilableInterface, SynchronizableInterface
+class Player implements ProfilableInterface, SynchronizableInterface, LarpRelatedInterface
 {
     use TimestampableEntity;
     use SynchronizableTrait;

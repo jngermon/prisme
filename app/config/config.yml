@@ -123,6 +123,9 @@ sonata_admin:
         external.synchronize.extension:
             implements:
                 - ExternalBundle\Domain\Import\Common\SynchronizableInterface
+        app.extension.larp:
+            implements:
+                - AppBundle\Entity\LarpRelatedInterface
 sonata_intl:
     timezone:
         default: Europe/Paris

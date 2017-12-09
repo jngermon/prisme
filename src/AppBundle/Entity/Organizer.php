@@ -13,7 +13,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  * @ORM\Entity
  * @ORM\Table(name="organizer")
  */
-class Organizer implements SynchronizableInterface, ProfilableInterface
+class Organizer implements SynchronizableInterface, ProfilableInterface, LarpRelatedInterface
 {
     use TimestampableEntity;
     use SynchronizableTrait;

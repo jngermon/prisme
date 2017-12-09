@@ -43,6 +43,12 @@ services:
         tags:
             - { name: sonata.block }
 
+    # Extension
+    app.extension.larp:
+        class: AppBundle\Admin\Extension\LarpExtension
+        arguments:
+            - '@app.security.profile_provider'
+
     # Filter
     admin.filter.insensitive_string:
         class: AppBundle\Admin\Filter\CaseInsensitiveStringFilter
