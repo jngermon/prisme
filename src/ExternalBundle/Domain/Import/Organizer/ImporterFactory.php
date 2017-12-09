@@ -44,7 +44,7 @@ class ImporterFactory extends BaseImporterFactory
             ;
 
         if ($options['ids']) {
-            $queryBuilder->andWhere($queryBuilder->expr()->in('idgn', $options['ids']));
+            $queryBuilder->andWhere($queryBuilder->expr()->in('ida', $options['ids']));
         }
 
         if ($options['person_id']) {
