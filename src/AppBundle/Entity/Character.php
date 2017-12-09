@@ -8,6 +8,7 @@ use ExternalBundle\Annotations\External;
 use ExternalBundle\Domain\Import\Common\SynchronizableInterface;
 use ExternalBundle\Domain\Import\Common\SynchronizableTrait;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity

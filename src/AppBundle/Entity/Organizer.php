@@ -8,10 +8,13 @@ use Doctrine\ORM\Mapping as ORM;
 use ExternalBundle\Domain\Import\Common\SynchronizableInterface;
 use ExternalBundle\Domain\Import\Common\SynchronizableTrait;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="organizer")
+ * @ORM\Table(name="organizer", uniqueConstraints={
+ *      @ORM\UniqueConstraint(name="larp_person_idx", columns={"larp_id", "person_id"})})
+ * @UniqueEntity({"larp", "person"}, message="organizer_already_in_larp")
  */
 class Organizer implements SynchronizableInterface, ProfilableInterface, LarpRelatedInterface
 {

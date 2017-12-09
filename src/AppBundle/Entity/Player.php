@@ -9,11 +9,13 @@ use ExternalBundle\Annotations\External;
 use ExternalBundle\Domain\Import\Common\SynchronizableInterface;
 use ExternalBundle\Domain\Import\Common\SynchronizableTrait;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="player", uniqueConstraints={
  *      @ORM\UniqueConstraint(name="larp_person_idx", columns={"larp_id", "person_id"})})
+ * @UniqueEntity({"larp", "person"}, message="player_already_in_larp")
  */
 class Player implements ProfilableInterface, SynchronizableInterface, LarpRelatedInterface
 {
