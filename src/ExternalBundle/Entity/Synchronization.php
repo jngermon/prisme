@@ -35,7 +35,7 @@ class Synchronization
     protected $status;
 
     /**
-     * @ORM\Column(type="string", length=10, nullable = true)
+     * @ORM\Column(type="text", nullable = true)
      */
     protected $errors;
 

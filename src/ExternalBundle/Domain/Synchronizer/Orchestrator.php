@@ -28,7 +28,7 @@ class Orchestrator
 
     public function run(OutputInterface $output, $continue = false)
     {
-        $repository = $this->em->getRepository(Synchronization::class);
+        $repository = $this->getEm()->getRepository(Synchronization::class);
         $running = $repository->countRunning();
 
         if ($running > 0) {
@@ -45,8 +45,8 @@ class Orchestrator
 
         $synchronization->setStatus(SyncrhonizationStatus::PROCESSING)
             ->setStartedAt(new \Datetime());
-        $this->em->persist($synchronization);
-        $this->em->flush();
+        $this->getEm()->persist($synchronization);
+        $this->getEm()->flush();
 
         $runningId = $synchronization->getId();
 
@@ -62,23 +62,26 @@ class Orchestrator
 
             if ($res->isSuccessed()) {
                 $synchronization->setStatus(SyncrhonizationStatus::SUCCESSED);
+                $output->writeln(sprintf('<info>Synchronization : %d is done.</info>', $runningId));
             } else {
                 $synchronization->setStatus(SyncrhonizationStatus::ERROR)
-                    ->setError($res->getReasonPhrase());
+                    ->setErrors($res->getReasonPhrase());
+
+                $output->writeln(sprintf('<error>Error during synchronization : %d</error>', $runningId));
             }
 
             $synchronization->setEndedAt(new \Datetime());
 
-            $this->em->persist($synchronization);
-            $this->em->flush();
-            $output->writeln(sprintf('<info>Synchronization : %d is done.</info>', $runningId));
+            $this->getEm()->persist($synchronization);
+            $this->getEm()->flush();
+
 
         } catch (\Exception $e) {
             $synchronization = $repository->findOneById($runningId);
             $synchronization->setStatus(SyncrhonizationStatus::ERROR);
-            $synchronization->setError($e->getMessage());
-            $this->em->persist($synchronization);
-            $this->em->flush();
+            $synchronization->setErrors($e->getMessage());
+            $this->getEm()->persist($synchronization);
+            $this->getEm()->flush();
 
             $output->writeln(sprintf('<error>Error during synchronization : %d</error>', $runningId));
             $output->writeln('<error>'.$e->getMessage().'</error>');
@@ -87,5 +90,17 @@ class Orchestrator
         if ($continue) {
             $this->run($output, $continue);
         }
+    }
+
+    protected function getEm()
+    {
+        if (!$this->em->isOpen()) {
+            $this->em = $this->em->create(
+                $this->em->getConnection(),
+                $this->em->getConfiguration()
+            );
+        }
+
+        return $this->em;
     }
 }
