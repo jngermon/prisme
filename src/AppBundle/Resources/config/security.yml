@@ -6,6 +6,14 @@ services:
             - '@doctrine.orm.default_entity_manager'
 
     # Voter
+    app.security.voter.character_admin:
+        class: AppBundle\Security\Voter\CharacterAdminVoter
+        arguments:
+            - '@security.access.decision_manager'
+            - '@app.security.profile_provider'
+        tags:
+            - {name: security.voter}
+
     app.security.voter.larp_admin:
         class: AppBundle\Security\Voter\LarpAdminVoter
         arguments:
