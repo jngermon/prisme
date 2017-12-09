@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use AppBundle\Security\ProfilableInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use ExternalBundle\Annotations\External;
 use ExternalBundle\Domain\Import\Common\SynchronizableInterface;
 use ExternalBundle\Domain\Import\Common\SynchronizableTrait;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -34,6 +35,7 @@ class Player implements ProfilableInterface, SynchronizableInterface, LarpRelate
     /**
      * @ORM\ManyToOne(targetEntity="Person", inversedBy="players")
      * @ORM\JoinColumn(nullable=false)
+     * @External()
      */
     protected $person;
 
