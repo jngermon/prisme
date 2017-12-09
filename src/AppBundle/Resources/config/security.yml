@@ -17,5 +17,6 @@ services:
         class: AppBundle\Security\Voter\PersonAdminVoter
         arguments:
             - '@security.access.decision_manager'
+            - '@app.security.profile_provider'
         tags:
             - {name: security.voter}

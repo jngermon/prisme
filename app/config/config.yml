@@ -113,9 +113,11 @@ sonata_admin:
                 items:
                     - app.admin.larp
                     - app.admin.player
-            sonata.admin.group.admin:
+            sonata.admin.group.common:
                 items:
                     - app.admin.person
+            sonata.admin.group.admin:
+                items:
                     - mmc_fos_user_bundle.sonata_admin.user
     extensions:
         external.synchronize.extension:

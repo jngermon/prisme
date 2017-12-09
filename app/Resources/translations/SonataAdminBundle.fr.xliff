@@ -10,6 +10,11 @@
                 <source>sonata.admin.group.larp</source>
                 <target>GN</target>
             </trans-unit>
+            <trans-unit id="sonata.admin.group.common">
+                <source>sonata.admin.group.common</source>
+                <target>Général</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>

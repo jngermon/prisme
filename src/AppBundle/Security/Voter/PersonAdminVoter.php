@@ -3,8 +3,10 @@
 namespace AppBundle\Security\Voter;
 
 use AppBundle\Admin\PersonAdmin;
+use AppBundle\Entity\Organizer;
 use AppBundle\Entity\Person;
 use AppBundle\Entity\User;
+use AppBundle\Security\ProfileProvider;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -15,9 +17,14 @@ class PersonAdminVoter extends Voter
 
     protected $decisionManager;
 
-    public function __construct(AccessDecisionManagerInterface $decisionManager)
-    {
+    protected $profileProvider;
+
+    public function __construct(
+        AccessDecisionManagerInterface $decisionManager,
+        ProfileProvider $profileProvider
+    ) {
         $this->decisionManager = $decisionManager;
+        $this->profileProvider = $profileProvider;
 
         $this->rolePattern = '/^ROLE_APP_ADMIN_PERSON_(.*)$/';
     }
@@ -49,6 +56,8 @@ class PersonAdminVoter extends Voter
         $attribute = $matches[1];
 
         switch ($attribute) {
+            case 'LIST':
+                return $this->canList($token->getUser());
             case 'CREATE':
                 return $this->canCreate($token->getUser());
             case 'VIEW':
@@ -58,6 +67,16 @@ class PersonAdminVoter extends Voter
         }
 
         return false;
+    }
+
+
+    protected function canList(User $user)
+    {
+        if (!$this->profileProvider->getActiveProfile()) {
+            return false;
+        }
+
+        return $this->profileProvider->getActiveProfile() instanceof Organizer;
     }
 
     protected function canCreate(User $user)
