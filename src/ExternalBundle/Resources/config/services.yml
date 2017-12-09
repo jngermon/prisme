@@ -53,6 +53,22 @@ services:
 
     ## Import
 
+    ### Character
+    external.domain.import.character.importer_factory:
+        class: ExternalBundle\Domain\Import\Character\ImporterFactory
+        arguments:
+            - '@doctrine.dbal.external_connection'
+            - '@external.domain.import.character.writer'
+        calls:
+            - [setPlayerConverter, ['@external.domain.import.converter.player']]
+            - [setLarpConverter, ['@external.domain.import.converter.larp']]
+            - [setValidator, ['@validator']]
+
+    external.domain.import.character.writer:
+        class: ExternalBundle\Domain\Import\Character\Writer
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+
     ### Common
 
     #### Converter
@@ -66,6 +82,11 @@ services:
         arguments:
             - '@app.repository.person'
 
+    external.domain.import.converter.player:
+        class: ExternalBundle\Domain\Import\Player\PlayerConverter
+        arguments:
+            - '@app.repository.player'
+
     ### Larp
     external.domain.import.larp.importer_factory:
         class: ExternalBundle\Domain\Import\Larp\ImporterFactory
@@ -75,18 +96,6 @@ services:
 
     external.domain.import.larp.writer:
         class: ExternalBundle\Domain\Import\Larp\Writer
-        arguments:
-            - '@doctrine.orm.default_entity_manager'
-
-    ### Person
-    external.domain.import.person.importer_factory:
-        class: ExternalBundle\Domain\Import\Person\ImporterFactory
-        arguments:
-            - '@doctrine.dbal.external_connection'
-            - '@external.domain.import.person.writer'
-
-    external.domain.import.person.writer:
-        class: ExternalBundle\Domain\Import\Person\Writer
         arguments:
             - '@doctrine.orm.default_entity_manager'
 
@@ -103,6 +112,18 @@ services:
 
     external.domain.import.organizer.writer:
         class: ExternalBundle\Domain\Import\Organizer\Writer
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+
+    ### Person
+    external.domain.import.person.importer_factory:
+        class: ExternalBundle\Domain\Import\Person\ImporterFactory
+        arguments:
+            - '@doctrine.dbal.external_connection'
+            - '@external.domain.import.person.writer'
+
+    external.domain.import.person.writer:
+        class: ExternalBundle\Domain\Import\Person\Writer
         arguments:
             - '@doctrine.orm.default_entity_manager'
 
@@ -144,6 +165,16 @@ services:
         class: ExternalBundle\Domain\Synchronizer\ChainSynchronizer
         tags:
             - { name: 'mmc.processor.chain' }
+
+    external.domain.synchronizer.character:
+        class: ExternalBundle\Domain\Synchronizer\CharacterSynchronizer
+        arguments:
+            - '@external.domain.import.character.importer_factory'
+            - '@external.domain.import.larp.importer_factory'
+            - '@external.domain.import.player.importer_factory'
+
+        tags:
+            - { name: 'external.domain.synchronizer' }
 
     external.domain.synchronizer.larp:
         class: ExternalBundle\Domain\Synchronizer\Synchronizer

@@ -3,24 +3,24 @@
 namespace ExternalBundle\Domain\Synchronizer;
 
 use ExternalBundle\Domain\Import\Common\ImporterFactory;
-use ExternalBundle\Domain\Import\Player\ImporterFactory as PlayerImporterFactory;
+use ExternalBundle\Domain\Import\Character\ImporterFactory as CharacterImporterFactory;
 use ExternalBundle\Domain\Import\Larp\ImporterFactory as LarpImporterFactory;
-use ExternalBundle\Domain\Import\Person\ImporterFactory as PersonImporterFactory;
+use ExternalBundle\Domain\Import\Player\ImporterFactory as PlayerImporterFactory;
 
-class PlayerSynchronizer extends Synchronizer
+class CharacterSynchronizer extends Synchronizer
 {
     protected $larpImporterFactory;
 
-    protected $personImporterFactory;
+    protected $playerImporterFactory;
 
     public function __construct(
-        PlayerImporterFactory $importerFactory,
+        CharacterImporterFactory $importerFactory,
         LarpImporterFactory $larpImporterFactory,
-        PersonImporterFactory $personImporterFactory
+        PlayerImporterFactory $playerImporterFactory
     ) {
         parent::__construct($importerFactory);
         $this->larpImporterFactory = $larpImporterFactory;
-        $this->personImporterFactory = $personImporterFactory;
+        $this->playerImporterFactory = $playerImporterFactory;
     }
 
     protected function prepare($options)
@@ -32,9 +32,9 @@ class PlayerSynchronizer extends Synchronizer
         $this->larpImporterFactory->create($importOptions)->process();
 
         $importOptions = [];
-        if (isset($options['person_id']) && $options['person_id']) {
-            $importOptions['ids'] = [$options['person_id']];
+        if (isset($options['player_id']) && $options['player_id']) {
+            $importOptions['ids'] = [$options['player_id']];
         }
-        $this->personImporterFactory->create($importOptions)->process();
+        $this->playerImporterFactory->create($importOptions)->process();
     }
 }
