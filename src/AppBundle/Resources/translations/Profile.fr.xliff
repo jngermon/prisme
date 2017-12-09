@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="AppBundle\Entity\Organizer">
+                <source>AppBundle\Entity\Organizer</source>
+                <target>Organisateur</target>
+            </trans-unit>
+            <trans-unit id="AppBundle\Entity\Player">
+                <source>AppBundle\Entity\Player</source>
+                <target>Joueur</target>
+            </trans-unit>
+            <trans-unit id="no_active_profile">
+                <source>no_active_profile</source>
+                <target>Aucun profil sélectionné</target>
+            </trans-unit>
+
+            <trans-unit id="change.success">
+                <source>change.success</source>
+                <target>Changement de profil effectué !</target>
+            </trans-unit>
+            <trans-unit id="change.bad_request">
+                <source>change.bad_request</source>
+                <target>Problème de changement de profil.</target>
+            </trans-unit>
+            <trans-unit id="change.bad_user">
+                <source>change.bad_user</source>
+                <target>Vous n'êtes pas connecté avec le bon type d'utilisateur !</target>
+            </trans-unit>
+            <trans-unit id="change.user_without_person">
+                <source>change.user_without_person</source>
+                <target>Vous devez d'abord créer rattacher une identité à votre compte utilisateur.</target>
+            </trans-unit>
+            <trans-unit id="change.profile_not_found">
+                <source>change.profile_not_found</source>
+                <target>Profil non trouvé.</target>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>
