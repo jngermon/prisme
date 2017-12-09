@@ -1,0 +1,31 @@
+{% trans_default_domain 'Profile' %}
+
+{% if app.user.person|default(false) %}
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+        <span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span>
+        {% if activeProfile %}
+            {{ activeProfile|get_class(false)|trans }}
+                    -
+            {{ activeProfile.larp }}
+        {% else %}
+            {{ 'no_active_profile'|trans }}
+        {% endif %}
+    </a>
+    <ul class="dropdown-menu">
+        {% for profile in profiles %}
+            <li>
+                <a href="{{ path('profile.change_active', {
+                    class: profile|get_class(false),
+                    id: profile.id
+                }) }}">
+                    <i class="fa {{ profile == activeProfile ? 'fa-circle' : 'fa-circle-o' }}" aria-hidden="true"></i>
+                    {{ profile|get_class(false)|trans }}
+                    -
+                    {{ profile.larp }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</li>
+{% endif %}

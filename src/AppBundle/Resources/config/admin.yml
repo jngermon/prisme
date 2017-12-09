@@ -1,4 +1,5 @@
 services:
+    # Admin
     app.admin.larp:
         class: AppBundle\Admin\LarpAdmin
         arguments: [~, AppBundle\Entity\Larp, ~]
@@ -20,7 +21,18 @@ services:
             - [ setTokenStorage, ['@security.token_storage']]
         public: true
 
-    ## Filter
+    # Block
+    app.block.profile:
+        class: 'AppBundle\Block\ProfileBlock'
+        arguments:
+            - app.block.profile
+            - '@templating'
+            - '@app.security.profile_provider'
+
+        tags:
+            - { name: sonata.block }
+
+    # Filter
     admin.filter.insensitive_string:
         class: AppBundle\Admin\Filter\CaseInsensitiveStringFilter
         tags:

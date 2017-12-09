@@ -1,4 +1,5 @@
 services:
+    # Repository
     app.repository.larp:
         class: Doctrine\Common\Persistence\ObjectRepository
         factory: 'doctrine:getRepository'
