@@ -2,6 +2,8 @@
 
 namespace ExternalBundle\Admin;
 
+use AppBundle\Entity\LarpRelatedInterface;
+use AppBundle\Security\ProfileProvider;
 use ExternalBundle\Domain\Import\Common\Status;
 use ExternalBundle\Domain\Mapping\ExternalPropertiesProvider;
 use Sonata\AdminBundle\Admin\AbstractAdminExtension;
@@ -14,10 +16,14 @@ class SynchronizeAdminExtension extends AbstractAdminExtension
 {
     protected $externalPropertiesProvider;
 
+    protected $profileProvider;
+
     public function __construct(
-        ExternalPropertiesProvider $externalPropertiesProvider
+        ExternalPropertiesProvider $externalPropertiesProvider,
+        ProfileProvider $profileProvider
     ) {
         $this->externalPropertiesProvider = $externalPropertiesProvider;
+        $this->profileProvider = $profileProvider;
     }
 
     public function configureShowFields(ShowMapper $showMapper)
@@ -77,6 +83,20 @@ class SynchronizeAdminExtension extends AbstractAdminExtension
                 ],
                 'priority' => 10,
             ];
+        }
+
+        if ($action == 'list' && is_subclass_of($admin->getClass(), LarpRelatedInterface::class)) {
+            $profile = $this->profileProvider->getActiveProfile();
+            if ($profile) {
+                $list['synchronize'] = [
+                    'template' => 'ExternalBundle:Admin:Button/synchronize_button.html.twig',
+                    'link_parameters' => [
+                        'class' => $admin->getClass(),
+                        'larp_id' => $profile->getLarp()->getId(),
+                    ],
+                    'priority' => 10,
+                ];
+            }
         }
 
         return $list;

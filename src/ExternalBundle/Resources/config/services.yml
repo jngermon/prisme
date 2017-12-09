@@ -4,6 +4,7 @@ services:
         class: ExternalBundle\Admin\SynchronizeAdminExtension
         arguments:
             - '@external.mapping.external_properties_provider'
+            - '@app.security.profile_provider'
 
     # Command
     external.command.import-larp:

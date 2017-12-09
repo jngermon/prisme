@@ -24,8 +24,8 @@ class Writer extends BaseWriter
             'larp_id' => null,
         ]);
 
-        $resolver->setAllowedTypes('person_id', ['null', 'integer']);
-        $resolver->setAllowedTypes('larp_id', ['null', 'integer']);
+        $resolver->setAllowedTypes('person_id', ['null', 'integer', 'string']);
+        $resolver->setAllowedTypes('larp_id', ['null', 'integer', 'string']);
 
         return $resolver;
     }

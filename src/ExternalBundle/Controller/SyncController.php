@@ -47,10 +47,7 @@ class SyncController
      */
     public function syncAction(Request $request)
     {
-        $options = [
-            'class' => $request->get('class'),
-            'ids' => $request->get('ids'),
-        ];
+        $options = $request->query->all();
 
         $synchronization = new Synchronization();
         $synchronization->setOptions($this->serializer->encode($options, 'json'));

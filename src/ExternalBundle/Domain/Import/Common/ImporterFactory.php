@@ -136,7 +136,7 @@ abstract class ImporterFactory
         });
 
         $resolver->setAllowedTypes('batch_size', 'integer');
-        $resolver->setAllowedTypes('ids', ['array', 'null', 'string', 'integer']);
+        $resolver->setAllowedTypes('ids', ['array', 'null', 'string', 'integer', 'string']);
         $resolver->setAllowedTypes('output', [OutputInterface::class, 'null']);
 
         return $resolver;
