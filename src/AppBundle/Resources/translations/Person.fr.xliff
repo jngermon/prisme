@@ -107,11 +107,11 @@
 
             <trans-unit id="menu.show.link">
                 <source>menu.show.link</source>
-                <target>Voir mon profil</target>
+                <target>Voir mon identité</target>
             </trans-unit>
             <trans-unit id="menu.create.link">
                 <source>menu.create.link</source>
-                <target>Créer un profil</target>
+                <target>Créer une identité</target>
             </trans-unit>
 
         </body>

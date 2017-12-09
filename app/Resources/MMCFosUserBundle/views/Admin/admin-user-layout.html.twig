@@ -11,7 +11,7 @@
             {% if app.user.person %}
                 <li>
                     <a href="{{ path('app_admin_person_show', {id: app.user.person.id}) }}">
-                        <span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span>
+                        <i class="fa fa-id-card-o" aria-hidden="true"></i>
                         {{ 'menu.show.link'|trans([], 'Person') }}
                     </a>
                 </li>
@@ -19,7 +19,7 @@
             {% if is_granted('ROLE_APP_ADMIN_PERSON_CREATE') %}
                 <li>
                     <a href="{{ path('user_connect') }}">
-                        <span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span>
+                        <i class="fa fa-id-card-o" aria-hidden="true"></i>
                         {{ 'menu.create.link'|trans([], 'Person') }}
                     </a>
                 </li>
