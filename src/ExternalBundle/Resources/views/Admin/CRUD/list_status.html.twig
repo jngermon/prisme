@@ -1,0 +1,9 @@
+{% extends admin.getTemplate('base_list_field') %}
+
+{% block field %}
+    {% if value is not null %}
+        {% if object.external %}
+            {{ value|syncStatus }}
+        {% endif %}
+    {% endif %}
+{% endblock %}

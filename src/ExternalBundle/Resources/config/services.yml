@@ -166,3 +166,11 @@ services:
             - '@external.domain.import.person.importer_factory'
         tags:
             - { name: validator.constraint_validator }
+
+    # Twig
+    external.twig.extension:
+        class: ExternalBundle\Twig\ExternalExtension
+        arguments:
+            - '@translator'
+        tags:
+            - { name: twig.extension }

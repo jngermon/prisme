@@ -6,6 +6,7 @@ use ExternalBundle\Domain\Import\Common\Status;
 use ExternalBundle\Domain\Mapping\ExternalPropertiesProvider;
 use Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use Sonata\AdminBundle\Admin\AdminInterface;
+use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
@@ -94,5 +95,14 @@ class SynchronizeAdminExtension extends AbstractAdminExtension
                 }
             }
         }
+    }
+
+    public function configureListFields(ListMapper $listMapper)
+    {
+        $listMapper
+            ->add('syncStatus', null, [
+                'template' => 'ExternalBundle:Admin:CRUD/list_status.html.twig',
+                'translation_domain' => 'Sync',
+            ]);
     }
 }

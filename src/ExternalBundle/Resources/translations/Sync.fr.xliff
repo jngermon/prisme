@@ -37,6 +37,23 @@
                 <source>error</source>
                 <target>Erreur lors de la synchronisation</target>
             </trans-unit>
+            <trans-unit id="short.synced">
+                <source>short.synced</source>
+                <target>Synchronisé</target>
+            </trans-unit>
+            <trans-unit id="short.pending">
+                <source>short.pending</source>
+                <target>En cours</target>
+            </trans-unit>
+            <trans-unit id="short.error">
+                <source>short.error</source>
+                <target>Erreur</target>
+            </trans-unit>
+
+            <trans-unit id="list.label_sync_status">
+                <source>list.label_sync_status</source>
+                <target>Synchronisation</target>
+            </trans-unit>
 
             <trans-unit id="link_action_sync">
                 <source>link_action_sync</source>
