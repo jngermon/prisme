@@ -74,6 +74,7 @@ class SynchronizeAdminExtension extends AbstractAdminExtension
                     'class' => get_class($object),
                     'ids' => [$object->getExternalId()],
                 ],
+                'priority' => 10,
             ];
         }
 

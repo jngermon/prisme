@@ -26,4 +26,18 @@ class BaseAdmin extends AbstractAdmin
     {
         return [];
     }
+
+    public function getActionButtons($action, $object = null)
+    {
+        $list = parent::getActionButtons($action, $object);
+
+        usort($list, function ($a, $b) {
+            $pa = isset($a['priority']) ? $a['priority'] : 0;
+            $pb = isset($b['priority']) ? $b['priority'] : 0;
+
+            return $pb - $pa;
+        });
+
+        return $list;
+    }
 }
