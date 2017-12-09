@@ -21,6 +21,17 @@ services:
             - [ setTokenStorage, ['@security.token_storage']]
         public: true
 
+
+    app.admin.player:
+        class: AppBundle\Admin\PlayerAdmin
+        arguments: [~, AppBundle\Entity\Player, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Player }
+        calls:
+            - [ setTranslationDomain, [Player]]
+            - [ setLabelTranslatorStrategy, ['@sonata.admin.label.strategy.underscore']]
+        public: true
+
     # Block
     app.block.profile:
         class: 'AppBundle\Block\ProfileBlock'

@@ -46,6 +46,11 @@ class Player implements ProfilableInterface, SynchronizableInterface
         $this->characters = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getPerson() ? $this->getPerson()->__toString() : '';
+    }
+
     /**
      * @return integer
      */

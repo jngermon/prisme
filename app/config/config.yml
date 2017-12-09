@@ -112,6 +112,7 @@ sonata_admin:
             sonata.admin.group.larp:
                 items:
                     - app.admin.larp
+                    - app.admin.player
             sonata.admin.group.admin:
                 items:
                     - app.admin.person
