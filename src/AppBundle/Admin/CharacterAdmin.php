@@ -50,7 +50,9 @@ class CharacterAdmin extends BaseAdmin
                 'class'       => '',
                 'box_class'   => 'box box-primary',
             ])
-                ->add('player')
+                ->add('player', null, [
+                    'required' => false
+                ])
                 ->add('name')
             ->end()
             ;
