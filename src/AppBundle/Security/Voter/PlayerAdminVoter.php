@@ -81,7 +81,20 @@ class PlayerAdminVoter extends Voter
 
     protected function canCreate(User $user)
     {
-        return false;
+        $profile = $this->profileProvider->getActiveProfile();
+        if (!$profile) {
+            return false;
+        }
+
+        if (!$profile instanceof Organizer) {
+            return false;
+        }
+
+        if (!$profile->getLarp()) {
+            return false;
+        }
+
+        return !$profile->getLarp()->isExternal();
     }
 
     protected function canView(Player $player, User $user)

@@ -15,40 +15,16 @@
                 <target>Création de joueur</target>
             </trans-unit>
 
-            <trans-unit id="export.label_person_firstname">
-                <source>export.label_person_firstname</source>
-                <target>Prénom</target>
-            </trans-unit>
-            <trans-unit id="export.label_person_lastname">
-                <source>export.label_person_lastname</source>
-                <target>Nom</target>
+            <trans-unit id="export.label_person">
+                <source>export.label_person_</source>
+                <target>Personne</target>
             </trans-unit>
 
-            <trans-unit id="filter.label_person_firstname">
-                <source>filter.label_person_firstname</source>
-                <target>Prénom</target>
-            </trans-unit>
-            <trans-unit id="filter.label_person_lastname">
-                <source>filter.label_person_lastname</source>
-                <target>Nom</target>
+            <trans-unit id="filter.label_person">
+                <source>filter.label_person</source>
+                <target>Personne</target>
             </trans-unit>
 
-            <trans-unit id="form.label_person_firstname">
-                <source>form.label_person_firstname</source>
-                <target>Prénom</target>
-            </trans-unit>
-            <trans-unit id="form.label_person_lastname">
-                <source>form.label_person_lastname</source>
-                <target>Nom</target>
-            </trans-unit>
-            <trans-unit id="form.label_person_birth_date">
-                <source>form.label_person_birth_date</source>
-                <target>Date de naissance</target>
-            </trans-unit>
-            <trans-unit id="form.label_person_gender">
-                <source>form.label_person_gender</source>
-                <target>Genre</target>
-            </trans-unit>
             <trans-unit id="form.label_person">
                 <source>form.label_person</source>
                 <target>Personne</target>
@@ -58,26 +34,14 @@
                 <source>list.label__action</source>
                 <target>Actions</target>
             </trans-unit>
-            <trans-unit id="list.label_person_firstname">
-                <source>list.label_person_firstname</source>
-                <target>Prénom</target>
-            </trans-unit>
-            <trans-unit id="list.label_person_lastname">
-                <source>list.label_person_lastname</source>
-                <target>Nom</target>
-            </trans-unit>
-            <trans-unit id="list.label_person_gender">
-                <source>list.label_person_gender</source>
-                <target>Genre</target>
+            <trans-unit id="list.label_person">
+                <source>list.label_person</source>
+                <target>Personne</target>
             </trans-unit>
 
-            <trans-unit id="show.label_person_firstname">
-                <source>show.label_person_firstname</source>
-                <target>Prénom</target>
-            </trans-unit>
-            <trans-unit id="show.label_person_lastname">
-                <source>show.label_person_lastname</source>
-                <target>Nom</target>
+            <trans-unit id="show.label_person">
+                <source>show.label_person</source>
+                <target>Personne</target>
             </trans-unit>
             <trans-unit id="show.label_created_at">
                 <source>show.label_created_at</source>
@@ -86,14 +50,6 @@
             <trans-unit id="show.label_updated_at">
                 <source>show.label_updated_at</source>
                 <target>Date de modification</target>
-            </trans-unit>
-            <trans-unit id="show.label_person_birth_date">
-                <source>show.label_person_birth_date</source>
-                <target>Date de naissance</target>
-            </trans-unit>
-            <trans-unit id="show.label_person_gender">
-                <source>show.label_person_gender</source>
-                <target>Genre</target>
             </trans-unit>
 
             <trans-unit id="bloc.person">

@@ -30,14 +30,7 @@ class PlayerAdmin extends BaseAdmin
                 'class'       => 'col-md-7',
                 'box_class'   => 'box box-primary',
             ])
-                ->add('person.firstname')
-                ->add('person.lastname')
-                ->add('person.birthDate')
-                ->add('person.gender', EnumType::class, [
-                    'class' => \AppBundle\Entity\Enum\Gender::class,
-                    'catalogue' => 'Gender',
-                    'template' => 'MMCSonataAdminBundle:Enum:show_enum.html.twig',
-                ])
+                ->add('person')
             ->end()
             ->with('bloc.info', [
                 'class'       => 'col-md-5',
@@ -64,16 +57,14 @@ class PlayerAdmin extends BaseAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('person.firstname', 'doctrine_orm_istring')
-            ->add('person.lastname', 'doctrine_orm_istring')
+            ->add('person', 'doctrine_orm_istring')
             ;
     }
 
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('person.firstname')
-            ->add('person.lastname')
+            ->add('person')
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
