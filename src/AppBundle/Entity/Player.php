@@ -5,15 +5,18 @@ namespace AppBundle\Entity;
 use AppBundle\Security\ProfilableInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use ExternalBundle\Domain\Import\Common\SynchronizableInterface;
+use ExternalBundle\Domain\Import\Common\SynchronizableTrait;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="player")
  */
-class Player implements ProfilableInterface
+class Player implements ProfilableInterface, SynchronizableInterface
 {
     use TimestampableEntity;
+    use SynchronizableTrait;
 
     /**
      * @ORM\Id
