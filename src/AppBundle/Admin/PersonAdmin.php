@@ -124,4 +124,21 @@ class PersonAdmin extends BaseAdmin
                 break;
         }
     }
+
+    public function configureActionButtons($action, $object = null)
+    {
+        $list = parent::configureActionButtons($action, $object);
+
+        if ($action == 'list') {
+            $list['synchronize'] = [
+                'template' => 'ExternalBundle:Admin:Button/synchronize_button.html.twig',
+                'link_parameters' => [
+                    'class' => $this->getClass(),
+                ],
+                'priority' => 10,
+            ];
+        }
+
+        return $list;
+    }
 }
