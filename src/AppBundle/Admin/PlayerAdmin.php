@@ -56,7 +56,6 @@ class PlayerAdmin extends BaseAdmin
                 'class'       => '',
                 'box_class'   => 'box box-primary',
             ])
-                ->add('person')
             ->end()
             ;
     }
