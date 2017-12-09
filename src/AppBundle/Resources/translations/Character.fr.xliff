@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="Character">
+                <source>Character</source>
+                <target>Personnages</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_character_list">
+                <source>breadcrumb.link_character_list</source>
+                <target>Personnages</target>
+            </trans-unit>
+
+            <trans-unit id="export.label_name">
+                <source>export.label_name</source>
+                <target>Nom</target>
+            </trans-unit>
+            <trans-unit id="export.label_player">
+                <source>export.label_player</source>
+                <target>Joueur</target>
+            </trans-unit>
+
+            <trans-unit id="filter.label_name">
+                <source>filter.label_name</source>
+                <target>Nom</target>
+            </trans-unit>
+            <trans-unit id="filter.label_player">
+                <source>filter.label_player</source>
+                <target>Joueur</target>
+            </trans-unit>
+
+            <trans-unit id="form.label_name">
+                <source>form.label_name</source>
+                <target>Nom</target>
+            </trans-unit>
+            <trans-unit id="form.label_player">
+                <source>form.label_player</source>
+                <target>Joueur</target>
+            </trans-unit>
+
+            <trans-unit id="list.label__action">
+                <source>list.label__action</source>
+                <target>Actions</target>
+            </trans-unit>
+            <trans-unit id="list.label_name">
+                <source>list.label_name</source>
+                <target>Nom</target>
+            </trans-unit>
+            <trans-unit id="list.label_player">
+                <source>list.label_player</source>
+                <target>Joueur</target>
+            </trans-unit>
+
+            <trans-unit id="show.label_name">
+                <source>show.label_name</source>
+                <target>Nom</target>
+            </trans-unit>
+            <trans-unit id="show.label_player">
+                <source>show.label_player</source>
+                <target>Joueur</target>
+            </trans-unit>
+            <trans-unit id="show.label_created_at">
+                <source>show.label_created_at</source>
+                <target>Date de création</target>
+            </trans-unit>
+            <trans-unit id="show.label_updated_at">
+                <source>show.label_updated_at</source>
+                <target>Date de modification</target>
+            </trans-unit>
+            <trans-unit id="bloc.identity">
+                <source>bloc.identity</source>
+                <target>Identité</target>
+            </trans-unit>
+            <trans-unit id="bloc.info">
+                <source>bloc.info</source>
+                <target>Informations</target>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>

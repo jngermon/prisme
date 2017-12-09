@@ -33,6 +33,7 @@ class Character implements SynchronizableInterface, LarpRelatedInterface
     /**
      * @ORM\ManyToOne(targetEntity="Player", inversedBy="characters")
      * @ORM\JoinColumn(nullable=false)
+     * @External()
      */
     protected $player;
 
@@ -48,6 +49,7 @@ class Character implements SynchronizableInterface, LarpRelatedInterface
 
     /**
      * @ORM\Column(type="string")
+     * @External()
      */
     protected $name;
 
@@ -55,6 +57,11 @@ class Character implements SynchronizableInterface, LarpRelatedInterface
     {
         $this->characterOrganizers = new ArrayCollection();
         $this->characterGroups = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->getName() ?: '';
     }
 
     /**

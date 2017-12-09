@@ -1,5 +1,15 @@
 services:
     # Admin
+    app.admin.character:
+        class: AppBundle\Admin\CharacterAdmin
+        arguments: [~, AppBundle\Entity\Character, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Character }
+        calls:
+            - [ setTranslationDomain, [Character]]
+            - [ setLabelTranslatorStrategy, ['@sonata.admin.label.strategy.underscore']]
+        public: true
+
     app.admin.larp:
         class: AppBundle\Admin\LarpAdmin
         arguments: [~, AppBundle\Entity\Larp, ~]
