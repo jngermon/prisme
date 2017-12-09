@@ -1,12 +1,19 @@
 services:
-    app.voter.larp_admin:
+    app.security.profile_provider:
+        class: AppBundle\Security\ProfileProvider
+        arguments:
+            - '@security.token_storage'
+            - '@doctrine.orm.default_entity_manager'
+
+    # Voter
+    app.security.voter.larp_admin:
         class: AppBundle\Security\Voter\LarpAdminVoter
         arguments:
             - '@security.access.decision_manager'
         tags:
             - {name: security.voter}
 
-    app.voter.person_admin:
+    app.security.voter.person_admin:
         class: AppBundle\Security\Voter\PersonAdminVoter
         arguments:
             - '@security.access.decision_manager'

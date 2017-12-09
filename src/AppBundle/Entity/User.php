@@ -19,6 +19,11 @@ class User extends BaseUser
      */
     protected $person;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $activeProfileKey;
+
     public function __toString()
     {
         return $this->getUsername() ?: '';
@@ -38,6 +43,24 @@ class User extends BaseUser
     public function setPerson($person)
     {
         $this->person = $person;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getActiveProfileKey()
+    {
+        return $this->activeProfileKey;
+    }
+
+    /**
+     * @param string $activeProfileKey
+     */
+    public function setActiveProfileKey($activeProfileKey)
+    {
+        $this->activeProfileKey = $activeProfileKey;
 
         return $this;
     }
