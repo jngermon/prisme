@@ -10,6 +10,10 @@
                 <source>breadcrumb.link_larp_list</source>
                 <target>Gns</target>
             </trans-unit>
+            <trans-unit id="breadcrumb.link_larp_list_create">
+                <source>breadcrumb.link_larp_list_create</source>
+                <target>Création de GN</target>
+            </trans-unit>
 
             <trans-unit id="export.label_name">
                 <source>export.label_name</source>

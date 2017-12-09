@@ -10,6 +10,10 @@
                 <source>breadcrumb.link_person_list</source>
                 <target>Personnes</target>
             </trans-unit>
+            <trans-unit id="breadcrumb.link_person_create">
+                <source>breadcrumb.link_person_create</source>
+                <target>Création de personne</target>
+            </trans-unit>
 
             <trans-unit id="export.label_firstname">
                 <source>export.label_firstname</source>

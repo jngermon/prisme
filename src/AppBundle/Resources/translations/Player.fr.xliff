@@ -10,6 +10,10 @@
                 <source>breadcrumb.link_player_list</source>
                 <target>Joueurs</target>
             </trans-unit>
+            <trans-unit id="breadcrumb.link_player_create">
+                <source>breadcrumb.link_player_create</source>
+                <target>Création de joueur</target>
+            </trans-unit>
 
             <trans-unit id="export.label_person_firstname">
                 <source>export.label_person_firstname</source>
