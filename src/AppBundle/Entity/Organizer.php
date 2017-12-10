@@ -49,6 +49,11 @@ class Organizer implements SynchronizableInterface, ProfilableInterface, LarpRel
         $this->characterOrganizers = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getPerson() ? $this->getPerson()->__toString() : '';
+    }
+
     /**
      * @return integer
      */

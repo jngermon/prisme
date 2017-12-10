@@ -57,7 +57,8 @@ class OrganizerAdmin extends BaseAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('person', 'doctrine_orm_istring')
+            ->add('person.firstname', 'doctrine_orm_istring')
+            ->add('person.lastname', 'doctrine_orm_istring')
             ;
     }
 
