@@ -3,7 +3,7 @@
 namespace ExternalBundle\Domain\Synchronizer;
 
 use Doctrine\ORM\EntityManager;
-use ExternalBundle\Entity\Enum\SyncrhonizationStatus;
+use ExternalBundle\Entity\Enum\SynchronizationStatus;
 use ExternalBundle\Entity\Synchronization;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -43,7 +43,7 @@ class Orchestrator
             return;
         }
 
-        $synchronization->setStatus(SyncrhonizationStatus::PROCESSING)
+        $synchronization->setStatus(SynchronizationStatus::PROCESSING)
             ->setStartedAt(new \Datetime());
         $this->getEm()->persist($synchronization);
         $this->getEm()->flush();
@@ -61,10 +61,10 @@ class Orchestrator
             $synchronization = $repository->findOneById($runningId);
 
             if ($res->isSuccessed()) {
-                $synchronization->setStatus(SyncrhonizationStatus::SUCCESSED);
+                $synchronization->setStatus(SynchronizationStatus::SUCCESSED);
                 $output->writeln(sprintf('<info>Synchronization : %d is done.</info>', $runningId));
             } else {
-                $synchronization->setStatus(SyncrhonizationStatus::ERROR)
+                $synchronization->setStatus(SynchronizationStatus::ERROR)
                     ->setErrors($res->getReasonPhrase());
 
                 $output->writeln(sprintf('<error>Error during synchronization : %d</error>', $runningId));
@@ -78,7 +78,7 @@ class Orchestrator
 
         } catch (\Exception $e) {
             $synchronization = $repository->findOneById($runningId);
-            $synchronization->setStatus(SyncrhonizationStatus::ERROR);
+            $synchronization->setStatus(SynchronizationStatus::ERROR);
             $synchronization->setErrors($e->getMessage());
             $this->getEm()->persist($synchronization);
             $this->getEm()->flush();

@@ -118,6 +118,7 @@ sonata_admin:
             sonata.admin.group.common:
                 items:
                     - app.admin.person
+                    - app.admin.synchronization
             sonata.admin.group.admin:
                 items:
                     - mmc_fos_user_bundle.sonata_admin.user

@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="Synchronization">
+                <source>Synchronization</source>
+                <target>Synchronisations</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_synchronization_list">
+                <source>breadcrumb.link_synchronization_list</source>
+                <target>Synchronisations</target>
+            </trans-unit>
+
+            <trans-unit id="export.label_status">
+                <source>export.label_status</source>
+                <target>Statut</target>
+            </trans-unit>
+            <trans-unit id="export.label_options">
+                <source>export.label_options</source>
+                <target>Options</target>
+            </trans-unit>
+            <trans-unit id="export.label_started_at">
+                <source>export.label_started_at</source>
+                <target>Début</target>
+            </trans-unit>
+            <trans-unit id="export.label_ended_at">
+                <source>export.label_ended_at</source>
+                <target>Fin</target>
+            </trans-unit>
+            <trans-unit id="export.label_created_at">
+                <source>export.label_created_at</source>
+                <target>Création</target>
+            </trans-unit>
+            <trans-unit id="export.label_updated_at">
+                <source>export.label_updated_at</source>
+                <target>Mise à jour</target>
+            </trans-unit>
+
+            <trans-unit id="filter.label_status">
+                <source>filter.label_status</source>
+                <target>Status</target>
+            </trans-unit>
+            <trans-unit id="filter.label_created_at">
+                <source>filter.label_created_at</source>
+                <target>Date de création</target>
+            </trans-unit>
+            <trans-unit id="filter.label_updated_at">
+                <source>filter.label_updated_at</source>
+                <target>Date de modification</target>
+            </trans-unit>
+
+            <trans-unit id="form.label_status">
+                <source>form.label_status</source>
+                <target>Statut</target>
+            </trans-unit>
+            <trans-unit id="form.label_started_at">
+                <source>form.label_started_at</source>
+                <target>Date de début</target>
+            </trans-unit>
+            <trans-unit id="form.label_ended_at">
+                <source>form.label_ended_at</source>
+                <target>Date de fin</target>
+            </trans-unit>
+
+            <trans-unit id="list.label__action">
+                <source>list.label__action</source>
+                <target>Actions</target>
+            </trans-unit>
+            <trans-unit id="list.label_status">
+                <source>list.label_status</source>
+                <target>Statut</target>
+            </trans-unit>
+            <trans-unit id="list.label_options">
+                <source>list.label_options</source>
+                <target>Options</target>
+            </trans-unit>
+            <trans-unit id="list.label_started_at">
+                <source>list.label_started_at</source>
+                <target>Date de début</target>
+            </trans-unit>
+            <trans-unit id="list.label_ended_at">
+                <source>list.label_ended_at</source>
+                <target>Date de fin</target>
+            </trans-unit>
+            <trans-unit id="list.label_created_at">
+                <source>list.label_created_at</source>
+                <target>Date de création</target>
+            </trans-unit>
+            <trans-unit id="list.label_updated_at">
+                <source>list.label_updated_at</source>
+                <target>Date de modification</target>
+            </trans-unit>
+
+            <trans-unit id="show.label_status">
+                <source>show.label_status</source>
+                <target>Statut</target>
+            </trans-unit>
+            <trans-unit id="show.label_options">
+                <source>show.label_options</source>
+                <target>Options</target>
+            </trans-unit>
+            <trans-unit id="show.label_started_at">
+                <source>show.label_started_at</source>
+                <target>Date de début</target>
+            </trans-unit>
+            <trans-unit id="show.label_ended_at">
+                <source>show.label_ended_at</source>
+                <target>Date de fin</target>
+            </trans-unit>
+            <trans-unit id="show.label_created_at">
+                <source>show.label_created_at</source>
+                <target>Date de création</target>
+            </trans-unit>
+            <trans-unit id="show.label_updated_at">
+                <source>show.label_updated_at</source>
+                <target>Date de modification</target>
+            </trans-unit>
+
+            <trans-unit id="bloc.process">
+                <source>bloc.process</source>
+                <target>Avancement</target>
+            </trans-unit>
+            <trans-unit id="bloc.info">
+                <source>bloc.info</source>
+                <target>Informations</target>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>

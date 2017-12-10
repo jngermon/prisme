@@ -11,7 +11,7 @@ class SynchronizationRepository extends EntityRepository
         $qb = $this->createQueryBuilder('s')
             ->select('count(s)')
             ->andWhere('s.status = :status')
-            ->setParameter('status', Enum\SyncrhonizationStatus::PROCESSING)
+            ->setParameter('status', Enum\SynchronizationStatus::PROCESSING)
             ;
 
         return $qb->getQuery()->getSingleScalarResult();
@@ -22,7 +22,7 @@ class SynchronizationRepository extends EntityRepository
         $qb = $this->createQueryBuilder('s')
             ->select('s')
             ->andWhere('s.status = :status')
-            ->setParameter('status', Enum\SyncrhonizationStatus::PENDING)
+            ->setParameter('status', Enum\SynchronizationStatus::PENDING)
             ->orderBy('s.createdAt', 'asc')
             ->setMaxResults(1)
             ;

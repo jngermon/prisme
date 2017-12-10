@@ -30,7 +30,7 @@ class Synchronization
 
     /**
      * @ORM\Column(type="string", length=10)
-     * @EnumAssert("ExternalBundle\Entity\Enum\SyncrhonizationStatus")
+     * @EnumAssert("ExternalBundle\Entity\Enum\SynchronizationStatus")
      */
     protected $status;
 
@@ -65,9 +65,14 @@ class Synchronization
     public function __construct()
     {
         $this->options = '{}';
-        $this->status = Enum\SyncrhonizationStatus::PENDING;
+        $this->status = Enum\SynchronizationStatus::PENDING;
         $this->total = 0;
         $this->progress = 0;
+    }
+
+    public function __toString()
+    {
+        return (string) $this->id ?: '';
     }
 
     /**

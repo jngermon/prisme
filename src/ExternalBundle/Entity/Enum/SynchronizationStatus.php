@@ -4,7 +4,7 @@ namespace ExternalBundle\Entity\Enum;
 
 use Greg0ire\Enum\AbstractEnum;
 
-final class SyncrhonizationStatus extends AbstractEnum
+final class SynchronizationStatus extends AbstractEnum
 {
     const PENDING = 'pending';
     const PROCESSING = 'processing';

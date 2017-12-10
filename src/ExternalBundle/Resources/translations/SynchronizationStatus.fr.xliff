@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="pending">
+                <source>pending</source>
+                <target>En attente</target>
+            </trans-unit>
+            <trans-unit id="processing">
+                <source>processing</source>
+                <target>En cours</target>
+            </trans-unit>
+            <trans-unit id="successed">
+                <source>successed</source>
+                <target>Terminé</target>
+            </trans-unit>
+            <trans-unit id="error">
+                <source>error</source>
+                <target>Erreur</target>
+            </trans-unit>
+
+            <trans-unit id="short.pending">
+                <source>short.pending</source>
+                <target>En attente</target>
+            </trans-unit>
+            <trans-unit id="short.processing">
+                <source>short.processing</source>
+                <target>En cours</target>
+            </trans-unit>
+            <trans-unit id="short.successed">
+                <source>short.successed</source>
+                <target>Terminé</target>
+            </trans-unit>
+            <trans-unit id="short.error">
+                <source>short.error</source>
+                <target>Erreur</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

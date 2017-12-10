@@ -6,6 +6,16 @@ services:
             - '@external.mapping.external_properties_provider'
             - '@app.security.profile_provider'
 
+    app.admin.synchronization:
+        class: ExternalBundle\Admin\SynchronizationAdmin
+        arguments: [~, ExternalBundle\Entity\Synchronization, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Synchronization }
+        calls:
+            - [ setTranslationDomain, [Synchronization]]
+            - [ setLabelTranslatorStrategy, ['@sonata.admin.label.strategy.underscore']]
+        public: true
+
     # Command
     external.command.import-larp:
         class: ExternalBundle\Command\ImportLarpFromExternalCommand
@@ -224,6 +234,14 @@ services:
             - '@external.domain.import.person.importer_factory'
         tags:
             - { name: validator.constraint_validator }
+
+    # Security
+    external.security.voter.synchronization_admin:
+        class: ExternalBundle\Security\Voter\SynchronizationAdminVoter
+        arguments:
+            - '@security.access.decision_manager'
+        tags:
+            - {name: security.voter}
 
     # Twig
     external.twig.extension:
