@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="Organizer">
+                <source>Organizer</source>
+                <target>Organisateurs</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_organizer_list">
+                <source>breadcrumb.link_organizer_list</source>
+                <target>Organisateurs</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_organizer_create">
+                <source>breadcrumb.link_organizer_create</source>
+                <target>Création d'organisateur</target>
+            </trans-unit>
+
+            <trans-unit id="export.label_person">
+                <source>export.label_person_</source>
+                <target>Personne</target>
+            </trans-unit>
+
+            <trans-unit id="filter.label_person">
+                <source>filter.label_person</source>
+                <target>Personne</target>
+            </trans-unit>
+
+            <trans-unit id="form.label_person">
+                <source>form.label_person</source>
+                <target>Personne</target>
+            </trans-unit>
+
+            <trans-unit id="list.label__action">
+                <source>list.label__action</source>
+                <target>Actions</target>
+            </trans-unit>
+            <trans-unit id="list.label_person">
+                <source>list.label_person</source>
+                <target>Personne</target>
+            </trans-unit>
+
+            <trans-unit id="show.label_person">
+                <source>show.label_person</source>
+                <target>Personne</target>
+            </trans-unit>
+            <trans-unit id="show.label_created_at">
+                <source>show.label_created_at</source>
+                <target>Date de création</target>
+            </trans-unit>
+            <trans-unit id="show.label_updated_at">
+                <source>show.label_updated_at</source>
+                <target>Date de modification</target>
+            </trans-unit>
+
+            <trans-unit id="bloc.person">
+                <source>bloc.person</source>
+                <target>Identité</target>
+            </trans-unit>
+            <trans-unit id="bloc.info">
+                <source>bloc.info</source>
+                <target>Informations</target>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>

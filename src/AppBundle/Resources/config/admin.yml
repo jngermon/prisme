@@ -20,6 +20,16 @@ services:
             - [ setLabelTranslatorStrategy, ['@sonata.admin.label.strategy.underscore']]
         public: true
 
+    app.admin.organizer:
+        class: AppBundle\Admin\OrganizerAdmin
+        arguments: [~, AppBundle\Entity\Organizer, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Organizer }
+        calls:
+            - [ setTranslationDomain, [Organizer]]
+            - [ setLabelTranslatorStrategy, ['@sonata.admin.label.strategy.underscore']]
+        public: true
+
     app.admin.person:
         class: AppBundle\Admin\PersonAdmin
         arguments: [~, AppBundle\Entity\Person, ~]
@@ -30,7 +40,6 @@ services:
             - [ setLabelTranslatorStrategy, ['@sonata.admin.label.strategy.underscore']]
             - [ setTokenStorage, ['@security.token_storage']]
         public: true
-
 
     app.admin.player:
         class: AppBundle\Admin\PlayerAdmin
