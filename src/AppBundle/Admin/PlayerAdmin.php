@@ -30,7 +30,7 @@ class PlayerAdmin extends BaseAdmin
                 'class'       => 'col-md-7',
                 'box_class'   => 'box box-primary',
             ])
-                ->add('person')
+                ->add('person', null, ['route' => ['name' => 'show']])
             ->end()
             ->with('bloc.info', [
                 'class'       => 'col-md-5',
@@ -64,7 +64,7 @@ class PlayerAdmin extends BaseAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('person')
+            ->add('person', null, ['route' => ['name' => 'show']])
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],

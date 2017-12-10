@@ -30,7 +30,7 @@ class CharacterAdmin extends BaseAdmin
                 'class'       => 'col-md-7',
                 'box_class'   => 'box box-primary',
             ])
-                ->add('player')
+                ->add('player', null, ['route' => ['name' => 'show']])
                 ->add('name')
             ->end()
             ->with('bloc.info', [
@@ -51,7 +51,7 @@ class CharacterAdmin extends BaseAdmin
                 'box_class'   => 'box box-primary',
             ])
                 ->add('player', null, [
-                    'required' => false
+                    'required' => false,
                 ])
                 ->add('name')
             ->end()
@@ -62,7 +62,6 @@ class CharacterAdmin extends BaseAdmin
     {
         $datagridMapper
             ->add('name', 'doctrine_orm_istring')
-            //->add('player', 'doctrine_orm_istring')
             ;
     }
 
@@ -70,7 +69,7 @@ class CharacterAdmin extends BaseAdmin
     {
         $listMapper
             ->add('name')
-            ->add('player')
+            ->add('player', null, ['route' => ['name' => 'show']])
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
