@@ -52,10 +52,6 @@ class ProfileController
             $this->session->getFlashBag()->add('error', $this->translator->trans('change.'.$res, [], 'Profile'));
         }
 
-        if ($referer = $request->headers->get('referer')) {
-            return new RedirectResponse($referer);
-        }
-
         return new RedirectResponse($this->router->generate('sonata_admin_dashboard'));
     }
 }
