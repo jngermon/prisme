@@ -86,6 +86,9 @@ class PersonAdminVoter extends Voter
 
     protected function canView(Person $person, User $user)
     {
+        if ($this->canEdit($person, $user)) {
+            return true;
+        }
         if (!$this->profileProvider->getActiveProfile()) {
             return false;
         }
@@ -94,7 +97,7 @@ class PersonAdminVoter extends Voter
             return true;
         }
 
-        return $this->canEdit($person, $user);
+        return false;
     }
 
     protected function canEdit(Person $person, User $user)

@@ -70,6 +70,8 @@ class UserConnectController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //Reload user from database
+            $user = $this->entityManager->getRepository(User::class)->findOneById($user->getId());
 
             $person = $form->getData()->getPerson();
             $person->setUser($user);
