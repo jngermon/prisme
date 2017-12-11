@@ -97,6 +97,21 @@ services:
         arguments:
             - '@app.repository.player'
 
+    ### Group
+    external.domain.import.group.importer_factory:
+        class: ExternalBundle\Domain\Import\Group\ImporterFactory
+        arguments:
+            - '@doctrine.dbal.external_connection'
+            - '@external.domain.import.group.writer'
+        calls:
+            - [setLarpConverter, ['@external.domain.import.converter.larp']]
+            - [setValidator, ['@validator']]
+
+    external.domain.import.group.writer:
+        class: ExternalBundle\Domain\Import\Group\Writer
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+
     ### Larp
     external.domain.import.larp.importer_factory:
         class: ExternalBundle\Domain\Import\Larp\ImporterFactory

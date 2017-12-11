@@ -4,15 +4,19 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use ExternalBundle\Annotations\External;
+use ExternalBundle\Domain\Import\Common\SynchronizableInterface;
+use ExternalBundle\Domain\Import\Common\SynchronizableTrait;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="larp_group")
  */
-class Group implements LarpRelatedInterface
+class Group implements LarpRelatedInterface, SynchronizableInterface
 {
     use TimestampableEntity;
+    use SynchronizableTrait;
 
     /**
      * @ORM\Id
@@ -33,12 +37,18 @@ class Group implements LarpRelatedInterface
 
     /**
      * @ORM\Column(type="string")
+     * @External()
      */
     protected $name;
 
     public function __construct()
     {
         $this->characterGroups = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->name ?: '';
     }
 
     /**
