@@ -13,7 +13,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity
  * @ORM\Table(name="organizer", uniqueConstraints={
- *      @ORM\UniqueConstraint(name="larp_person_idx", columns={"larp_id", "person_id"})})
+ *      @ORM\UniqueConstraint(name="organizer_larp_person_idx", columns={"larp_id", "person_id"})})
  * @UniqueEntity({"larp", "person"}, message="organizer_already_in_larp")
  */
 class Organizer implements SynchronizableInterface, ProfilableInterface, LarpRelatedInterface

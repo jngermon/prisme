@@ -14,7 +14,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity
  * @ORM\Table(name="player", uniqueConstraints={
- *      @ORM\UniqueConstraint(name="larp_person_idx", columns={"larp_id", "person_id"})})
+ *      @ORM\UniqueConstraint(name="player_larp_person_idx", columns={"larp_id", "person_id"})})
  * @UniqueEntity({"larp", "person"}, message="player_already_in_larp")
  */
 class Player implements ProfilableInterface, SynchronizableInterface, LarpRelatedInterface
