@@ -4,24 +4,36 @@ namespace ExternalBundle\Twig;
 
 use ExternalBundle\Domain\Import\Common\Status;
 use ExternalBundle\Entity\Enum\SynchronizationStatus;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class ExternalExtension extends \Twig_Extension
 {
     protected $translator;
 
+    protected $serializer;
+
     public function __construct(
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        SerializerInterface $serializer
     ) {
         $this->translator = $translator;
+        $this->serializer = $serializer;
     }
 
     public function getFilters()
     {
-        return array(
+        return [
             new \Twig_SimpleFilter('syncStatus', [$this, 'syncStatus'], ['is_safe' => ['html']]),
             new \Twig_SimpleFilter('synchronizationStatus', [$this, 'synchronizationStatus'], ['is_safe' => ['html']]),
-        );
+        ];
+    }
+
+    public function getFunctions()
+    {
+        return [
+            new \Twig_Function('json_decode', [$this, 'jsonDecode']),
+        ];
     }
 
     public function syncStatus($status, $label = true, $short = true)
@@ -85,5 +97,10 @@ class ExternalExtension extends \Twig_Extension
         }
 
         return sprintf($pattern, $text);
+    }
+
+    public function jsonDecode($value)
+    {
+        return $this->serializer->decode($value, 'json');
     }
 }

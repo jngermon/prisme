@@ -1,0 +1,19 @@
+{% extends 'SonataAdminBundle:CRUD:base_show_field.html.twig' %}
+
+{% trans_default_domain 'Synchronization' %}
+
+{% block field %}
+    {% if value is not null %}
+        {% set options = json_decode(value) %}
+        {% if options.class|default(false) %}
+            {{ 'options.class'|trans }}: {{ ('options.class.'~options.class)|trans }}
+            <br />
+        {% endif %}
+        {{ 'options.parameters'|trans }}:
+        <ul>
+            {% for key, param in options if key != 'class' %}
+                <li>{{ key }} = {{ param }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

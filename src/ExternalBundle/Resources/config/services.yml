@@ -272,5 +272,6 @@ services:
         class: ExternalBundle\Twig\ExternalExtension
         arguments:
             - '@translator'
+            - '@serializer'
         tags:
             - { name: twig.extension }

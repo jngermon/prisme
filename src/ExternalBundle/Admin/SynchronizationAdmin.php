@@ -35,7 +35,9 @@ class SynchronizationAdmin extends BaseAdmin
                 ->add('status', null, [
                     'template' => 'ExternalBundle:Admin:CRUD/show_synchronization_status.html.twig',
                 ])
-                ->add('options')
+                ->add('options', null, [
+                    'template' => 'ExternalBundle:Admin:CRUD/show_synchronization_options.html.twig',
+                ])
                 ->add('startedAt')
                 ->add('endedAt')
             ->end()

@@ -130,6 +130,41 @@
                 <target>Informations</target>
             </trans-unit>
 
+            <trans-unit id="options.class">
+                <source>options.class</source>
+                <target>Type</target>
+            </trans-unit>
+            <trans-unit id="options.parameters">
+                <source>options.parameters</source>
+                <target>Paramètres</target>
+            </trans-unit>
+
+            <trans-unit id="options.class.AppBundle\Entity\Character">
+                <source>options.class.AppBundle\Entity\Character</source>
+                <target>Groupe</target>
+            </trans-unit>
+            <trans-unit id="options.class.AppBundle\Entity\Group">
+                <source>options.class.AppBundle\Entity\Group</source>
+                <target>Groupe</target>
+            </trans-unit>
+            <trans-unit id="options.class.AppBundle\Entity\Larp">
+                <source>options.class.AppBundle\Entity\Larp</source>
+                <target>GN</target>
+            </trans-unit>
+            <trans-unit id="options.class.AppBundle\Entity\Organizer">
+                <source>options.class.AppBundle\Entity\Organizer</source>
+                <target>Organisateur</target>
+            </trans-unit>
+            <trans-unit id="options.class.AppBundle\Entity\Person">
+                <source>options.class.AppBundle\Entity\Person</source>
+                <target>Personne</target>
+            </trans-unit>
+            <trans-unit id="options.class.AppBundle\Entity\Player">
+                <source>options.class.AppBundle\Entity\Player</source>
+                <target>Joueur</target>
+            </trans-unit>
+
+
         </body>
     </file>
 </xliff>
