@@ -92,7 +92,7 @@ class SynchronizeAdminExtension extends AbstractAdminExtension
                     'template' => 'ExternalBundle:Admin:Button/synchronize_button.html.twig',
                     'link_parameters' => [
                         'class' => $admin->getClass(),
-                        'larp_id' => $profile->getLarp()->getId(),
+                        'larp_id' => $profile->getLarp()->getExternalId(),
                     ],
                     'priority' => 10,
                 ];
