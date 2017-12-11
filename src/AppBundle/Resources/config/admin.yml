@@ -10,6 +10,16 @@ services:
             - [ setLabelTranslatorStrategy, ['@sonata.admin.label.strategy.underscore']]
         public: true
 
+    app.admin.group:
+        class: AppBundle\Admin\GroupAdmin
+        arguments: [~, AppBundle\Entity\Group, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Group }
+        calls:
+            - [ setTranslationDomain, [Group]]
+            - [ setLabelTranslatorStrategy, ['@sonata.admin.label.strategy.underscore']]
+        public: true
+
     app.admin.larp:
         class: AppBundle\Admin\LarpAdmin
         arguments: [~, AppBundle\Entity\Larp, ~]

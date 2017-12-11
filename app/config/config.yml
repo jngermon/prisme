@@ -114,6 +114,7 @@ sonata_admin:
                     - app.admin.larp
                     - app.admin.organizer
                     - app.admin.player
+                    - app.admin.group
                     - app.admin.character
             sonata.admin.group.common:
                 items:

@@ -75,6 +75,8 @@ class ImporterFactory extends BaseImporterFactory
 
         if ($this->personConverter) {
             $step->add('[person]', $this->personConverter);
+        }
+        if ($this->larpConverter) {
             $step->add('[larp]', $this->larpConverter);
         }
 

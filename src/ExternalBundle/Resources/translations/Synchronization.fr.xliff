@@ -115,6 +115,11 @@
                 <source>show.label_updated_at</source>
                 <target>Date de modification</target>
             </trans-unit>
+            <trans-unit id="show.label_error">
+                <source>show.label_error</source>
+                <target>Erreur</target>
+            </trans-unit>
+
 
             <trans-unit id="bloc.process">
                 <source>bloc.process</source>

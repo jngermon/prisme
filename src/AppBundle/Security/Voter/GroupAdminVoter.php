@@ -2,8 +2,8 @@
 
 namespace AppBundle\Security\Voter;
 
-use AppBundle\Admin\CharacterAdmin;
-use AppBundle\Entity\Character;
+use AppBundle\Admin\GroupAdmin;
+use AppBundle\Entity\Group;
 use AppBundle\Entity\Organizer;
 use AppBundle\Entity\Player;
 use AppBundle\Entity\User;
@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class CharacterAdminVoter extends Voter
+class GroupAdminVoter extends Voter
 {
     protected $rolePattern;
 
@@ -27,7 +27,7 @@ class CharacterAdminVoter extends Voter
         $this->decisionManager = $decisionManager;
         $this->profileProvider = $profileProvider;
 
-        $this->rolePattern = '/^ROLE_APP_ADMIN_CHARACTER_(.*)$/';
+        $this->rolePattern = '/^ROLE_APP_ADMIN_GROUP_(.*)$/';
     }
 
     protected function supports($attribute, $subject)
@@ -45,11 +45,11 @@ class CharacterAdminVoter extends Voter
             return false;
         }
 
-        $character = null;
-        if ($subject && $subject instanceof CharacterAdmin) {
-            $character = $subject->getSubject();
-        } elseif ($subject && $subject instanceof Character) {
-            $character = $subject;
+        $group = null;
+        if ($subject && $subject instanceof GroupAdmin) {
+            $group = $subject->getSubject();
+        } elseif ($subject && $subject instanceof Group) {
+            $group = $subject;
         }
 
         preg_match($this->rolePattern, $attribute, $matches);
@@ -62,9 +62,9 @@ class CharacterAdminVoter extends Voter
             case 'CREATE':
                 return $this->canCreate($token->getUser());
             case 'VIEW':
-                return $character && $this->canView($character, $token->getUser());
+                return $group && $this->canView($group, $token->getUser());
             case 'EDIT':
-                return $character && $this->canEdit($character, $token->getUser());
+                return $group && $this->canEdit($group, $token->getUser());
         }
 
         return false;
@@ -89,9 +89,9 @@ class CharacterAdminVoter extends Voter
         return $this->profileProvider->getActiveProfile() instanceof Organizer;
     }
 
-    protected function canView(Character $character, User $user)
+    protected function canView(Group $group, User $user)
     {
-        if (!$character->getId()) {
+        if (!$group->getId()) {
             return true;
         }
 
@@ -101,18 +101,21 @@ class CharacterAdminVoter extends Voter
             return false;
         }
 
-        if ($profile instanceof Organizer && $profile->getLarp() == $character->getLarp()) {
+        if ($profile instanceof Organizer && $profile->getLarp() == $group->getLarp()) {
             return true;
         }
 
-        if ($profile instanceof Player && $profile == $character->getPlayer()) {
-            return true;
+        if ($profile instanceof Player) {
+            $groupCharacters = array_map(function ($e) {
+                return $e->getCharacter();
+            }, $group->getGroupCharacters());
+            return count(array_intersect($groupCharacters, $profile->getCharacters())) > 0;
         }
 
         return false;
     }
 
-    protected function canEdit(Character $character, User $user)
+    protected function canEdit(Group $group, User $user)
     {
         $profile = $this->profileProvider->getActiveProfile();
 
@@ -120,7 +123,7 @@ class CharacterAdminVoter extends Voter
             return false;
         }
 
-        if ($profile instanceof Organizer && $profile->getLarp() == $character->getLarp()) {
+        if ($profile instanceof Organizer && $profile->getLarp() == $group->getLarp()) {
             return true;
         }
 

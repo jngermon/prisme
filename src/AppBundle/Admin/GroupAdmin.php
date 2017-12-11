@@ -1,10 +1,8 @@
 <?php
 
-namespace ExternalBundle\Admin;
+namespace AppBundle\Admin;
 
-use AppBundle\Admin\BaseAdmin;
 use AppBundle\Entity\User;
-use ExternalBundle\Entity\Enum\SynchronizationStatus;
 use Greg0ire\Enum\Bridge\Symfony\Form\Type\EnumType;
 use Knp\Menu\ItemInterface as MenuItemInterface;
 use MMC\SonataAdminBundle\Datagrid\DTOFieldDescription;
@@ -14,30 +12,25 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class SynchronizationAdmin extends BaseAdmin
+class GroupAdmin extends BaseAdmin
 {
-    protected $baseRouteName = 'app_admin_synchronization';
-    protected $baseRoutePattern = 'synchronizations';
+    protected $baseRouteName = 'app_admin_group';
+    protected $baseRoutePattern = 'groups';
 
     protected $datagridValues = array(
         '_page' => 1,
-        '_sort_order' => 'DESC',
-        '_sort_by' => 'updatedAt',
+        '_sort_order' => 'ASC',
+        '_sort_by' => 'name',
     );
 
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->with('bloc.process', [
+            ->with('bloc.identity', [
                 'class'       => 'col-md-7',
                 'box_class'   => 'box box-primary',
             ])
-                ->add('status', null, [
-                    'template' => 'ExternalBundle:Admin:CRUD/show_synchronization_status.html.twig',
-                ])
-                ->add('options')
-                ->add('startedAt')
-                ->add('endedAt')
+                ->add('name')
             ->end()
             ->with('bloc.info', [
                 'class'       => 'col-md-5',
@@ -47,24 +40,16 @@ class SynchronizationAdmin extends BaseAdmin
                 ->add('updatedAt')
             ->end()
             ;
-
-        if ($this->getSubject()->getStatus() == SynchronizationStatus::ERROR) {
-            $showMapper
-                ->with('bloc.process')
-                    ->add('error')
-                ->end();
-        }
     }
 
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('bloc.process', [
+            ->with('bloc.identity', [
                 'class'       => '',
                 'box_class'   => 'box box-primary',
             ])
-                ->add('status')
-                ->add('options')
+                ->add('name')
             ->end()
             ;
     }
@@ -72,19 +57,14 @@ class SynchronizationAdmin extends BaseAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('status')
-            ->add('createdAt')
-            ->add('updatedAt')
+            ->add('name', 'doctrine_orm_istring')
             ;
     }
 
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('createdAt')
-            ->add('status', null, [
-                'template' => 'ExternalBundle:Admin:CRUD/list_synchronization_status.html.twig',
-            ])
+            ->add('name')
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -97,8 +77,7 @@ class SynchronizationAdmin extends BaseAdmin
     public function getExportFields()
     {
         return [
-            'status' => new DTOFieldDescription('status'),
-            'options' => new DTOFieldDescription('options'),
+            'name' => new DTOFieldDescription('name'),
             'created_at' => new DTOFieldDescription('createdAt', 'datetime'),
         ];
     }
