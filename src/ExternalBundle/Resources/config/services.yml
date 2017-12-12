@@ -192,21 +192,36 @@ services:
             - { name: 'mmc.processor.chain' }
 
     external.domain.synchronizer.character:
-        class: ExternalBundle\Domain\Synchronizer\CharacterSynchronizer
+        class: ExternalBundle\Domain\Synchronizer\Synchronizer
         arguments:
             - '@external.domain.import.character.importer_factory'
-            - '@external.domain.import.larp.importer_factory'
-            - '@external.domain.import.player.importer_factory'
+        calls:
+            - [addParentDependency, ['larp_id', '@external.domain.import.larp.importer_factory', 10]]
+            - [addParentDependency, ['player_id', '@external.domain.import.player.importer_factory', 5]]
 
         tags:
             - { name: 'external.domain.synchronizer' }
 
     external.domain.synchronizer.group:
-        class: ExternalBundle\Domain\Synchronizer\GroupSynchronizer
+        class: ExternalBundle\Domain\Synchronizer\Synchronizer
         arguments:
             - '@external.domain.import.group.importer_factory'
-            - '@external.domain.import.larp.importer_factory'
+        calls:
+            - [addParentDependency, ['larp_id', '@external.domain.import.larp.importer_factory']]
 
+        tags:
+            - { name: 'external.domain.synchronizer' }
+
+    external.domain.synchronizer.global_larp:
+        class: ExternalBundle\Domain\Synchronizer\Synchronizer
+        arguments:
+            - '@external.domain.import.larp.importer_factory'
+        calls:
+            - [addParentDependency, ['person_id', '@external.domain.import.person.importer_factory']]
+            - [addChildDependency, ['larp_id', '@external.domain.import.organizer.importer_factory', 10]]
+            - [addChildDependency, ['larp_id', '@external.domain.import.group.importer_factory', 8]]
+            - [addChildDependency, ['larp_id', '@external.domain.import.player.importer_factory', 6]]
+            - [addChildDependency, ['larp_id', '@external.domain.import.character.importer_factory', 4]]
         tags:
             - { name: 'external.domain.synchronizer' }
 
@@ -225,22 +240,23 @@ services:
             - { name: 'external.domain.synchronizer' }
 
     external.domain.synchronizer.organizer:
-        class: ExternalBundle\Domain\Synchronizer\OrganizerSynchronizer
+        class: ExternalBundle\Domain\Synchronizer\Synchronizer
         arguments:
             - '@external.domain.import.organizer.importer_factory'
-            - '@external.domain.import.larp.importer_factory'
-            - '@external.domain.import.person.importer_factory'
+        calls:
+            - [addParentDependency, ['larp_id', '@external.domain.import.larp.importer_factory']]
+            - [addParentDependency, ['person_id', '@external.domain.import.person.importer_factory']]
 
         tags:
             - { name: 'external.domain.synchronizer' }
 
     external.domain.synchronizer.player:
-        class: ExternalBundle\Domain\Synchronizer\PlayerSynchronizer
+        class: ExternalBundle\Domain\Synchronizer\Synchronizer
         arguments:
             - '@external.domain.import.player.importer_factory'
-            - '@external.domain.import.larp.importer_factory'
-            - '@external.domain.import.person.importer_factory'
-
+        calls:
+            - [addParentDependency, ['larp_id', '@external.domain.import.larp.importer_factory']]
+            - [addParentDependency, ['person_id', '@external.domain.import.person.importer_factory']]
         tags:
             - { name: 'external.domain.synchronizer' }
 

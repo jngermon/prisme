@@ -12,10 +12,16 @@ class Synchronizer extends AbstractProcessor implements SynchronizerInterface
 
     protected $importerFactory;
 
+    protected $parentDependencies;
+
+    protected $childrenDependencies;
+
     public function __construct(
         ImporterFactory $importerFactory
     ) {
         $this->importerFactory = $importerFactory;
+        $this->parentDependencies = new \SplPriorityQueue();
+        $this->childrenDependencies = new \SplPriorityQueue();
     }
 
     public function supports($request)
@@ -29,6 +35,24 @@ class Synchronizer extends AbstractProcessor implements SynchronizerInterface
         return true;
     }
 
+    public function addParentDependency($optionKey, ImporterFactory $importerFactory, $priority = 0, $relatedKey = 'ids')
+    {
+        $this->parentDependencies->insert([
+            'importerFactory' => $importerFactory,
+            'optionKey' => $optionKey,
+            'relatedKey' => $relatedKey,
+        ], $priority);
+    }
+
+    public function addChildDependency($relatedKey, ImporterFactory $importerFactory, $priority = 0, $optionKey = 'ids')
+    {
+        $this->childrenDependencies->insert([
+            'importerFactory' => $importerFactory,
+            'optionKey' => $optionKey,
+            'relatedKey' => $relatedKey,
+        ], $priority);
+    }
+
     protected function doProcess($request)
     {
         $request = $this->resolveRequest($request);
@@ -39,12 +63,44 @@ class Synchronizer extends AbstractProcessor implements SynchronizerInterface
 
         $this->prepare($options);
 
-        return $this->importerFactory->create($options)->process();
+        $this->importDependencies($this->parentDependencies, $options);
+
+        $res = $this->import($options);
+
+        if (is_array($options['ids'])) {
+            foreach ($options['ids'] as $id) {
+                $opts = $options;
+                $opts['ids'] = $id;
+                $this->importDependencies($this->childrenDependencies, $opts);
+            }
+        }
+
+        return $res;
     }
 
     protected function prepare($options)
     {
 
+    }
+
+    protected function importDependencies($dependencies, $options)
+    {
+        foreach ($dependencies as $dependency) {
+            $importerFactory = $dependency['importerFactory'];
+            $optionKey = $dependency['optionKey'];
+            $relatedKey = $dependency['relatedKey'];
+
+            $importOptions = [];
+            if (isset($options[$optionKey]) && $options[$optionKey]) {
+                $importOptions[$relatedKey] = $options[$optionKey];
+            }
+            $importerFactory->create($importOptions)->process();
+        }
+    }
+
+    protected function import($options)
+    {
+        return $this->importerFactory->create($options)->process();
     }
 
     protected function resolveRequest($request)

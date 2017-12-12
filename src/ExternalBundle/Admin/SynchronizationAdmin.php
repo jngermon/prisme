@@ -53,7 +53,7 @@ class SynchronizationAdmin extends BaseAdmin
         if ($this->getSubject()->getStatus() == SynchronizationStatus::ERROR) {
             $showMapper
                 ->with('bloc.process')
-                    ->add('error')
+                    ->add('errors')
                 ->end();
         }
     }

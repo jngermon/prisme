@@ -12,7 +12,7 @@
         {{ 'options.parameters'|trans }}:
         <ul>
             {% for key, param in options if key != 'class' %}
-                <li>{{ key }} = {{ param }}</li>
+                <li>{{ key }} = {{ param|join }}</li>
             {% endfor %}
         </ul>
     {% endif %}
