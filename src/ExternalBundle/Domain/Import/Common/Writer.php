@@ -59,12 +59,6 @@ class Writer extends DoctrineWriter
         $this->optionsProcessing = null;
     }
 
-    public function flush()
-    {
-        $this->entityManager->flush();
-        $this->entityManager->clear(); //Important
-    }
-
     /**
      * {@inheritdoc}
      */

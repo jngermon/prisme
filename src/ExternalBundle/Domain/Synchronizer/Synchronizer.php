@@ -61,13 +61,15 @@ class Synchronizer extends AbstractProcessor implements SynchronizerInterface
         unset($options['class']);
         unset($options['entity']);
 
+        $options['progress'] = true;
+
         $this->prepare($options);
 
         $this->importDependencies($this->parentDependencies, $options);
 
         $res = $this->import($options);
 
-        if (is_array($options['ids'])) {
+        if (isset($options['ids']) && is_array($options['ids'])) {
             foreach ($options['ids'] as $id) {
                 $opts = $options;
                 $opts['ids'] = $id;
@@ -90,7 +92,9 @@ class Synchronizer extends AbstractProcessor implements SynchronizerInterface
             $optionKey = $dependency['optionKey'];
             $relatedKey = $dependency['relatedKey'];
 
-            $importOptions = [];
+            $importOptions = [
+                'progress' => true,
+            ];
             if (isset($options[$optionKey]) && $options[$optionKey]) {
                 $importOptions[$relatedKey] = $options[$optionKey];
             }

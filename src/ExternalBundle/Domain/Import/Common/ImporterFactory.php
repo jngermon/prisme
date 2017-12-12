@@ -4,13 +4,13 @@ namespace ExternalBundle\Domain\Import\Common;
 
 use Ddeboer\DataImport\Step\MappingStep;
 use Ddeboer\DataImport\Step\ValidatorStep;
-use Ddeboer\DataImport\Workflow;
-use Ddeboer\DataImport\Workflow\StepAggregator;
+use Ddeboer\DataImport\Workflow as WorkflowInterface;
 use Ddeboer\DataImport\Writer;
 use Ddeboer\DataImport\Writer\BatchWriter;
 use Ddeboer\DataImport\Writer\ConsoleProgressWriter;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\ORM\EntityManager;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
 use Pagerfanta\Pagerfanta;
 use Ramsey\Uuid\Uuid;
@@ -26,6 +26,8 @@ abstract class ImporterFactory
     protected $writer;
 
     protected $validator;
+
+    protected $em;
 
     public function __construct(
         Connection $connection,
@@ -45,6 +47,11 @@ abstract class ImporterFactory
         $this->validator = $validator;
     }
 
+    public function setEntityManager(EntityManager $em)
+    {
+        $this->em = $em;
+    }
+
     public function create($options)
     {
         $syncUuid = Uuid::uuid4();
@@ -59,7 +66,7 @@ abstract class ImporterFactory
         $pagerfanta->setMaxPerPage($options['batch_size']);
         $reader = new PagerfantaReader($pagerfanta);
 
-        $workflow = new StepAggregator($reader);
+        $workflow = new Workflow($reader);
         $workflow
             ->addWriter(new BatchWriter($this->writer, $options['batch_size']))
             ->setSkipItemOnFailure(false)
@@ -85,9 +92,13 @@ abstract class ImporterFactory
         if ($options['output']) {
             $workflow->addWriter(new ConsoleProgressWriter($options['output'], $reader, 'debug', 100));
         }
+        if ($options['progress'] && $this->em) {
+            $workflow->addWriter(new ImportationProgressWriter($this->em, $reader, $syncUuid, $this->writer->getEntityName()));
+        }
 
         unset($options['batch_size']);
         unset($options['output']);
+        unset($options['progress']);
 
         $this->writer->initProcessing($syncUuid, $options);
 
@@ -100,7 +111,7 @@ abstract class ImporterFactory
 
     abstract protected function createCountQueryBuilder(QueryBuilder $queryBuilder);
 
-    protected function configureWorkflow(Workflow $workflow)
+    protected function configureWorkflow(WorkflowInterface $workflow)
     {
 
     }
@@ -117,6 +128,7 @@ abstract class ImporterFactory
             'batch_size' => 100,
             'ids' => null,
             'output' => null,
+            'progress' => false,
         ]);
 
         $resolver->setNormalizer('ids', function (Options $options, $value) {
@@ -138,6 +150,7 @@ abstract class ImporterFactory
         $resolver->setAllowedTypes('batch_size', 'integer');
         $resolver->setAllowedTypes('ids', ['array', 'null', 'string', 'integer', 'string']);
         $resolver->setAllowedTypes('output', [OutputInterface::class, 'null']);
+        $resolver->setAllowedTypes('progress', ['boolean']);
 
         return $resolver;
     }

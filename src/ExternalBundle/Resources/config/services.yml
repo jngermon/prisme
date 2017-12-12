@@ -73,6 +73,7 @@ services:
             - [setPlayerConverter, ['@external.domain.import.converter.player']]
             - [setLarpConverter, ['@external.domain.import.converter.larp']]
             - [setValidator, ['@validator']]
+            - [setEntityManager, ['@doctrine.orm.default_entity_manager']]
 
     external.domain.import.character.writer:
         class: ExternalBundle\Domain\Import\Character\Writer
@@ -106,6 +107,7 @@ services:
         calls:
             - [setLarpConverter, ['@external.domain.import.converter.larp']]
             - [setValidator, ['@validator']]
+            - [setEntityManager, ['@doctrine.orm.default_entity_manager']]
 
     external.domain.import.group.writer:
         class: ExternalBundle\Domain\Import\Group\Writer
@@ -118,6 +120,8 @@ services:
         arguments:
             - '@doctrine.dbal.external_connection'
             - '@external.domain.import.larp.writer'
+        calls:
+            - [setEntityManager, ['@doctrine.orm.default_entity_manager']]
 
     external.domain.import.larp.writer:
         class: ExternalBundle\Domain\Import\Larp\Writer
@@ -134,6 +138,7 @@ services:
             - [setPersonConverter, ['@external.domain.import.converter.person']]
             - [setLarpConverter, ['@external.domain.import.converter.larp']]
             - [setValidator, ['@validator']]
+            - [setEntityManager, ['@doctrine.orm.default_entity_manager']]
 
     external.domain.import.organizer.writer:
         class: ExternalBundle\Domain\Import\Organizer\Writer
@@ -146,6 +151,8 @@ services:
         arguments:
             - '@doctrine.dbal.external_connection'
             - '@external.domain.import.person.writer'
+        calls:
+            - [setEntityManager, ['@doctrine.orm.default_entity_manager']]
 
     external.domain.import.person.writer:
         class: ExternalBundle\Domain\Import\Person\Writer
@@ -162,6 +169,7 @@ services:
             - [setPersonConverter, ['@external.domain.import.converter.person']]
             - [setLarpConverter, ['@external.domain.import.converter.larp']]
             - [setValidator, ['@validator']]
+            - [setEntityManager, ['@doctrine.orm.default_entity_manager']]
 
     external.domain.import.player.writer:
         class: ExternalBundle\Domain\Import\Player\Writer

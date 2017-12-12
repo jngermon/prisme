@@ -3,6 +3,7 @@
 namespace ExternalBundle\Domain\Import\Person;
 
 use AppBundle\Entity\Person;
+use AppBundle\Entity\User;
 use ExternalBundle\Domain\Import\Common\Writer as BaseWriter;
 use Doctrine\ORM\EntityManager;
 
