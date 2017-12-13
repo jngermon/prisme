@@ -1,0 +1,27 @@
+{% extends admin.getTemplate('base_list_field') %}
+
+{% trans_default_domain 'Synchronization' %}
+
+{% block field %}
+    {% set total = object.total %}
+    {% if value is not null and total > 0 %}
+        {% set ratio = (value / total)|round(2, 'floor') * 100 %}
+        {% set progressing = object.progressingImportation %}
+
+        <div class="progress-group">
+            <span class="progress-text">{{ (progressing ? ('options.class.'~progressing.name)|trans : '&nbsp;')|raw }}</span>
+            <span class="progress-number"><b>{{ value }}</b>/{{ total }}</span>
+            <div class="progress sm">
+                <div
+                    class="progress-bar {{ progressing ? 'progress-bar-striped active' : '' }}"
+                    role="progressbar"
+                    aria-valuenow="{{ value }}"
+                    aria-valuemin="0"
+                    aria-valuemax="{{ total }}"
+                    style="width: {{ ratio }}%">
+                    <span class="sr-only">{{ ratio }}%</span>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

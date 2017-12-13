@@ -1,0 +1,49 @@
+{#% extends 'SonataAdminBundle:CRUD:base_show_field.html.twig' %#}
+
+{% trans_default_domain 'Synchronization' %}
+
+{% for importation in value %}
+    {% if not loop.first %}
+        <tr class="sonata-ba-view-container">
+    {% endif %}
+        <td>
+
+            {% set value = importation.progress %}
+            {% set total = importation.total %}
+
+            {% set ratio = total > 0 ? (value / total)|round(2, 'floor') * 100  : 100 %}
+
+            <div class="progress-group"
+                {% if importation.exceptions %}
+                    data-toggle="collapse" data-target="#exceptions-{{importation.id}}"
+                {% endif %}
+                >
+                <span class="progress-text">{{ ('options.class.'~importation.name)|trans }}</span>
+                <span class="progress-number"><b>{{ value }}</b>/{{ total }}</span>
+                <div class="progress sm">
+                    <div
+                        class="progress-bar {{ importation.progressing ? 'progress-bar-striped active' : '' }} {{ importation.exceptions ? 'progress-bar-warning' : '' }}"
+                        role="progressbar"
+                        aria-valuenow="{{ value }}"
+                        aria-valuemin="0"
+                        aria-valuemax="{{ total }}"
+                        style="width: {{ ratio }}%">
+                        <span class="sr-only">{{ ratio }}%</span>
+                    </div>
+                </div>
+            </div>
+
+            {% if importation.exceptions %}
+
+                <div class="collapse" id="exceptions-{{importation.id}}">
+                    <p class="well">
+                        {{ importation.exceptions|nl2br }}
+                    </p>
+                </div>
+            {% endif %}
+
+        </td>
+    {% if not loop.last %}
+        </tr>
+    {% endif %}
+{% endfor %}

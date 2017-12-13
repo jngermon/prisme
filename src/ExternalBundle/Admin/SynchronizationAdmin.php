@@ -48,6 +48,15 @@ class SynchronizationAdmin extends BaseAdmin
                 ->add('createdAt')
                 ->add('updatedAt')
             ->end()
+            ->with('bloc.progress', [
+                'class'       => 'col-md-7',
+                'box_class'   => 'box box-default',
+            ])
+                ->add('importations', null, [
+                    'show_label' => false,
+                    'template' => 'ExternalBundle:Admin:CRUD/show_synchronization_importers.html.twig',
+                ])
+            ->end()
             ;
 
         if ($this->getSubject()->getStatus() == SynchronizationStatus::ERROR) {
@@ -86,6 +95,9 @@ class SynchronizationAdmin extends BaseAdmin
             ->add('createdAt')
             ->add('status', null, [
                 'template' => 'ExternalBundle:Admin:CRUD/list_synchronization_status.html.twig',
+            ])
+            ->add('progress', null, [
+                'template' => 'ExternalBundle:Admin:CRUD/list_synchronization_progress.html.twig',
             ])
             ->add('_action', null, [
                 'actions' => [

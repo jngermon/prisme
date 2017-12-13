@@ -53,6 +53,7 @@ class Synchronization
 
     /**
      * @ORM\OneToMany(targetEntity="ImportationProgress", mappedBy="synchronization", cascade={"persist", "remove"})
+     * @ORM\OrderBy({"id" = "asc"})
      */
     protected $importations;
 

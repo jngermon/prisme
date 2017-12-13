@@ -90,6 +90,10 @@
                 <source>list.label_updated_at</source>
                 <target>Date de modification</target>
             </trans-unit>
+            <trans-unit id="list.label_progress">
+                <source>list.label_progress</source>
+                <target>Progression</target>
+            </trans-unit>
 
             <trans-unit id="show.label_status">
                 <source>show.label_status</source>
@@ -129,6 +133,11 @@
                 <source>bloc.info</source>
                 <target>Informations</target>
             </trans-unit>
+            <trans-unit id="bloc.progress">
+                <source>bloc.progress</source>
+                <target>Progression</target>
+            </trans-unit>
+
 
             <trans-unit id="options.class">
                 <source>options.class</source>
@@ -141,27 +150,27 @@
 
             <trans-unit id="options.class.AppBundle\Entity\Character">
                 <source>options.class.AppBundle\Entity\Character</source>
-                <target>Groupe</target>
+                <target>Personnages</target>
             </trans-unit>
             <trans-unit id="options.class.AppBundle\Entity\Group">
                 <source>options.class.AppBundle\Entity\Group</source>
-                <target>Groupe</target>
+                <target>Groupes</target>
             </trans-unit>
             <trans-unit id="options.class.AppBundle\Entity\Larp">
                 <source>options.class.AppBundle\Entity\Larp</source>
-                <target>GN</target>
+                <target>GNs</target>
             </trans-unit>
             <trans-unit id="options.class.AppBundle\Entity\Organizer">
                 <source>options.class.AppBundle\Entity\Organizer</source>
-                <target>Organisateur</target>
+                <target>Organisateurs</target>
             </trans-unit>
             <trans-unit id="options.class.AppBundle\Entity\Person">
                 <source>options.class.AppBundle\Entity\Person</source>
-                <target>Personne</target>
+                <target>Personnes</target>
             </trans-unit>
             <trans-unit id="options.class.AppBundle\Entity\Player">
                 <source>options.class.AppBundle\Entity\Player</source>
-                <target>Joueur</target>
+                <target>Joueurs</target>
             </trans-unit>
 
 
