@@ -183,4 +183,60 @@ class Synchronization
 
         return $this;
     }
+
+    /**
+     * @return integer
+     */
+    public function getTotal()
+    {
+        $total = 0;
+
+        foreach ($this->getImportations() as $importation) {
+            $total += $importation->getTotal();
+        }
+
+        return $total;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getProgress()
+    {
+        $progress = 0;
+
+        foreach ($this->getImportations() as $importation) {
+            $progress += $importation->getProgress();
+        }
+
+        return $progress;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getProgressing()
+    {
+        foreach ($this->getImportations() as $importation) {
+            if ($importation->getProgressing()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @return ImportationProgress
+     */
+    public function getProgressingImportation()
+    {
+        foreach ($this->getImportations() as $importation) {
+            if ($importation->getProgressing()) {
+                return $importation;
+            }
+        }
+
+        return null;
+    }
 }

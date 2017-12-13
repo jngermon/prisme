@@ -2,9 +2,10 @@
 
 namespace ExternalBundle\Domain\Synchronizer;
 
+use Ddeboer\DataImport\Result;
+use ExternalBundle\Domain\Import\Common\ImporterFactory;
 use ExternalBundle\Domain\Import\Common\SynchronizableInterface;
 use Mmc\Processor\Component\AbstractProcessor;
-use ExternalBundle\Domain\Import\Common\ImporterFactory;
 
 class Synchronizer extends AbstractProcessor implements SynchronizerInterface
 {
@@ -65,19 +66,35 @@ class Synchronizer extends AbstractProcessor implements SynchronizerInterface
 
         $this->prepare($options);
 
-        $this->importDependencies($this->parentDependencies, $options);
+        $importers = [];
+        $this->addDependencyImporters($importers, $this->parentDependencies, $options);
 
-        $res = $this->import($options);
+        $importers[] = $this->createImporter($options);
 
         if (isset($options['ids']) && is_array($options['ids'])) {
             foreach ($options['ids'] as $id) {
                 $opts = $options;
                 $opts['ids'] = $id;
-                $this->importDependencies($this->childrenDependencies, $opts);
+                $this->addDependencyImporters($importers, $this->childrenDependencies, $opts);
             }
         }
 
-        return $res;
+        foreach ($importers as $importer) {
+            $importer->init();
+        }
+
+        $startTime = new \DateTime();
+        $totalCount = 0;
+        $exceptions = new \SplObjectStorage();
+        foreach ($importers as $importer) {
+            $res = $importer->process();
+
+            $totalCount += $res->getTotalProcessedCount();
+            $exceptions->addAll($res->getExceptions());
+        }
+        $endTime = new \DateTime();
+
+        return new Result('Synchronizer', $startTime, $endTime, $totalCount, $exceptions);
     }
 
     protected function prepare($options)
@@ -85,7 +102,7 @@ class Synchronizer extends AbstractProcessor implements SynchronizerInterface
 
     }
 
-    protected function importDependencies($dependencies, $options)
+    protected function addDependencyImporters(&$importers, $dependencies, $options)
     {
         foreach ($dependencies as $dependency) {
             $importerFactory = $dependency['importerFactory'];
@@ -99,13 +116,15 @@ class Synchronizer extends AbstractProcessor implements SynchronizerInterface
             if (isset($options[$optionKey]) && $options[$optionKey]) {
                 $importOptions[$relatedKey] = $options[$optionKey];
             }
-            $importerFactory->create($importOptions)->process();
+            $importers[] = $importerFactory->create($importOptions);
         }
+
+        return $importers;
     }
 
-    protected function import($options)
+    protected function createImporter($options)
     {
-        return $this->importerFactory->create($options)->process();
+        return $this->importerFactory->create($options);
     }
 
     protected function resolveRequest($request)
