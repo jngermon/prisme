@@ -40,16 +40,6 @@ class Synchronization
     protected $errors;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    protected $total;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    protected $progress;
-
-    /**
      * @ORM\Column(type="datetime", nullable=true)
      * @Assert\DateTime()
      */
@@ -66,13 +56,10 @@ class Synchronization
      */
     protected $importations;
 
-
     public function __construct()
     {
         $this->options = '{}';
         $this->status = Enum\SynchronizationStatus::PENDING;
-        $this->total = 0;
-        $this->progress = 0;
         $this->importations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -139,42 +126,6 @@ class Synchronization
     public function setErrors($errors)
     {
         $this->errors = $errors;
-
-        return $this;
-    }
-
-    /**
-     * @return integer
-     */
-    public function getTotal()
-    {
-        return $this->total;
-    }
-
-    /**
-     * @param integer $total
-     */
-    public function setTotal($total)
-    {
-        $this->total = $total;
-
-        return $this;
-    }
-
-    /**
-     * @return integer
-     */
-    public function getProgress()
-    {
-        return $this->progress;
-    }
-
-    /**
-     * @param integer $progress
-     */
-    public function setProgress($progress)
-    {
-        $this->progress = $progress;
 
         return $this;
     }
