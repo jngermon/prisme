@@ -3,6 +3,7 @@
 namespace ExternalBundle\Domain\Import\Common;
 
 use ExternalBundle\Entity\ImportationProgress;
+use ExternalBundle\Entity\Synchronization;
 
 class Importer
 {
@@ -13,11 +14,15 @@ class Importer
     protected $isInit = false;
 
     public function __construct(
-        Workflow $workflow
+        Workflow $workflow,
+        Synchronization $synchronization = null
     ) {
         $this->workflow = $workflow;
 
         $this->progress = new ImportationProgress();
+        if ($synchronization) {
+            $this->progress->setSynchronization($synchronization);
+        }
     }
 
     public function init()

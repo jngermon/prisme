@@ -10,6 +10,7 @@ use Ddeboer\DataImport\Writer\ConsoleProgressWriter;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\EntityManager;
+use ExternalBundle\Entity\Synchronization;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -93,13 +94,16 @@ abstract class ImporterFactory
             $workflow->addWriter(new ImportationProgressWriter($this->em, $reader));
         }
 
+        $importer = new Importer($workflow, $options['synchronization']);
+
         unset($options['batch_size']);
         unset($options['output']);
         unset($options['progress']);
+        unset($options['synchronization']);
 
         $this->writer->initProcessing($options);
 
-        return new Importer($workflow);
+        return $importer;
     }
 
     abstract public function getMappings();
@@ -126,6 +130,7 @@ abstract class ImporterFactory
             'ids' => null,
             'output' => null,
             'progress' => false,
+            'synchronization' => null,
         ]);
 
         $resolver->setNormalizer('ids', function (Options $options, $value) {
@@ -148,6 +153,7 @@ abstract class ImporterFactory
         $resolver->setAllowedTypes('ids', ['array', 'null', 'string', 'integer', 'string']);
         $resolver->setAllowedTypes('output', [OutputInterface::class, 'null']);
         $resolver->setAllowedTypes('progress', ['boolean']);
+        $resolver->setAllowedTypes('synchronization', [Synchronization::class, 'null']);
 
         return $resolver;
     }

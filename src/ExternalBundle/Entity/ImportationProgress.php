@@ -22,6 +22,12 @@ class ImportationProgress
     protected $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Synchronization", inversedBy="importations")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $synchronization;
+
+    /**
      * @ORM\Column(type="string", length=36, nullable=true)
      */
     protected $uuid;
@@ -65,6 +71,24 @@ class ImportationProgress
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return Synchronization
+     */
+    public function getSynchronization()
+    {
+        return $this->synchronization;
+    }
+
+    /**
+     * @param Synchronization $synchronization
+     */
+    public function setSynchronization($synchronization)
+    {
+        $this->synchronization = $synchronization;
+
+        return $this;
     }
 
     /**

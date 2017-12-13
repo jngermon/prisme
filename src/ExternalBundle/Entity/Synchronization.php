@@ -61,6 +61,11 @@ class Synchronization
      */
     protected $endedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity="ImportationProgress", mappedBy="synchronization", cascade={"persist", "remove"})
+     */
+    protected $importations;
+
 
     public function __construct()
     {
@@ -68,6 +73,7 @@ class Synchronization
         $this->status = Enum\SynchronizationStatus::PENDING;
         $this->total = 0;
         $this->progress = 0;
+        $this->importations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function __toString()
@@ -205,6 +211,24 @@ class Synchronization
     public function setEndedAt($endedAt)
     {
         $this->endedAt = $endedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getImportations()
+    {
+        return $this->importations;
+    }
+
+    /**
+     * @param ArrayCollection $importations
+     */
+    public function setImportations($importations)
+    {
+        $this->importations = $importations;
 
         return $this;
     }

@@ -56,6 +56,8 @@ class Orchestrator
 
             $options = $this->serializer->decode($synchronization->getOptions(), 'json');
 
+            $options['synchronization'] = $synchronization;
+
             $res = $this->synchronizer->process($options);
 
             $synchronization = $repository->findOneById($runningId);

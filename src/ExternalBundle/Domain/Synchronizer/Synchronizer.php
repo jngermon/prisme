@@ -94,6 +94,7 @@ class Synchronizer extends AbstractProcessor implements SynchronizerInterface
 
             $importOptions = [
                 'progress' => true,
+                'synchronization' => isset($options['synchronization']) ? $options['synchronization'] : null,
             ];
             if (isset($options[$optionKey]) && $options[$optionKey]) {
                 $importOptions[$relatedKey] = $options[$optionKey];
