@@ -2,13 +2,15 @@
 
 namespace ExternalBundle\Domain\Import\Common;
 
+use Ddeboer\DataImport\Exception\ValidationException;
 use Ddeboer\DataImport\Reader\CountableReader;
+use Ddeboer\DataImport\Result;
 use Ddeboer\DataImport\Writer;
+use Ddeboer\DataImport\Writer\FlushableWriter;
 use Doctrine\ORM\EntityManager;
 use ExternalBundle\Entity\ImportationProgress;
-use Ddeboer\DataImport\Writer\FlushableWriter;
 
-class ImportationProgressWriter implements Writer, InitiableWriter, FlushableWriter
+class ImportationProgressWriter implements Writer, InitiableWriter, FinalizableWriter, FlushableWriter
 {
     protected $progress;
 
@@ -18,21 +20,38 @@ class ImportationProgressWriter implements Writer, InitiableWriter, FlushableWri
 
     public function __construct(
         EntityManager $em,
-        CountableReader $reader,
-        $uuid = null,
-        $name = null
+        CountableReader $reader
     ) {
         $this->em = $em;
         $this->reader = $reader;
-
-        $this->progress = new ImportationProgress();
-        $this->progress->setUuid($uuid);
-        $this->progress->setName($name);
     }
 
-    public function init()
+    public function init(ImportationProgress $progress)
     {
+        $this->progress = $progress;
         $this->progress->setTotal($this->getTotal());
+
+        $this->persist();
+        $this->flush();
+    }
+
+    public function finalize(Result $result)
+    {
+        $txt = '';
+        foreach ($result->getExceptions() as $exception) {
+            if ($exception instanceof ValidationException) {
+                foreach ($exception->getViolations() as $violation) {
+                    $item = $violation->getRoot();
+                    if (isset($item['externalId'])) {
+                        $txt .= sprintf('ExternalId : %d - ', $item['externalId']);
+                    }
+                    $txt .= sprintf("%s : %s\n", $violation->getPropertyPath(), $violation->getMessage());
+                }
+            } else {
+                $txt .= sprintf("%s\n", $exception->getMessage());
+            }
+        }
+        $this->progress->setExceptions($txt);
 
         $this->persist();
         $this->flush();

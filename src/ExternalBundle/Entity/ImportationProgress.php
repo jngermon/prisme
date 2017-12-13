@@ -4,6 +4,7 @@ namespace ExternalBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Ramsey\Uuid\Uuid;
 
 /**
  * @ORM\Entity()
@@ -45,11 +46,17 @@ class ImportationProgress
      */
     protected $name;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $exceptions;
+
     public function __construct()
     {
         $this->total = 0;
         $this->progress = 0;
         $this->progressing = false;
+        $this->uuid = Uuid::uuid4();
     }
 
     /**
@@ -146,6 +153,24 @@ class ImportationProgress
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return stinrg
+     */
+    public function getExceptions()
+    {
+        return $this->exceptions;
+    }
+
+    /**
+     * @param stinrg $exceptions
+     */
+    public function setExceptions($exceptions)
+    {
+        $this->exceptions = $exceptions;
 
         return $this;
     }

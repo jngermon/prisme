@@ -87,7 +87,7 @@ class ImporterFactory extends BaseImporterFactory
 
     protected function configreValidatorStep(ValidatorStep $validatorStep)
     {
-        $validatorStep->add('player', new \Symfony\Component\Validator\Constraints\NotNull());
+        $validatorStep->add('player', new \Symfony\Component\Validator\Constraints\Optional());
         $validatorStep->add('larp', new \Symfony\Component\Validator\Constraints\NotNull());
         $validatorStep->add('name', new \Symfony\Component\Validator\Constraints\Optional());
     }

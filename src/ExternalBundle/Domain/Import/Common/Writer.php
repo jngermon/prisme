@@ -5,10 +5,11 @@ namespace ExternalBundle\Domain\Import\Common;
 use AppBundle\Entity\Larp;
 use Ddeboer\DataImport\Writer\DoctrineWriter;
 use Doctrine\ORM\EntityManager;
+use ExternalBundle\Entity\ImportationProgress;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class Writer extends DoctrineWriter
+class Writer extends DoctrineWriter implements InitiableWriter
 {
     protected $em;
 
@@ -35,9 +36,15 @@ class Writer extends DoctrineWriter
         return $this->entityName;
     }
 
-    public function initProcessing($syncUuid, $options = [])
+    public function init(ImportationProgress $progress)
     {
-        $this->syncUuid = $syncUuid;
+        $progress->setName($this->entityName);
+
+        $this->syncUuid = $progress->getUuid();
+    }
+
+    public function initProcessing($options = [])
+    {
         $this->optionsProcessing = $this->createOptionsResolver()->resolve($options);
         return $this;
     }

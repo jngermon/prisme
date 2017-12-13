@@ -6,14 +6,12 @@ use Ddeboer\DataImport\Step\MappingStep;
 use Ddeboer\DataImport\Step\ValidatorStep;
 use Ddeboer\DataImport\Workflow as WorkflowInterface;
 use Ddeboer\DataImport\Writer;
-use Ddeboer\DataImport\Writer\BatchWriter;
 use Ddeboer\DataImport\Writer\ConsoleProgressWriter;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\EntityManager;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
 use Pagerfanta\Pagerfanta;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -54,8 +52,6 @@ abstract class ImporterFactory
 
     public function create($options)
     {
-        $syncUuid = Uuid::uuid4();
-
         $options = $this->createOptionsResolver()->resolve($options);
 
         $queryBuilder = $this->createQueryBuilder($options);
@@ -69,7 +65,7 @@ abstract class ImporterFactory
         $workflow = new Workflow($reader);
         $workflow
             ->addWriter(new BatchWriter($this->writer, $options['batch_size']))
-            ->setSkipItemOnFailure(false)
+            ->setSkipItemOnFailure(true)
         ;
 
         $mappingStep = new MappingStep();
@@ -82,6 +78,7 @@ abstract class ImporterFactory
 
         if ($this->validator) {
             $validatorStep = new ValidatorStep($this->validator);
+            $validatorStep->throwExceptions(true);
             $validatorStep->add('externalId', new \Symfony\Component\Validator\Constraints\NotNull());
             $this->configreValidatorStep($validatorStep);
             $workflow->addStep($validatorStep, 0);
@@ -93,14 +90,14 @@ abstract class ImporterFactory
             $workflow->addWriter(new ConsoleProgressWriter($options['output'], $reader, 'debug', 100));
         }
         if ($options['progress'] && $this->em) {
-            $workflow->addWriter(new ImportationProgressWriter($this->em, $reader, $syncUuid, $this->writer->getEntityName()));
+            $workflow->addWriter(new ImportationProgressWriter($this->em, $reader));
         }
 
         unset($options['batch_size']);
         unset($options['output']);
         unset($options['progress']);
 
-        $this->writer->initProcessing($syncUuid, $options);
+        $this->writer->initProcessing($options);
 
         return new Importer($workflow);
     }
