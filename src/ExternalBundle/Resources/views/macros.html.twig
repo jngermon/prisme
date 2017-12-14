@@ -1,0 +1,39 @@
+{% macro progressGroup(id, name, value, total, progressing, errors) %}
+    {% import _self as macros %}
+    <div class="progress-group"
+        {% if errors %}
+            data-toggle="collapse" data-target="#exceptions-{{ id }}"
+        {% endif %}
+        >
+        <span class="progress-text">{{ name|raw }}</span>
+        <span class="progress-number"><b>{{ value }}</b>/{{ total }}</span>
+
+        {{ macros.progress(value, total, progressing, errors ? 'warning' : false) }}
+
+        {% if errors %}
+            <div class="collapse" id="exceptions-{{ id }}">
+                <p class="well">
+                    {{ errors|nl2br }}
+                </p>
+            </div>
+        {% endif %}
+    </div>
+
+
+
+{% endmacro %}
+
+{% macro progress(value, total, progressing, color) %}
+    {% set ratio = total > 0 ? (value / total)|round(2, 'floor') * 100  : 100 %}
+    <div class="progress sm">
+        <div
+            class="progress-bar {{ progressing ? 'progress-bar-striped active' : '' }} {{ color ? 'progress-bar-'~color : '' }}"
+            role="progressbar"
+            aria-valuenow="{{ value }}"
+            aria-valuemin="0"
+            aria-valuemax="{{ total }}"
+            style="width: {{ ratio }}%">
+            <span class="sr-only">{{ ratio }}%</span>
+        </div>
+    </div>
+{% endmacro %}
