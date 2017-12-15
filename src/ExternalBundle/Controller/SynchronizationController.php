@@ -21,6 +21,7 @@ class SynchronizationController extends CRUDController
         if (!in_array($object->getStatus(), [
             SynchronizationStatus::SUCCESSED,
             SynchronizationStatus::ERROR,
+            SynchronizationStatus::ABORTED,
         ])) {
             throw new BadRequestHttpException('unable to rerun this synchronization');
         }
@@ -30,9 +31,35 @@ class SynchronizationController extends CRUDController
         $em->persist($object);
         $em->flush();
 
-        exec("/srv/bin/console external:synchronize --continue >> /srv/var/logs/synchronize.log &");
+        $this->get('external.domain.executor')->run();
 
-        $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('process.persist', [], 'Sync'));
+        $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('process.rerun', [], 'Synchronization'));
+
+        return new RedirectResponse($this->admin->generateObjectUrl('show', $object));
+    }
+
+    public function stopAction($id)
+    {
+        $object = $this->admin->getSubject();
+
+        if (!$object) {
+            throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
+        }
+
+        if ($object->getStatus() != SynchronizationStatus::PROCESSING) {
+            throw new BadRequestHttpException('unable to stop not processing synchronization');
+        }
+
+        if ($object->getPid() && $object->getCommand()) {
+            $this->get('external.domain.executor')->stop($object->getPid(), $object->getCommand());
+        }
+
+        $object->setStatus(SynchronizationStatus::ABORTED);
+        $em = $this->get('doctrine')->getEntityManager();
+        $em->persist($object);
+        $em->flush();
+
+        $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('process.stop', [], 'Synchronization'));
 
         return new RedirectResponse($this->admin->generateObjectUrl('show', $object));
     }

@@ -18,6 +18,11 @@
                 <source>error</source>
                 <target>Erreur</target>
             </trans-unit>
+            <trans-unit id="aborted">
+                <source>aborted</source>
+                <target>Interrompu</target>
+            </trans-unit>
+
 
             <trans-unit id="short.pending">
                 <source>short.pending</source>
@@ -35,6 +40,11 @@
                 <source>short.error</source>
                 <target>Erreur</target>
             </trans-unit>
+            <trans-unit id="short.aborted">
+                <source>short.aborted</source>
+                <target>Interrompu</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>

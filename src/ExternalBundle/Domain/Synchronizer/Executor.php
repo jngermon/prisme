@@ -25,6 +25,23 @@ class Executor
         $command .= ' --uuid '.Uuid::uuid4();
         $command .= ' >> '.$this->logFile;
         $command .= ' &'; //Important
-        exec($command);
+        shell_exec($command);
+    }
+
+    public function stop($pid, $command)
+    {
+        $res = shell_exec('ps -o pid,args');
+
+        $find = false;
+        foreach (explode("\n", $res) as $line) {
+            if ($line = sprintf(" %d php %s", $pid, $command)) {
+                $find = true;
+                break;
+            }
+        }
+
+        if ($find) {
+            shell_exec('kill -9 '.$pid);
+        }
     }
 }

@@ -121,6 +121,8 @@ class SynchronizationAdmin extends BaseAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->add('rerun', $this->getRouterIdParameter().'/rerun');
+        $collection->add('stop', $this->getRouterIdParameter().'/stop');
+
     }
 
     public function configureActionButtons($action, $object = null)
@@ -131,9 +133,21 @@ class SynchronizationAdmin extends BaseAdmin
             if (in_array($object->getStatus(), [
                 SynchronizationStatus::SUCCESSED,
                 SynchronizationStatus::ERROR,
+                SynchronizationStatus::ABORTED,
             ])) {
                 $list[] = [
                     'template' => 'ExternalBundle:Admin:Button/rerun_synchronization_button.html.twig',
+                    'priority' => 10,
+                ];
+            }
+        }
+
+        if ($action = 'show' && $object) {
+            if (in_array($object->getStatus(), [
+                SynchronizationStatus::PROCESSING,
+            ])) {
+                $list[] = [
+                    'template' => 'ExternalBundle:Admin:Button/stop_synchronization_button.html.twig',
                     'priority' => 10,
                 ];
             }

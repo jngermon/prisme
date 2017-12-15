@@ -87,6 +87,9 @@ class ExternalExtension extends \Twig_Extension
                 case SynchronizationStatus::PROCESSING:
                     $color = 'info';
                     break;
+                case SynchronizationStatus::ABORTED:
+                    $color = 'warning';
+                    break;
                 case SynchronizationStatus::SUCCESSED:
                 default:
                     $color = 'success';

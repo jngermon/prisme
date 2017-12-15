@@ -10,4 +10,5 @@ final class SynchronizationStatus extends AbstractEnum
     const PROCESSING = 'processing';
     const SUCCESSED = 'successed';
     const ERROR = 'error';
+    const ABORTED = 'aborted';
 }

@@ -177,7 +177,19 @@
                 <source>link_action_rerun</source>
                 <target>Relancer la synchronisation</target>
             </trans-unit>
+            <trans-unit id="link_action_stop">
+                <source>link_action_stop</source>
+                <target>Interrompre la synchronization</target>
+            </trans-unit>
 
+            <trans-unit id="process.rerun">
+                <source>process.rerun</source>
+                <target>La synchronisation a été relancée en arrière plan.</target>
+            </trans-unit>
+            <trans-unit id="process.stop">
+                <source>process.stop</source>
+                <target>La synchronisation a été arrêtée.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
