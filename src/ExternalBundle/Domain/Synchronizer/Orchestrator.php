@@ -45,6 +45,8 @@ class Orchestrator
 
         $synchronization->setStatus(SynchronizationStatus::PROCESSING)
             ->setStartedAt(new \Datetime());
+        $synchronization->setPid(getmypid());
+        $synchronization->setCommand(implode($_SERVER['argv'], ' '));
         $this->getEm()->persist($synchronization);
         $this->getEm()->flush();
 

@@ -57,6 +57,16 @@ class Synchronization
      */
     protected $importations;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $pid;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $command;
+
     public function __construct()
     {
         $this->options = '{}';
@@ -239,5 +249,41 @@ class Synchronization
         }
 
         return null;
+    }
+
+    /**
+     * @return interger
+     */
+    public function getPid()
+    {
+        return $this->pid;
+    }
+
+    /**
+     * @param interger $pid
+     */
+    public function setPid($pid)
+    {
+        $this->pid = $pid;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCommand()
+    {
+        return $this->command;
+    }
+
+    /**
+     * @param string $command
+     */
+    public function setCommand($command)
+    {
+        $this->command = $command;
+
+        return $this;
     }
 }
