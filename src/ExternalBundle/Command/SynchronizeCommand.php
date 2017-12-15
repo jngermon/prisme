@@ -29,6 +29,12 @@ class SynchronizeCommand extends Command
                 InputOption::VALUE_NONE,
                 'Run every pending requests ?'
             )
+            ->addOption(
+                'uuid',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'Do nothing, just to identify proc'
+            )
         ;
     }
 

@@ -3,6 +3,7 @@
 namespace ExternalBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
+use ExternalBundle\Domain\Synchronizer\Executor;
 use ExternalBundle\Domain\Synchronizer\SynchronizerInterface;
 use ExternalBundle\Entity\Synchronization;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -28,18 +29,22 @@ class SyncController
 
     protected $serializer;
 
+    protected $executor;
+
     public function __construct(
         SessionInterface $session,
         TranslatorInterface $translator,
         RouterInterface $router,
         EntityManager $em,
-        SerializerInterface $serializer
+        SerializerInterface $serializer,
+        Executor $executor
     ) {
         $this->session = $session;
         $this->translator = $translator;
         $this->router = $router;
         $this->em = $em;
         $this->serializer = $serializer;
+        $this->executor = $executor;
     }
 
     /**
@@ -54,7 +59,7 @@ class SyncController
         $this->em->persist($synchronization);
         $this->em->flush();
 
-        exec("/srv/bin/console external:synchronize --continue >> /srv/var/logs/synchronize.log &");
+        $this->executor->run();
 
         $this->session->getFlashBag()->add('success', $this->translator->trans('process.persist', [], 'Sync'));
 

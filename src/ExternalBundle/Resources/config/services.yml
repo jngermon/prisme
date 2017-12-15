@@ -61,6 +61,7 @@ services:
             - '@router'
             - '@doctrine.orm.default_entity_manager'
             - '@serializer'
+            - '@external.domain.executor'
 
     # Domain
 
@@ -196,6 +197,12 @@ services:
             - '@external.domain.synchronizer'
             - '@doctrine.orm.default_entity_manager'
             - '@serializer'
+
+    external.domain.executor:
+        class: ExternalBundle\Domain\Synchronizer\Executor
+        arguments:
+            - '/srv/bin/console'
+            - '/srv/var/logs/synchronize.log'
 
     external.domain.synchronizer:
         class: ExternalBundle\Domain\Synchronizer\ChainSynchronizer
