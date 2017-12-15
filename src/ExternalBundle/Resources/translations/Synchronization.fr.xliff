@@ -173,6 +173,10 @@
                 <target>Joueurs</target>
             </trans-unit>
 
+            <trans-unit id="link_action_rerun">
+                <source>link_action_rerun</source>
+                <target>Relancer la synchronisation</target>
+            </trans-unit>
 
         </body>
     </file>

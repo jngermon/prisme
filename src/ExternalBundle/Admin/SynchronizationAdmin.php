@@ -12,6 +12,7 @@ use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 class SynchronizationAdmin extends BaseAdmin
@@ -115,5 +116,29 @@ class SynchronizationAdmin extends BaseAdmin
             'options' => new DTOFieldDescription('options'),
             'created_at' => new DTOFieldDescription('createdAt', 'datetime'),
         ];
+    }
+
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection->add('rerun', $this->getRouterIdParameter().'/rerun');
+    }
+
+    public function configureActionButtons($action, $object = null)
+    {
+        $list = parent::configureActionButtons($action, $object);
+
+        if ($action = 'show' && $object) {
+            if (in_array($object->getStatus(), [
+                SynchronizationStatus::SUCCESSED,
+                SynchronizationStatus::ERROR,
+            ])) {
+                $list[] = [
+                    'template' => 'ExternalBundle:Admin:Button/rerun_synchronization_button.html.twig',
+                    'priority' => 10,
+                ];
+            }
+        }
+
+        return $list;
     }
 }
