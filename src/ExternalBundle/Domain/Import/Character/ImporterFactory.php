@@ -34,6 +34,7 @@ class ImporterFactory extends BaseImporterFactory
             'idgn' => 'larp',
             'idu' => 'player',
             'nom' => 'name',
+            'titre' => 'title',
         ];
     }
 
@@ -90,6 +91,7 @@ class ImporterFactory extends BaseImporterFactory
         $validatorStep->add('player', new \Symfony\Component\Validator\Constraints\Optional());
         $validatorStep->add('larp', new \Symfony\Component\Validator\Constraints\NotNull());
         $validatorStep->add('name', new \Symfony\Component\Validator\Constraints\Optional());
+        $validatorStep->add('title', new \Symfony\Component\Validator\Constraints\Optional());
     }
 
     protected function createOptionsResolver()

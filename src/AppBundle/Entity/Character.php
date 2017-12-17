@@ -54,6 +54,12 @@ class Character implements SynchronizableInterface, LarpRelatedInterface
      */
     protected $name;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     * @External()
+     */
+    protected $title;
+
     public function __construct()
     {
         $this->characterOrganizers = new ArrayCollection();
@@ -183,6 +189,24 @@ class Character implements SynchronizableInterface, LarpRelatedInterface
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
 
         return $this;
     }

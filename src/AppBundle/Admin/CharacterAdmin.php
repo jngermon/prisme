@@ -32,6 +32,7 @@ class CharacterAdmin extends BaseAdmin
             ])
                 ->add('player', null, ['route' => ['name' => 'show']])
                 ->add('name')
+                ->add('title')
             ->end()
             ->with('bloc.info', [
                 'class'       => 'col-md-5',
@@ -54,6 +55,7 @@ class CharacterAdmin extends BaseAdmin
                     'required' => false,
                 ])
                 ->add('name')
+                ->add('title')
             ->end()
             ;
     }
@@ -69,6 +71,7 @@ class CharacterAdmin extends BaseAdmin
     {
         $listMapper
             ->add('name')
+            ->add('title')
             ->add('player', null, ['route' => ['name' => 'show']])
             ->add('_action', null, [
                 'actions' => [
@@ -83,6 +86,7 @@ class CharacterAdmin extends BaseAdmin
     {
         return [
             'name' => new DTOFieldDescription('name'),
+            'title' => new DTOFieldDescription('title'),
             'created_at' => new DTOFieldDescription('createdAt', 'datetime'),
         ];
     }
