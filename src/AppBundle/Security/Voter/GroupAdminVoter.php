@@ -65,6 +65,8 @@ class GroupAdminVoter extends Voter
                 return $group && $this->canView($group, $token->getUser());
             case 'EDIT':
                 return $group && $this->canEdit($group, $token->getUser());
+            case 'DELETE':
+                return $group && $this->canDelete($group, $token->getUser());
         }
 
         return false;
@@ -116,6 +118,21 @@ class GroupAdminVoter extends Voter
     }
 
     protected function canEdit(Group $group, User $user)
+    {
+        $profile = $this->profileProvider->getActiveProfile();
+
+        if (!$profile) {
+            return false;
+        }
+
+        if ($profile instanceof Organizer && $profile->getLarp() == $group->getLarp()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    protected function canDelete(Group $group, User $user)
     {
         $profile = $this->profileProvider->getActiveProfile();
 

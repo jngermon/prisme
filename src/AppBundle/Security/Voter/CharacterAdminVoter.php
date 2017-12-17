@@ -65,6 +65,8 @@ class CharacterAdminVoter extends Voter
                 return $character && $this->canView($character, $token->getUser());
             case 'EDIT':
                 return $character && $this->canEdit($character, $token->getUser());
+            case 'DELETE':
+                return $character && $this->canDelete($character, $token->getUser());
         }
 
         return false;
@@ -113,6 +115,21 @@ class CharacterAdminVoter extends Voter
     }
 
     protected function canEdit(Character $character, User $user)
+    {
+        $profile = $this->profileProvider->getActiveProfile();
+
+        if (!$profile) {
+            return false;
+        }
+
+        if ($profile instanceof Organizer && $profile->getLarp() == $character->getLarp()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    protected function canDelete(Character $character, User $user)
     {
         $profile = $this->profileProvider->getActiveProfile();
 
