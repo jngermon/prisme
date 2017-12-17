@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="logistics">
+                <source>logistics</source>
+                <target>Logistique</target>
+            </trans-unit>
+            <trans-unit id="storyline">
+                <source>storyline</source>
+                <target>Scénaristique</target>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>

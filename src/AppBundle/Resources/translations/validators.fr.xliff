@@ -10,6 +10,10 @@
                 <source>organizer_already_in_larp</source>
                 <target>Ce personne est déjà organisateur pour ce GN</target>
             </trans-unit>
+            <trans-unit id="group_cant_be_logistics_with_external_larp">
+                <source>group_cant_be_logistics_with_external_larp</source>
+                <target>Impossible de créer un groupe Logistique pour un GN synchronisé.</target>
+            </trans-unit>
 
         </body>
     </file>

@@ -31,6 +31,11 @@ class GroupAdmin extends BaseAdmin
                 'box_class'   => 'box box-primary',
             ])
                 ->add('name')
+                ->add('type', EnumType::class, [
+                    'class' => \AppBundle\Entity\Enum\GroupType::class,
+                    'catalogue' => 'GroupType',
+                    'template' => 'MMCSonataAdminBundle:Enum:show_enum.html.twig',
+                ])
             ->end()
             ->with('bloc.info', [
                 'class'       => 'col-md-5',
@@ -50,6 +55,10 @@ class GroupAdmin extends BaseAdmin
                 'box_class'   => 'box box-primary',
             ])
                 ->add('name')
+                ->add('type', EnumType::class, [
+                    'class' => \AppBundle\Entity\Enum\GroupType::class,
+                    'choice_translation_domain' => 'GroupType',
+                ])
             ->end()
             ;
     }
@@ -58,6 +67,10 @@ class GroupAdmin extends BaseAdmin
     {
         $datagridMapper
             ->add('name', 'doctrine_orm_istring')
+            ->add('type', null, [], EnumType::class, [
+                'class' => \AppBundle\Entity\Enum\GroupType::class,
+                'choice_translation_domain' => 'GroupType',
+            ])
             ;
     }
 
@@ -65,6 +78,11 @@ class GroupAdmin extends BaseAdmin
     {
         $listMapper
             ->add('name')
+            ->add('type', EnumType::class, [
+                'class' => \AppBundle\Entity\Enum\GroupType::class,
+                'catalogue' => 'GroupType',
+                'template' => 'MMCSonataAdminBundle:Enum:list_enum.html.twig',
+            ])
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -78,6 +96,7 @@ class GroupAdmin extends BaseAdmin
     {
         return [
             'name' => new DTOFieldDescription('name'),
+            'type' => new DTOFieldDescription('type'),
             'created_at' => new DTOFieldDescription('createdAt', 'datetime'),
         ];
     }

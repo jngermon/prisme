@@ -8,6 +8,8 @@ use ExternalBundle\Annotations\External;
 use ExternalBundle\Domain\Import\Common\SynchronizableInterface;
 use ExternalBundle\Domain\Import\Common\SynchronizableTrait;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Greg0ire\Enum\Bridge\Symfony\Validator\Constraint\Enum as EnumAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -40,6 +42,14 @@ class Group implements LarpRelatedInterface, SynchronizableInterface
      * @External()
      */
     protected $name;
+
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     * @EnumAssert("AppBundle\Entity\Enum\GroupType")
+     * @Assert\Expression("!this.getLarp().isExternal() or value != 'logistics'", message="group_cant_be_logistics_with_external_larp")
+     * @External()
+     */
+    protected $type;
 
     public function __construct()
     {
@@ -121,6 +131,24 @@ class Group implements LarpRelatedInterface, SynchronizableInterface
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
 
         return $this;
     }

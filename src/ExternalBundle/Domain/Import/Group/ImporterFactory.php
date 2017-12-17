@@ -2,6 +2,7 @@
 
 namespace ExternalBundle\Domain\Import\Group;
 
+use AppBundle\Entity\Enum\GroupType;
 use Ddeboer\DataImport\Step\ValidatorStep;
 use Ddeboer\DataImport\Step\ValueConverterStep;
 use Ddeboer\DataImport\ValueConverter\DateTimeValueConverter;
@@ -25,6 +26,7 @@ class ImporterFactory extends BaseImporterFactory
             'idg' => 'externalId',
             'idgn' => 'larp',
             'nom' => 'name',
+            '_type' => 'type'
         ];
     }
 
@@ -33,6 +35,7 @@ class ImporterFactory extends BaseImporterFactory
         $queryBuilder = new QueryBuilder($this->connection);
         $queryBuilder
             ->select('*')
+            ->addSelect("'".GroupType::LOGISTICS."' as _type")
             ->from('groupes')
             ;
 
@@ -72,6 +75,7 @@ class ImporterFactory extends BaseImporterFactory
     {
         $validatorStep->add('larp', new \Symfony\Component\Validator\Constraints\NotNull());
         $validatorStep->add('name', new \Symfony\Component\Validator\Constraints\Optional());
+        $validatorStep->add('type', new \Symfony\Component\Validator\Constraints\Optional());
     }
 
     protected function createOptionsResolver()
