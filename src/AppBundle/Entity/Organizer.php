@@ -51,7 +51,7 @@ class Organizer implements SynchronizableInterface, ProfilableInterface, LarpRel
 
     public function __toString()
     {
-        return $this->getPerson() ? $this->getPerson()->__toString() : '';
+        return $this->getPerson() ? $this->getPerson()->__toString() : '-';
     }
 
     /**

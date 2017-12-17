@@ -58,7 +58,7 @@ class Group implements LarpRelatedInterface, SynchronizableInterface
 
     public function __toString()
     {
-        return $this->name ?: '';
+        return $this->name ?: '-';
     }
 
     /**

@@ -68,7 +68,7 @@ class Character implements SynchronizableInterface, LarpRelatedInterface
 
     public function __toString()
     {
-        return $this->getName() ?: '';
+        return $this->getName() ?: '-';
     }
 
     /**

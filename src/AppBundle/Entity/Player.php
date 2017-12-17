@@ -53,7 +53,7 @@ class Player implements ProfilableInterface, SynchronizableInterface, LarpRelate
 
     public function __toString()
     {
-        return $this->getPerson() ? $this->getPerson()->__toString() : '';
+        return $this->getPerson() ? $this->getPerson()->__toString() : '-';
     }
 
     /**
