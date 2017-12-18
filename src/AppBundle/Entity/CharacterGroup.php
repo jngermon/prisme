@@ -25,12 +25,13 @@ class CharacterGroup implements SynchronizableInterface
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Character", inversedBy="characterGroups")
+     * @ORM\ManyToOne(targetEntity="Character", inversedBy="characterGroups", fetch="EAGER")
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     protected $character;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Group", inversedBy="characterGroups")
+     * @ORM\ManyToOne(targetEntity="Group", inversedBy="characterGroups", fetch="EAGER")
      */
     protected $group;
 
