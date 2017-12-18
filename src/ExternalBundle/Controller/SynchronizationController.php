@@ -29,6 +29,11 @@ class SynchronizationController extends CRUDController
         $object->setStatus(SynchronizationStatus::PENDING);
         $em = $this->get('doctrine')->getEntityManager();
         $em->persist($object);
+
+        foreach ($object->getImportations() as $importation) {
+            $em->remove($importation);
+        }
+
         $em->flush();
 
         $this->get('external.domain.executor')->run();
