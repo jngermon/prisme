@@ -5,7 +5,6 @@ namespace AppBundle\Security\Voter;
 use AppBundle\Admin\CharacterAdmin;
 use AppBundle\Entity\Character;
 use AppBundle\Entity\Organizer;
-use AppBundle\Entity\Player;
 use AppBundle\Entity\User;
 use AppBundle\Security\ProfileProvider;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -104,10 +103,6 @@ class CharacterAdminVoter extends Voter
         }
 
         if ($profile instanceof Organizer && $profile->getLarp() == $character->getLarp()) {
-            return true;
-        }
-
-        if ($profile instanceof Player && $profile == $character->getPlayer()) {
             return true;
         }
 

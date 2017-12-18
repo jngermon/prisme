@@ -5,7 +5,6 @@ namespace AppBundle\Security\Voter;
 use AppBundle\Admin\GroupAdmin;
 use AppBundle\Entity\Group;
 use AppBundle\Entity\Organizer;
-use AppBundle\Entity\Player;
 use AppBundle\Entity\User;
 use AppBundle\Security\ProfileProvider;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -105,13 +104,6 @@ class GroupAdminVoter extends Voter
 
         if ($profile instanceof Organizer && $profile->getLarp() == $group->getLarp()) {
             return true;
-        }
-
-        if ($profile instanceof Player) {
-            $groupCharacters = array_map(function ($e) {
-                return $e->getCharacter();
-            }, $group->getGroupCharacters());
-            return count(array_intersect($groupCharacters, $profile->getCharacters())) > 0;
         }
 
         return false;

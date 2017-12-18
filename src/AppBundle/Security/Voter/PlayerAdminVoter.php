@@ -113,10 +113,6 @@ class PlayerAdminVoter extends Voter
             return true;
         }
 
-        if ($profile instanceof Player && $profile == $player) {
-            return true;
-        }
-
         return false;
     }
 
