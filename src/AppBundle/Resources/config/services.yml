@@ -1,5 +1,15 @@
 services:
     # Repository
+    app.repository.character:
+        class: Doctrine\Common\Persistence\ObjectRepository
+        factory: 'doctrine:getRepository'
+        arguments: [ 'AppBundle:Character' ]
+
+    app.repository.group:
+        class: Doctrine\Common\Persistence\ObjectRepository
+        factory: 'doctrine:getRepository'
+        arguments: [ 'AppBundle:Group' ]
+
     app.repository.larp:
         class: Doctrine\Common\Persistence\ObjectRepository
         factory: 'doctrine:getRepository'
