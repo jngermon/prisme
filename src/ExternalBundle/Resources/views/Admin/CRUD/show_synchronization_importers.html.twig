@@ -1,25 +1,15 @@
-{#% extends 'SonataAdminBundle:CRUD:base_show_field.html.twig' %#}
+{% extends 'MMCSonataAdminBundle:CRUD:base_show_list_items.html.twig' %}
 
 {% trans_default_domain 'Synchronization' %}
 {% import 'ExternalBundle::macros.html.twig' as macros %}
 
-{% for importation in value %}
-    {% if not loop.first %}
-        <tr class="sonata-ba-view-container">
-    {% endif %}
-        <td>
-
-            {{ macros.progressGroup(
-                importation.id,
-                ('options.class.'~importation.name)|trans,
-                importation.progress,
-                importation.total,
-                importation.progressing,
-                importation.exceptions
-            )}}
-
-        </td>
-    {% if not loop.last %}
-        </tr>
-    {% endif %}
-{% endfor %}
+{% block item %}
+    {{ macros.progressGroup(
+        item.id,
+        ('options.class.'~item.name)|trans,
+        item.progress,
+        item.total,
+        item.progressing,
+        item.exceptions
+    )}}
+{% endblock item %}
