@@ -63,6 +63,12 @@ class GroupAdmin extends BaseAdmin
             ;
     }
 
+    public function getFormBuilder()
+    {
+        $this->formOptions['validation_groups'] = ['Default', 'Normal'];
+        return parent::getFormBuilder();
+    }
+
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper

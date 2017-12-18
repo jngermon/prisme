@@ -46,7 +46,7 @@ class Group implements LarpRelatedInterface, SynchronizableInterface
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
      * @EnumAssert("AppBundle\Entity\Enum\GroupType")
-     * @Assert\Expression("!this.getLarp().isExternal() or value != 'logistics'", message="group_cant_be_logistics_with_external_larp")
+     * @Assert\Expression("!this.getLarp().isExternal() or value != 'logistics'", message="group_cant_be_logistics_with_external_larp", groups={"Normal"})
      * @External()
      */
     protected $type;
