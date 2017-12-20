@@ -1,4 +1,12 @@
 services:
+    # Domain
+
+    ## Group
+    app.domain.group.composition_provider:
+        class: AppBundle\Domain\Group\CompositionProvider
+        arguments:
+            - '@app.repository.group'
+
     # Repository
     app.repository.character:
         class: Doctrine\Common\Persistence\ObjectRepository

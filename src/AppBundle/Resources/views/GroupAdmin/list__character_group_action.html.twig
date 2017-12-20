@@ -1,0 +1,9 @@
+{% set character_group_admin = admin.getChild('app.admin.character_group_for_group') %}
+{% if character_group_admin.hasAccess('list') and character_group_admin.hasRoute('list') %}
+    <a href="{{ character_group_admin.generateObjectUrl('list', object) }}" class="btn btn-sm btn-default list_link" title="{{ 'list.actions_character_group'|trans({}, 'Group') }}">
+        <i class="fa fa-users" aria-hidden="true"></i>
+        {{ 'list.actions_character_group'|trans({}, 'Group') }}
+    </a>
+{% endif %}
+
+

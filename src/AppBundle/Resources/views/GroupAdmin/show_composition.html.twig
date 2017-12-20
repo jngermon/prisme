@@ -1,0 +1,15 @@
+{% trans_default_domain 'Group' %}
+{% set composition = admin.compositionProvider.getCompositionForGroup(object) %}
+<td>
+    <span>
+        {{ 'show.composition_linked_to_player'|transchoice(composition.linked_to_player) }} : <span class="label label-primary">{{ composition.linked_to_player }}</span>
+
+        {{ 'show.composition_not_linked_to_player'|transchoice(composition.not_linked_to_player)}} : <span class="label label-default">{{ composition.not_linked_to_player }}</span>
+
+        {{ 'show.composition_total'|trans}} : <span class="label label-info">{{ composition.total }}</span>
+
+    </span>
+    <div class="pull-right">
+        {% include 'AppBundle:GroupAdmin:list__character_group_action.html.twig' %}
+    </div>
+</td>

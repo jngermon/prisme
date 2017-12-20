@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Domain\Group\CompositionProvider;
 use AppBundle\Entity\User;
 use Greg0ire\Enum\Bridge\Symfony\Form\Type\EnumType;
 use Knp\Menu\ItemInterface as MenuItemInterface;
@@ -23,6 +24,8 @@ class GroupAdmin extends BaseAdmin
         '_sort_by' => 'name',
     );
 
+    protected $compositionProvider;
+
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
@@ -35,6 +38,15 @@ class GroupAdmin extends BaseAdmin
                     'class' => \AppBundle\Entity\Enum\GroupType::class,
                     'catalogue' => 'GroupType',
                     'template' => 'MMCSonataAdminBundle:Enum:show_enum.html.twig',
+                ])
+            ->end()
+            ->with('bloc.character_group', [
+                'class'       => 'col-md-5',
+                'box_class'   => 'box box-primary',
+            ])
+                ->add('composition', null, [
+                    'show_label' => false,
+                    'template' => 'AppBundle:GroupAdmin:show_composition.html.twig',
                 ])
             ->end()
             ->with('bloc.info', [
@@ -93,6 +105,9 @@ class GroupAdmin extends BaseAdmin
                 'actions' => [
                     'show' => [],
                     'edit' => [],
+                    'character_group' => [
+                        'template' => 'AppBundle:GroupAdmin:list__character_group_action.html.twig',
+                    ],
                 ]
             ])
             ;
@@ -105,5 +120,39 @@ class GroupAdmin extends BaseAdmin
             'type' => new DTOFieldDescription('type'),
             'created_at' => new DTOFieldDescription('createdAt', 'datetime'),
         ];
+    }
+
+    protected function configureSideMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
+    {
+        if (!$childAdmin && !in_array($action, ['edit', 'show'])) {
+            return;
+        }
+
+        $admin = $this->isChild() ? $this->getParent() : $this;
+        $id = $admin->getRequest()->get('id');
+
+        if ($childAdmin) {
+            $menu->addChild('link_to_group', [
+                'uri' => $admin->generateUrl('show', ['id' => $id])
+            ]);
+        }
+    }
+
+    /**
+     * @return CompositionProvider
+     */
+    public function getCompositionProvider()
+    {
+        return $this->compositionProvider;
+    }
+
+    /**
+     * @param CompositionProvider $compositionProvider
+     */
+    public function setCompositionProvider($compositionProvider)
+    {
+        $this->compositionProvider = $compositionProvider;
+
+        return $this;
     }
 }

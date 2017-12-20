@@ -10,6 +10,16 @@ services:
             - [ setLabelTranslatorStrategy, ['@sonata.admin.label.strategy.underscore']]
         public: true
 
+    app.admin.character_group_for_group:
+        class: AppBundle\Admin\CharacterGroupForGroupAdmin
+        arguments: [~, AppBundle\Entity\CharacterGroup, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: CharacterGroupForGroup }
+        calls:
+            - [ setTranslationDomain, [CharacterGroupForGroup]]
+            - [ setLabelTranslatorStrategy, ['@sonata.admin.label.strategy.underscore']]
+        public: true
+
     app.admin.group:
         class: AppBundle\Admin\GroupAdmin
         arguments: [~, AppBundle\Entity\Group, ~]
@@ -18,6 +28,8 @@ services:
         calls:
             - [ setTranslationDomain, [Group]]
             - [ setLabelTranslatorStrategy, ['@sonata.admin.label.strategy.underscore']]
+            - [ addChild, ['@app.admin.character_group_for_group']]
+            - [ setCompositionProvider, ['@app.domain.group.composition_provider']]
         public: true
 
     app.admin.larp:
