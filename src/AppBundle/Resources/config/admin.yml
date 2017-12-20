@@ -83,3 +83,9 @@ services:
         class: AppBundle\Admin\Filter\CaseInsensitiveStringFilter
         tags:
             - { name: sonata.admin.filter.type, alias: doctrine_orm_istring }
+
+    # ModelManager
+    sonata.admin.manager.orm:
+        class: AppBundle\Admin\Model\ModelManager
+        arguments:
+            - '@doctrine'

@@ -30,7 +30,7 @@ class CharacterAdmin extends BaseAdmin
                 'class'       => 'col-md-7',
                 'box_class'   => 'box box-primary',
             ])
-                ->add('player', null, ['route' => ['name' => 'show']])
+                ->add('player')
                 ->add('name')
                 ->add('title')
             ->end()
@@ -72,7 +72,7 @@ class CharacterAdmin extends BaseAdmin
         $listMapper
             ->add('name')
             ->add('title')
-            ->add('player', null, ['route' => ['name' => 'show']])
+            ->add('player')
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
