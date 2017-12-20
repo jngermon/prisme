@@ -35,7 +35,7 @@ class Player implements ProfilableInterface, SynchronizableInterface, LarpRelate
     protected $larp;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Person", inversedBy="players")
+     * @ORM\ManyToOne(targetEntity="Person", inversedBy="players", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      * @External()
      */

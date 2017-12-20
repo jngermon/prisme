@@ -32,7 +32,7 @@ class Character implements SynchronizableInterface, LarpRelatedInterface
     protected $larp;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Player", inversedBy="characters")
+     * @ORM\ManyToOne(targetEntity="Player", inversedBy="characters", fetch="EAGER")
      * @ORM\JoinColumn(nullable=true)
      * @External()
      */
