@@ -43,6 +43,7 @@ class ImporterFactory extends BaseImporterFactory
             ->select('*')
             ->from('liaison_group_user', 'lgu')
             ->innerJoin('lgu', 'persos', 'p', 'lgu.idu = p.idu')
+            ->innerJoin('lgu', 'groupes', 'g', 'lgu.idg = g.idg')
             ;
 
         if ($options['ids']) {

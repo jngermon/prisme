@@ -77,6 +77,10 @@ class Synchronizer extends AbstractProcessor implements SynchronizerInterface
                 $opts['ids'] = $id;
                 $this->addDependencyImporters($importers, $this->childrenDependencies, $opts);
             }
+        } elseif (isset($options['larp_id'])) {
+            $opts = $options;
+            $opts['larp_id'] = $options['larp_id'];
+            $this->addDependencyImporters($importers, $this->childrenDependencies, $opts);
         }
 
         foreach ($importers as $importer) {
@@ -115,7 +119,10 @@ class Synchronizer extends AbstractProcessor implements SynchronizerInterface
             ];
             if (isset($options[$optionKey]) && $options[$optionKey]) {
                 $importOptions[$relatedKey] = $options[$optionKey];
+            } elseif (isset($options['larp_id'])) {
+                $importOptions['larp_id'] = $options['larp_id'];
             }
+
             $importers[] = $importerFactory->create($importOptions);
         }
 

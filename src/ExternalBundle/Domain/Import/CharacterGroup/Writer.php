@@ -51,9 +51,15 @@ class Writer extends BaseWriter
         }
 
         if (!empty($this->optionsProcessing['larp_id'])) {
+
+            $subQB = $this->entityRepository->createQueryBuilder('x2')
+                ->select('x2.id')
+                ->innerJoin('x2.group', 'g')
+                ->andWhere('g.larp = :lExternalId');
+
+
             $queryBuilder
-                ->innerJoin('x.group', 'g')
-                ->andWhere('g.larp = :lExternalId')
+                ->andWhere($queryBuilder->expr()->in('x.id', $subQB->getDQL()))
                 ->setParameter('lExternalId', $this->optionsProcessing['larp_id'])
                 ;
         }
