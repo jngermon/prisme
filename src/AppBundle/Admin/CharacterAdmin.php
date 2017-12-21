@@ -34,6 +34,15 @@ class CharacterAdmin extends BaseAdmin
                 ->add('name')
                 ->add('title')
             ->end()
+            ->with('bloc.group', [
+                'class'       => 'col-md-5',
+                'box_class'   => 'box box-primary',
+            ])
+                ->add('affiliations', null, [
+                    'show_label' => false,
+                    'template' => 'AppBundle:CharacterAdmin:show_affiliations.html.twig',
+                ])
+            ->end()
             ->with('bloc.info', [
                 'class'       => 'col-md-5',
                 'box_class'   => 'box box-default',
@@ -77,6 +86,9 @@ class CharacterAdmin extends BaseAdmin
                 'actions' => [
                     'show' => [],
                     'edit' => [],
+                    'character_group' => [
+                        'template' => 'AppBundle:CharacterAdmin:list__character_group_action.html.twig',
+                    ],
                 ]
             ])
             ;
@@ -89,5 +101,21 @@ class CharacterAdmin extends BaseAdmin
             'title' => new DTOFieldDescription('title'),
             'created_at' => new DTOFieldDescription('createdAt', 'datetime'),
         ];
+    }
+
+    protected function configureSideMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
+    {
+        if (!$childAdmin && !in_array($action, ['edit', 'show'])) {
+            return;
+        }
+
+        $admin = $this->isChild() ? $this->getParent() : $this;
+        $id = $admin->getRequest()->get('id');
+
+        if ($childAdmin) {
+            $menu->addChild('link_to_character', [
+                'uri' => $admin->generateUrl('show', ['id' => $id])
+            ]);
+        }
     }
 }

@@ -175,6 +175,19 @@ class Character implements SynchronizableInterface, LarpRelatedInterface
         return $this;
     }
 
+    public function countCharacterGroupsByType($type)
+    {
+        $nb = 0;
+
+        foreach ($this->getCharacterGroups() as $characterGroup) {
+            if ($characterGroup->getGroup()->getType() == $type) {
+                $nb++;
+            }
+        }
+
+        return $nb;
+    }
+
     /**
      * @return string
      */

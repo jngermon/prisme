@@ -1,0 +1,17 @@
+{% trans_default_domain 'Character' %}
+<td>
+    {% if object.player and object.countCharacterGroupsByType(constant('AppBundle\\Entity\\Enum\\GroupType::LOGISTICS')) == 0 %}
+        <div class="alert alert-warning">
+            {{ 'message.no_affiliation_to_logistical_group'|trans }}
+        </div>
+    {% endif %}
+
+    <span>
+        {{ 'show.label_nb_groups'|transchoice(object.characterGroups|length) }} : <span class="label label-primary">{{ object.characterGroups|length }}</span>
+
+
+    </span>
+    <div class="pull-right">
+        {% include 'AppBundle:CharacterAdmin:list__character_group_action.html.twig' %}
+    </div>
+</td>
