@@ -130,6 +130,9 @@ sonata_admin:
         app.extension.larp:
             implements:
                 - AppBundle\Entity\LarpRelatedInterface
+    breadcrumbs:
+        child_admin_route: 'show'
+
 sonata_intl:
     timezone:
         default: Europe/Paris

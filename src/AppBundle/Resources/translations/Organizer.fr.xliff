@@ -38,6 +38,10 @@
                 <source>list.label_person</source>
                 <target>Personne</target>
             </trans-unit>
+            <trans-unit id="list.actions_character_organizer">
+                <source>list.actions_character_organizer</source>
+                <target>Personnages</target>
+            </trans-unit>
 
             <trans-unit id="show.label_person">
                 <source>show.label_person</source>
@@ -59,6 +63,11 @@
             <trans-unit id="bloc.info">
                 <source>bloc.info</source>
                 <target>Informations</target>
+            </trans-unit>
+
+            <trans-unit id="link_to_organizer">
+                <source>link_to_organizer</source>
+                <target>Retour à l'organisateur</target>
             </trans-unit>
 
         </body>

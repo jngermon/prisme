@@ -1,0 +1,14 @@
+{% extends 'SonataAdminBundle:CRUD:base_show_field.html.twig' %}
+
+{% block field %}
+    {% set route_name = field_description.options.route.name %}
+    {% for element in value%}
+        {{ loop.first ? '' : ', ' }}
+        {% set character_organizer_admin = admin.getChild('app.admin.character_organizer_for_character') %}
+        {% if character_organizer_admin.hasAccess('list') and character_organizer_admin.hasRoute('list') %}
+            <a href="{{ character_organizer_admin.generateObjectUrl('show', element) }}">
+                {{ character_organizer_admin.toString(element) }}
+            </a>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

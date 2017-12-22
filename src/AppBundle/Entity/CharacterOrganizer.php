@@ -25,12 +25,12 @@ class CharacterOrganizer implements SynchronizableInterface
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Character", inversedBy="characterOrganizers")
+     * @ORM\ManyToOne(targetEntity="Character", inversedBy="characterOrganizers", fetch="EAGER")
      */
     protected $character;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Organizer", inversedBy="characterOrganizers")
+     * @ORM\ManyToOne(targetEntity="Organizer", inversedBy="characterOrganizers", fetch="EAGER")
      */
     protected $organizer;
 

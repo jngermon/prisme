@@ -1,0 +1,7 @@
+{% set character_organizer_admin = admin.getChild('app.admin.character_organizer_for_organizer') %}
+{% if character_organizer_admin.hasAccess('list') and character_organizer_admin.hasRoute('list') %}
+    <a href="{{ character_organizer_admin.generateObjectUrl('list', object) }}" class="btn btn-sm btn-default list_link" title="{{ 'list.actions_character_organizer'|trans({}, 'Organizer') }}">
+        <i class="fa fa-users" aria-hidden="true"></i>
+        {{ 'list.actions_character_organizer'|trans({}, 'Organizer') }}
+    </a>
+{% endif %}

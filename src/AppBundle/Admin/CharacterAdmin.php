@@ -31,6 +31,12 @@ class CharacterAdmin extends BaseAdmin
                 'box_class'   => 'box box-primary',
             ])
                 ->add('player')
+                ->add('characterOrganizers', null, [
+
+                    'admin_code' => 'app.admin.character_organizer_for_character',
+                    'associated_property' => 'organizer',
+                    'template' => 'AppBundle:CharacterAdmin:show_organizers.html.twig',
+                ])
                 ->add('name')
                 ->add('title')
             ->end()

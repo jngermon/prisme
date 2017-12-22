@@ -14,6 +14,14 @@ services:
         tags:
             - {name: security.voter}
 
+    app.security.voter.character_organizer_admin:
+        class: AppBundle\Security\Voter\CharacterOrganizerAdminVoter
+        arguments:
+            - '@security.access.decision_manager'
+            - '@app.security.profile_provider'
+        tags:
+            - {name: security.voter}
+
     app.security.voter.character_group_admin:
         class: AppBundle\Security\Voter\CharacterGroupAdminVoter
         arguments:

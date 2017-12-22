@@ -100,6 +100,10 @@
                 <source>show.label_nb_groups</source>
                 <target>Appartenance|Appartenances</target>
             </trans-unit>
+            <trans-unit id="show.label_character_organizers">
+                <source>show.label_character_organizers</source>
+                <target>Organisateurs référents</target>
+            </trans-unit>
 
             <trans-unit id="bloc.identity">
                 <source>bloc.identity</source>
