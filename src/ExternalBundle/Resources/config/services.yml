@@ -101,6 +101,23 @@ services:
         arguments:
             - '@doctrine.orm.default_entity_manager'
 
+    ### CharacterOrganizer
+    external.domain.import.character_organizer.importer_factory:
+        class: ExternalBundle\Domain\Import\CharacterOrganizer\ImporterFactory
+        arguments:
+            - '@doctrine.dbal.external_connection'
+            - '@external.domain.import.character_organizer.writer'
+        calls:
+            - [setCharacterConverter, ['@external.domain.import.converter.character']]
+            - [setOrganizerConverter, ['@external.domain.import.converter.organizer']]
+            - [setValidator, ['@validator']]
+            - [setEntityManager, ['@doctrine.orm.default_entity_manager']]
+
+    external.domain.import.character_organizer.writer:
+        class: ExternalBundle\Domain\Import\CharacterOrganizer\Writer
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+
     ### Common
 
     #### Converter
@@ -118,6 +135,11 @@ services:
         class: ExternalBundle\Domain\Import\Common\Converter\EntityConverter
         arguments:
             - '@app.repository.larp'
+
+    external.domain.import.converter.organizer:
+        class: ExternalBundle\Domain\Import\Organizer\OrganizerConverter
+        arguments:
+            - '@app.repository.organizer'
 
     external.domain.import.converter.person:
         class: ExternalBundle\Domain\Import\Common\Converter\EntityConverter
@@ -265,9 +287,11 @@ services:
         calls:
             - [addParentDependency, ['person_id', '@external.domain.import.person.importer_factory']]
             - [addChildDependency, ['larp_id', '@external.domain.import.organizer.importer_factory', 10]]
-            - [addChildDependency, ['larp_id', '@external.domain.import.group.importer_factory', 8]]
-            - [addChildDependency, ['larp_id', '@external.domain.import.player.importer_factory', 6]]
-            - [addChildDependency, ['larp_id', '@external.domain.import.character.importer_factory', 4]]
+            - [addChildDependency, ['larp_id', '@external.domain.import.group.importer_factory', 9]]
+            - [addChildDependency, ['larp_id', '@external.domain.import.player.importer_factory', 8]]
+            - [addChildDependency, ['larp_id', '@external.domain.import.character.importer_factory', 7]]
+            - [addChildDependency, ['larp_id', '@external.domain.import.character_group.importer_factory', 6]]
+            - [addChildDependency, ['larp_id', '@external.domain.import.character_organizer.importer_factory', 6]]
         tags:
             - { name: 'external.domain.synchronizer' }
 
@@ -285,7 +309,7 @@ services:
         calls:
             - [addParentDependency, ['larp_id', '@external.domain.import.larp.importer_factory']]
             - [addParentDependency, ['person_id', '@external.domain.import.person.importer_factory']]
-
+            - [addChildDependency, ['organizer_id', '@external.domain.import.character_organizer.importer_factory']]
         tags:
             - { name: 'external.domain.synchronizer' }
 

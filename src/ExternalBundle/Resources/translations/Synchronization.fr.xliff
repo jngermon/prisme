@@ -152,9 +152,13 @@
                 <source>options.class.AppBundle\Entity\Character</source>
                 <target>Personnages</target>
             </trans-unit>
-            <trans-unit id="options.class.AppBundle\Entity\CharacterGruop">
+            <trans-unit id="options.class.AppBundle\Entity\CharacterGroup">
                 <source>options.class.AppBundle\Entity\CharacterGroup</source>
                 <target>Appartenance personnage/groupe</target>
+            </trans-unit>
+            <trans-unit id="options.class.AppBundle\Entity\CharacterOrganizer">
+                <source>options.class.AppBundle\Entity\CharacterOrganizer</source>
+                <target>Organisateurs référents</target>
             </trans-unit>
             <trans-unit id="options.class.AppBundle\Entity\Group">
                 <source>options.class.AppBundle\Entity\Group</source>
