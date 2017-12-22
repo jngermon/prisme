@@ -128,6 +128,7 @@ abstract class ImporterFactory
         $resolver->setDefaults([
             'batch_size' => 100,
             'ids' => null,
+            'larp_id' => null,
             'output' => null,
             'progress' => false,
             'synchronization' => null,
@@ -151,6 +152,7 @@ abstract class ImporterFactory
 
         $resolver->setAllowedTypes('batch_size', 'integer');
         $resolver->setAllowedTypes('ids', ['array', 'null', 'string', 'integer', 'string']);
+        $resolver->setAllowedTypes('larp_id', ['null', 'integer', 'string']);
         $resolver->setAllowedTypes('output', [OutputInterface::class, 'null']);
         $resolver->setAllowedTypes('progress', ['boolean']);
         $resolver->setAllowedTypes('synchronization', [Synchronization::class, 'null']);

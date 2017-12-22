@@ -150,6 +150,7 @@ class Writer extends DoctrineWriter implements InitiableWriter
         $resolver = new OptionsResolver();
         $resolver->setDefaults([
             'ids' => null,
+            'larp_id' => null,
         ]);
 
         $resolver->setNormalizer('ids', function (Options $options, $value) {
@@ -169,6 +170,7 @@ class Writer extends DoctrineWriter implements InitiableWriter
         });
 
         $resolver->setAllowedTypes('ids', ['array', 'null', 'string', 'integer']);
+        $resolver->setAllowedTypes('larp_id', ['null', 'integer', 'string']);
 
         return $resolver;
     }
