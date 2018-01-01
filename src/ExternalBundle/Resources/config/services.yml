@@ -229,6 +229,22 @@ services:
         arguments:
             - '@doctrine.orm.default_entity_manager'
 
+    ### Skill
+    external.domain.import.skill.importer_factory:
+        class: ExternalBundle\Domain\Import\Skill\ImporterFactory
+        arguments:
+            - '@doctrine.dbal.external_connection'
+            - '@external.domain.import.skill.writer'
+        calls:
+            - [setLarpConverter, ['@external.domain.import.converter.larp']]
+            - [setValidator, ['@validator']]
+            - [setEntityManager, ['@doctrine.orm.default_entity_manager']]
+
+    external.domain.import.skill.writer:
+        class: ExternalBundle\Domain\Import\Skill\Writer
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+
     ## Larp
     external.domain.larp.provider:
         class: ExternalBundle\Domain\Larp\Provider
@@ -292,6 +308,7 @@ services:
             - [addChildDependency, ['larp_id', '@external.domain.import.character.importer_factory', 7]]
             - [addChildDependency, ['larp_id', '@external.domain.import.character_group.importer_factory', 6]]
             - [addChildDependency, ['larp_id', '@external.domain.import.character_organizer.importer_factory', 6]]
+            - [addChildDependency, ['larp_id', '@external.domain.import.skill.importer_factory', 4]]
         tags:
             - { name: 'external.domain.synchronizer' }
 
@@ -320,6 +337,15 @@ services:
         calls:
             - [addParentDependency, ['larp_id', '@external.domain.import.larp.importer_factory']]
             - [addParentDependency, ['person_id', '@external.domain.import.person.importer_factory']]
+        tags:
+            - { name: 'external.domain.synchronizer' }
+
+    external.domain.synchronizer.skill:
+        class: ExternalBundle\Domain\Synchronizer\Synchronizer
+        arguments:
+            - '@external.domain.import.skill.importer_factory'
+        calls:
+            - [addParentDependency, ['larp_id', '@external.domain.import.larp.importer_factory']]
         tags:
             - { name: 'external.domain.synchronizer' }
 

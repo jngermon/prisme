@@ -180,6 +180,10 @@
                 <source>options.class.AppBundle\Entity\Player</source>
                 <target>Joueurs</target>
             </trans-unit>
+            <trans-unit id="options.class.AppBundle\Entity\Skill">
+                <source>options.class.AppBundle\Entity\Skill</source>
+                <target>Compétences</target>
+            </trans-unit>
 
             <trans-unit id="link_action_rerun">
                 <source>link_action_rerun</source>
