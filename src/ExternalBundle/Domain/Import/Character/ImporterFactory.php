@@ -32,7 +32,7 @@ class ImporterFactory extends BaseImporterFactory
         return [
             'idp' => 'externalId',
             'idgn' => 'larp',
-            'idu' => 'player',
+            'idpl' => 'player',
             'nom' => 'name',
             'titre' => 'title',
         ];
@@ -43,6 +43,7 @@ class ImporterFactory extends BaseImporterFactory
         $queryBuilder = new QueryBuilder($this->connection);
         $queryBuilder
             ->select('*')
+            ->addSelect('CONCAT(idu, "-", idgn) as idpl')
             ->from('persos')
             ;
 

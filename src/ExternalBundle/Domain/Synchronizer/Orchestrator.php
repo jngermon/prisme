@@ -68,8 +68,13 @@ class Orchestrator
                 $synchronization->setStatus(SynchronizationStatus::SUCCESSED);
                 $output->writeln(sprintf('<info>Synchronization : %d is done.</info>', $runningId));
             } else {
+                $reason = $res->getReasonPhrase();
+
+                if (!$reason && $res->getOutput() instanceof \Exception) {
+                    $reason = $res->getOutput()->getMessage() ?: get_class($res->getOutput());
+                }
                 $synchronization->setStatus(SynchronizationStatus::ERROR)
-                    ->setErrors($res->getReasonPhrase());
+                    ->setErrors($reason);
 
                 $output->writeln(sprintf('<error>Error during synchronization : %d</error>', $runningId));
             }
