@@ -8,7 +8,7 @@ use ExternalBundle\Annotations\External;
 use ExternalBundle\Domain\Import\Common\SynchronizableInterface;
 use ExternalBundle\Domain\Import\Common\SynchronizableTrait;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
- use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity
@@ -49,6 +49,11 @@ class Character implements SynchronizableInterface, LarpRelatedInterface
     protected $characterGroups;
 
     /**
+     * @ORM\OneToMany(targetEntity="CharacterSkill", mappedBy="character")
+     */
+    protected $characterSkills;
+
+    /**
      * @ORM\Column(type="string")
      * @External()
      */
@@ -64,6 +69,7 @@ class Character implements SynchronizableInterface, LarpRelatedInterface
     {
         $this->characterOrganizers = new ArrayCollection();
         $this->characterGroups = new ArrayCollection();
+        $this->characterSkills = new ArrayCollection();
     }
 
     public function __toString()
@@ -186,6 +192,36 @@ class Character implements SynchronizableInterface, LarpRelatedInterface
         }
 
         return $nb;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getCharacterSkills()
+    {
+        return $this->characterSkills;
+    }
+
+    /**
+     * @param CharacterSkill $characterSkill
+     */
+    public function addCharacterSkill(CharacterSkill $characterSkill)
+    {
+        if (!$this->characterSkills->contains($characterSkill)) {
+            $this->characterSkills->add($characterSkill);
+        }
+        return $this;
+    }
+
+    /**
+     * @param CharacterSkill $characterSkill
+     */
+    public function removeCharacterSkill(CharacterSkill $characterSkill)
+    {
+        if ($this->characterSkills->contains($characterSkill)) {
+            $this->characterSkills->remove($characterSkill);
+        }
+        return $this;
     }
 
     /**
