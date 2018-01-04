@@ -30,7 +30,7 @@ class CharacterSkill implements SynchronizableInterface
     protected $character;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Skill", inversedBy="characterSkills", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="Skill", inversedBy="skillCharacters", fetch="EAGER")
      */
     protected $skill;
 

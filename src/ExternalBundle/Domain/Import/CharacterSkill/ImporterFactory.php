@@ -1,6 +1,6 @@
 <?php
 
-namespace ExternalBundle\Domain\Import\CharacterGroup;
+namespace ExternalBundle\Domain\Import\CharacterSkill;
 
 use Ddeboer\DataImport\Step\ValidatorStep;
 use Ddeboer\DataImport\Step\ValueConverterStep;
@@ -8,18 +8,18 @@ use Ddeboer\DataImport\ValueConverter\DateTimeValueConverter;
 use Ddeboer\DataImport\Workflow;
 use Doctrine\DBAL\Query\QueryBuilder;
 use ExternalBundle\Domain\Import\Common\ImporterFactory as BaseImporterFactory;
-use ExternalBundle\Domain\Import\Group\GroupConverter;
+use ExternalBundle\Domain\Import\Skill\SkillConverter;
 use ExternalBundle\Domain\Import\Character\CharacterConverter;
 
 class ImporterFactory extends BaseImporterFactory
 {
-    protected $groupConverter;
+    protected $skillConverter;
 
     protected $characterConverter;
 
-    public function setGroupConverter(GroupConverter $groupConverter)
+    public function setSkillConverter(SkillConverter $skillConverter)
     {
-        $this->groupConverter = $groupConverter;
+        $this->skillConverter = $skillConverter;
     }
 
     public function setCharacterConverter(CharacterConverter $characterConverter)
@@ -30,8 +30,8 @@ class ImporterFactory extends BaseImporterFactory
     public function getMappings()
     {
         return [
-            'idlgp' => 'externalId',
-            'idg' => 'group',
+            'idl' => 'externalId',
+            'idc' => 'skill',
             'idp' => 'character',
         ];
     }
@@ -41,13 +41,13 @@ class ImporterFactory extends BaseImporterFactory
         $queryBuilder = new QueryBuilder($this->connection);
         $queryBuilder
             ->select('*')
-            ->from('liaison_group_user', 'lgu')
-            ->innerJoin('lgu', 'groupes', 'g', 'lgu.idg = g.idg')
-            ->innerJoin('lgu', 'persos', 'p', 'lgu.idu = p.idu AND g.idgn = p.idgn')
+            ->from('liaison_comp_pj', 'l')
+            ->innerJoin('l', 'persos', 'p', 'l.idu = p.idu AND l.idgn = p.idgn')
+            ->innerJoin('l', 'comp_pj', 'c', 'l.idc = c.idc')
             ;
 
         if ($options['ids']) {
-            $queryBuilder->andWhere($queryBuilder->expr()->in('idlgp', $options['ids']));
+            $queryBuilder->andWhere($queryBuilder->expr()->in('idl', $options['ids']));
         }
 
         if ($options['character_id']) {
@@ -55,9 +55,9 @@ class ImporterFactory extends BaseImporterFactory
                 ->setParameter('idp', $options['character_id']);
         }
 
-        if ($options['group_id']) {
-            $queryBuilder->andWhere('idg = :idg')
-                ->setParameter('idg', $options['group_id']);
+        if ($options['skill_id']) {
+            $queryBuilder->andWhere('idc = :idc')
+                ->setParameter('idc', $options['skill_id']);
         }
 
         if ($options['larp_id']) {
@@ -71,7 +71,7 @@ class ImporterFactory extends BaseImporterFactory
     protected function createCountQueryBuilder(QueryBuilder $queryBuilder)
     {
         return function ($queryBuilder) {
-            $queryBuilder->select('COUNT(DISTINCT idlgp) AS total')
+            $queryBuilder->select('COUNT(DISTINCT idl) AS total')
                 ->setMaxResults(1)
                 ;
         };
@@ -84,8 +84,8 @@ class ImporterFactory extends BaseImporterFactory
         if ($this->characterConverter) {
             $step->add('[character]', $this->characterConverter);
         }
-        if ($this->groupConverter) {
-            $step->add('[group]', $this->groupConverter);
+        if ($this->skillConverter) {
+            $step->add('[skill]', $this->skillConverter);
         }
 
         $workflow->addStep($step, 50);
@@ -94,7 +94,7 @@ class ImporterFactory extends BaseImporterFactory
     protected function configreValidatorStep(ValidatorStep $validatorStep)
     {
         $validatorStep->add('character', new \Symfony\Component\Validator\Constraints\NotNull());
-        $validatorStep->add('group', new \Symfony\Component\Validator\Constraints\NotNull());
+        $validatorStep->add('skill', new \Symfony\Component\Validator\Constraints\NotNull());
     }
 
     protected function createOptionsResolver()
@@ -103,12 +103,12 @@ class ImporterFactory extends BaseImporterFactory
 
         $resolver->setDefaults([
             'character_id' => null,
-            'group_id' => null,
+            'skill_id' => null,
             'larp_id' => null,
         ]);
 
         $resolver->setAllowedTypes('character_id', ['null', 'integer', 'string']);
-        $resolver->setAllowedTypes('group_id', ['null', 'integer', 'string']);
+        $resolver->setAllowedTypes('skill_id', ['null', 'integer', 'string']);
         $resolver->setAllowedTypes('larp_id', ['null', 'integer', 'string']);
 
         return $resolver;

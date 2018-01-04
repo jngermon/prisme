@@ -118,6 +118,23 @@ services:
         arguments:
             - '@doctrine.orm.default_entity_manager'
 
+    ### CharacterSkill
+    external.domain.import.character_skill.importer_factory:
+        class: ExternalBundle\Domain\Import\CharacterSkill\ImporterFactory
+        arguments:
+            - '@doctrine.dbal.external_connection'
+            - '@external.domain.import.character_skill.writer'
+        calls:
+            - [setCharacterConverter, ['@external.domain.import.converter.character']]
+            - [setSkillConverter, ['@external.domain.import.converter.skill']]
+            - [setValidator, ['@validator']]
+            - [setEntityManager, ['@doctrine.orm.default_entity_manager']]
+
+    external.domain.import.character_skill.writer:
+        class: ExternalBundle\Domain\Import\CharacterSkill\Writer
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+
     ### Common
 
     #### Converter
@@ -150,6 +167,11 @@ services:
         class: ExternalBundle\Domain\Import\Player\PlayerConverter
         arguments:
             - '@app.repository.player'
+
+    external.domain.import.converter.skill:
+        class: ExternalBundle\Domain\Import\Skill\SkillConverter
+        arguments:
+            - '@app.repository.skill'
 
     ### Group
     external.domain.import.group.importer_factory:
@@ -282,6 +304,7 @@ services:
             - [addParentDependency, ['larp_id', '@external.domain.import.larp.importer_factory', 10]]
             - [addParentDependency, ['player_id', '@external.domain.import.player.importer_factory', 5]]
             - [addChildDependency, ['character_id', '@external.domain.import.character_group.importer_factory', 10]]
+            - [addChildDependency, ['character_id', '@external.domain.import.character_skill.importer_factory', 8]]
         tags:
             - { name: 'external.domain.synchronizer' }
 
@@ -309,6 +332,7 @@ services:
             - [addChildDependency, ['larp_id', '@external.domain.import.character_group.importer_factory', 6]]
             - [addChildDependency, ['larp_id', '@external.domain.import.character_organizer.importer_factory', 6]]
             - [addChildDependency, ['larp_id', '@external.domain.import.skill.importer_factory', 4]]
+            - [addChildDependency, ['larp_id', '@external.domain.import.character_skill.importer_factory', 3]]
         tags:
             - { name: 'external.domain.synchronizer' }
 
