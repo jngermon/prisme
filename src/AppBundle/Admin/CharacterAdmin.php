@@ -32,7 +32,6 @@ class CharacterAdmin extends BaseAdmin
             ])
                 ->add('player')
                 ->add('characterOrganizers', null, [
-
                     'admin_code' => 'app.admin.character_organizer_for_character',
                     'associated_property' => 'organizer',
                     'template' => 'AppBundle:CharacterAdmin:show_organizers.html.twig',
@@ -47,6 +46,16 @@ class CharacterAdmin extends BaseAdmin
                 ->add('affiliations', null, [
                     'show_label' => false,
                     'template' => 'AppBundle:CharacterAdmin:show_affiliations.html.twig',
+                ])
+            ->end()
+            ->with('bloc.skill', [
+                'class'       => 'col-md-5',
+                'box_class'   => 'box box-primary',
+            ])
+                ->add('characterSkills', null, [
+                    'associated_property' => 'skill',
+                    'label' => false,
+                    'template' => 'AppBundle:CharacterAdmin:show_skills.html.twig',
                 ])
             ->end()
             ->with('bloc.info', [

@@ -117,6 +117,10 @@
                 <source>bloc.group</source>
                 <target>Groupes</target>
             </trans-unit>
+            <trans-unit id="bloc.skill">
+                <source>bloc.skill</source>
+                <target>Compétences</target>
+            </trans-unit>
 
             <trans-unit id="link_to_character">
                 <source>link_to_character</source>
