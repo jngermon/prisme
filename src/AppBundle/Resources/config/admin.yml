@@ -12,6 +12,20 @@ services:
             - [ addChild, ['@app.admin.character_organizer_for_character']]
         public: true
 
+    app.admin.character_data_definition:
+        class: AppBundle\Admin\CharacterDataDefinitionAdmin
+        arguments: [~, AppBundle\Entity\CharacterDataDefinition, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: CharacterDataDefinition }
+        calls:
+            - [ setTranslationDomain, [CharacterDataDefinition]]
+            - [ setLabelTranslatorStrategy, ['@sonata.admin.label.strategy.underscore']]
+            - [ setSubClasses, [{
+                string: AppBundle\Entity\CharacterDataDefinitionString,
+                integer: AppBundle\Entity\CharacterDataDefinitionInteger
+                }]]
+        public: true
+
     app.admin.character_group_for_character:
         class: AppBundle\Admin\CharacterGroupForCharacterAdmin
         arguments: [~, AppBundle\Entity\CharacterGroup, ~]
@@ -118,6 +132,11 @@ services:
             - { name: sonata.block }
 
     # Extension
+    app.extension.character_data_definition.string:
+        class: AppBundle\Admin\Extension\CharacterDataDefinitionStringExtension
+        tags:
+            - { name: sonata.admin.extension, target: app.admin.character_data_definition }
+
     app.extension.larp:
         class: AppBundle\Admin\Extension\LarpExtension
         arguments:

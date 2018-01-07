@@ -87,6 +87,7 @@ stof_doctrine_extensions:
     orm:
         default:
             timestampable: true
+            sortable: true
 
 sonata_block:
     default_contexts: [cms]
@@ -116,6 +117,9 @@ sonata_admin:
                     - app.admin.player
                     - app.admin.group
                     - app.admin.character
+            sonata.admin.group.settings:
+                items:
+                    - app.admin.character_data_definition
             sonata.admin.group.common:
                 items:
                     - app.admin.person

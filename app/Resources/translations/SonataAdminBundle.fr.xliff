@@ -14,6 +14,15 @@
                 <source>sonata.admin.group.common</source>
                 <target>Général</target>
             </trans-unit>
+            <trans-unit id="sonata.admin.group.settings">
+                <source>sonata.admin.group.settings</source>
+                <target>Paramètres du GN</target>
+            </trans-unit>
+
+            <trans-unit id="title_select_subclass">
+                <source>title_select_subclass</source>
+                <target>Quel type ?</target>
+            </trans-unit>
 
         </body>
     </file>
