@@ -79,10 +79,11 @@ abstract class CharacterDataDefinition implements LarpRelatedInterface
         return $this->label ?: '-';
     }
 
+    abstract public function getDefault();
+
     /**
      * @return string
      */
-    //abstract public function getType();
     public function getType()
     {
         return  get_class($this);

@@ -39,6 +39,10 @@
                 <source>form.label_max</source>
                 <target>Nombre maximum d'éléments</target>
             </trans-unit>
+            <trans-unit id="form.label_default">
+                <source>form.label_default</source>
+                <target>Valeur par défaut</target>
+            </trans-unit>
 
             <trans-unit id="list.label_position">
                 <source>list.label_position</source>
@@ -92,6 +96,10 @@
             <trans-unit id="show.label_max">
                 <source>show.label_max</source>
                 <target>Nombre maximum d'éléments</target>
+            </trans-unit>
+            <trans-unit id="show.label_default">
+                <source>show.label_default</source>
+                <target>Valeur par défaut</target>
             </trans-unit>
 
             <trans-unit id="bloc.main">

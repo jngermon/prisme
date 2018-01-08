@@ -11,6 +11,24 @@ use Symfony\Component\Validator\Constraints as Assert;
 class CharacterDataDefinitionString extends CharacterDataDefinition
 {
     /**
+     * @return string
+     */
+    public function getDefault()
+    {
+        return $this->getOption('default', '');
+    }
+
+    /**
+     * @param string $default
+     */
+    public function setDefault($default)
+    {
+        $this->setOption('default', $default);
+
+        return $this;
+    }
+
+    /**
      * @return integer
      * @Assert\GreaterThanOrEqual(1)
      */

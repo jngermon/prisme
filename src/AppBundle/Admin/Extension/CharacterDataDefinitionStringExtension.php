@@ -17,6 +17,9 @@ class CharacterDataDefinitionStringExtension extends AbstractAdminExtension
         }
 
         $formMapper->with('bloc.options')
+                ->add('default', 'text', [
+                    'required' => false,
+                ])
                 ->add('maxLength', 'integer', [
                 ], [
                     'translation_domain' => 'CharacterDataDefinitionString',
@@ -32,6 +35,7 @@ class CharacterDataDefinitionStringExtension extends AbstractAdminExtension
         }
 
         $showMapper->with('bloc.options')
+                ->add('default', 'text')
                 ->add('maxLength', 'integer', [
                     'translation_domain' => 'CharacterDataDefinitionString',
                 ])
