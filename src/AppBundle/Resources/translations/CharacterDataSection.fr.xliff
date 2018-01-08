@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="CharacterDataSection">
+                <source>CharacterDataSection</source>
+                <target>Section du personnage</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_character_data_section_list">
+                <source>breadcrumb.link_character_data_section_list</source>
+                <target>Section du personnage</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_character_data_section_create">
+                <source>breadcrumb.link_character_data_section_create</source>
+                <target>Création d'une section</target>
+            </trans-unit>
+
+            <trans-unit id="form.label_position">
+                <source>form.label_position</source>
+                <target>Position</target>
+            </trans-unit>
+            <trans-unit id="form.label_label">
+                <source>form.label_label</source>
+                <target>Libellé</target>
+            </trans-unit>
+            <trans-unit id="form.label_size">
+                <source>form.label_size</source>
+                <target>Taille</target>
+            </trans-unit>
+
+            <trans-unit id="list.label_position">
+                <source>list.label_position</source>
+                <target>Position</target>
+            </trans-unit>
+            <trans-unit id="list.label__action">
+                <source>list.label__action</source>
+                <target>Actions</target>
+            </trans-unit>
+            <trans-unit id="list.label_label">
+                <source>list.label_label</source>
+                <target>Libellé</target>
+            </trans-unit>
+            <trans-unit id="list.label_size">
+                <source>list.label_size</source>
+                <target>Taille</target>
+            </trans-unit>
+
+            <trans-unit id="show.label_position">
+                <source>show.label_position</source>
+                <target>Position</target>
+            </trans-unit>
+            <trans-unit id="show.label_label">
+                <source>show.label_label</source>
+                <target>Libellé</target>
+            </trans-unit>
+            <trans-unit id="show.label_size">
+                <source>show.label_size</source>
+                <target>Taille</target>
+            </trans-unit>
+
+            <trans-unit id="bloc.main">
+                <source>bloc.main</source>
+                <target>Paramétrage</target>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>

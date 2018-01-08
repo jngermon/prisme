@@ -26,6 +26,16 @@ services:
                 }]]
         public: true
 
+    app.admin.character_data_section:
+        class: AppBundle\Admin\CharacterDataSectionAdmin
+        arguments: [~, AppBundle\Entity\CharacterDataSection, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: CharacterDataSection }
+        calls:
+            - [ setTranslationDomain, [CharacterDataSection]]
+            - [ setLabelTranslatorStrategy, ['@sonata.admin.label.strategy.underscore']]
+        public: true
+
     app.admin.character_group_for_character:
         class: AppBundle\Admin\CharacterGroupForCharacterAdmin
         arguments: [~, AppBundle\Entity\CharacterGroup, ~]
