@@ -40,8 +40,16 @@ abstract class CharacterDataDefinition implements LarpRelatedInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="Larp")
+     * @Gedmo\SortableGroup
      */
     protected $larp;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="CharacterDataSection")
+     * @Gedmo\SortableGroup
+     * @Assert\Expression("!value or this.getLarp() == value.getLarp()")
+     */
+    protected $section;
 
     /**
      * @ORM\Column(name="options", type="json")
@@ -147,6 +155,24 @@ abstract class CharacterDataDefinition implements LarpRelatedInterface
     public function setLarp($larp)
     {
         $this->larp = $larp;
+
+        return $this;
+    }
+
+    /**
+     * @return CharacterDataSection
+     */
+    public function getSection()
+    {
+        return $this->section;
+    }
+
+    /**
+     * @param CharacterDataSection $section
+     */
+    public function setSection($section)
+    {
+        $this->section = $section;
 
         return $this;
     }

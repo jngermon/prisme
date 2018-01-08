@@ -15,6 +15,10 @@
                 <target>Création d'une donnée</target>
             </trans-unit>
 
+            <trans-unit id="form.label_section">
+                <source>form.label_section</source>
+                <target>Section</target>
+            </trans-unit>
             <trans-unit id="form.label_position">
                 <source>form.label_position</source>
                 <target>Position</target>
@@ -44,6 +48,10 @@
                 <target>Valeur par défaut</target>
             </trans-unit>
 
+            <trans-unit id="list.label_section">
+                <source>list.label_section</source>
+                <target>Section</target>
+            </trans-unit>
             <trans-unit id="list.label_position">
                 <source>list.label_position</source>
                 <target>Position</target>
@@ -73,6 +81,10 @@
                 <target>Nombre maximum d'éléments</target>
             </trans-unit>
 
+            <trans-unit id="show.label_section">
+                <source>show.label_section</source>
+                <target>Section</target>
+            </trans-unit>
             <trans-unit id="show.label_position">
                 <source>show.label_position</source>
                 <target>Position</target>

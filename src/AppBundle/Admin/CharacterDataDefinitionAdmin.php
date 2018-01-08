@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
@@ -18,6 +19,7 @@ class CharacterDataDefinitionAdmin extends BaseAdmin
                 'class'       => 'col-md-6',
                 'box_class'   => 'box box-primary',
             ])
+                ->add('section')
                 ->add('position')
                 ->add('name')
                 ->add('type', 'trans', [
@@ -42,6 +44,15 @@ class CharacterDataDefinitionAdmin extends BaseAdmin
                 'class'       => 'col-md-6',
                 'box_class'   => 'box box-primary',
             ])
+                ->add('section', null, [
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('s')
+                            ->andWhere('s.larp = :larp')
+                            ->setParameter('larp', $this->getSubject()->getLarp())
+                            ->orderBy('s.label', 'ASC')
+                            ;
+                    },
+                ])
                 ->add('position')
                 ->add('name')
                 ->add('label')
@@ -59,6 +70,7 @@ class CharacterDataDefinitionAdmin extends BaseAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
+            ->add('section')
             ->add('position')
             ->add('name')
             ->add('type', 'trans')
