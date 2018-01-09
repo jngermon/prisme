@@ -1,0 +1,5 @@
+{% extends 'SonataAdminBundle:CRUD:base_show_field.html.twig' %}
+
+{% block field %}
+    {{ object|valueByDefinition(field_description.options.definition) }}
+{% endblock field %}

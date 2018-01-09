@@ -10,6 +10,7 @@ services:
             - [ setLabelTranslatorStrategy, ['@sonata.admin.label.strategy.underscore']]
             - [ addChild, ['@app.admin.character_group_for_character']]
             - [ addChild, ['@app.admin.character_organizer_for_character']]
+            - [ setFormFactory, ['@app.doctrine.character_data_definition.form.factory']]
         public: true
 
     app.admin.character_data_definition:

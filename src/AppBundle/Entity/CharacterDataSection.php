@@ -25,9 +25,15 @@ class CharacterDataSection implements LarpRelatedInterface
     protected $position;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Larp")
+     * @ORM\ManyToOne(targetEntity="Larp", inversedBy="characterDataSections")
      */
     protected $larp;
+
+    /**
+     * @ORM\OneToMany(targetEntity="CharacterDataDefinition", mappedBy="section")
+     * @ORM\OrderBy({"position" = "ASC"})
+     */
+    protected $characterDataDefinitions;
 
     /**
      * @ORM\Column(name="label", type="string", length=255)
@@ -131,5 +137,13 @@ class CharacterDataSection implements LarpRelatedInterface
         $this->size = $size;
 
         return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getCharacterDataDefinitions()
+    {
+        return $this->characterDataDefinitions;
     }
 }

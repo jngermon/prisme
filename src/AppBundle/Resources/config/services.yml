@@ -1,6 +1,43 @@
 services:
     # Domain
 
+    ## CharacterDataDefinition
+    ### Type
+    app.doctrine.character_data_definition.form.factory:
+        class: AppBundle\Domain\CharacterDataDefinition\Form\FormFactory
+        tags:
+            - { name: 'mmc.processor.chain' }
+
+    app.doctrine.character_data_definition.form.factory.integer:
+        class: AppBundle\Domain\CharacterDataDefinition\Form\IntegerFormFactory
+        arguments:
+            - '@form.factory'
+        tags:
+            - { name: 'app.doctrine.character_data_definition.form.factory' }
+
+    app.doctrine.character_data_definition.form.factory.string:
+        class: AppBundle\Domain\CharacterDataDefinition\Form\StringFormFactory
+        arguments:
+            - '@form.factory'
+        tags:
+            - { name: 'app.doctrine.character_data_definition.form.factory' }
+
+    ### Viewer
+    app.domain.character_data_definition.viewer:
+        class: AppBundle\Domain\CharacterDataDefinition\Viewer\Viewer
+        tags:
+            - { name: 'mmc.processor.chain' }
+
+    app.domain.character_data_definition.viewer.integer:
+        class: AppBundle\Domain\CharacterDataDefinition\Viewer\IntegerViewer
+        tags:
+            - { name: 'app.domain.character_data_definition.viewer' }
+
+    app.domain.character_data_definition.viewer.string:
+        class: AppBundle\Domain\CharacterDataDefinition\Viewer\StringViewer
+        tags:
+            - { name: 'app.domain.character_data_definition.viewer' }
+
     ## Group
     app.domain.group.composition_provider:
         class: AppBundle\Domain\Group\CompositionProvider

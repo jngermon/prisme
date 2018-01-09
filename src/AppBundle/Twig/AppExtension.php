@@ -26,6 +26,6 @@ class AppExtension extends \Twig_Extension
 
     public function getName()
     {
-        return 'tintin';
+        return 'app';
     }
 }

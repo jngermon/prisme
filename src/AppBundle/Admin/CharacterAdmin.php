@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Domain\CharacterDataDefinition\Form\FormFactory;
 use AppBundle\Entity\User;
 use Greg0ire\Enum\Bridge\Symfony\Form\Type\EnumType;
 use Knp\Menu\ItemInterface as MenuItemInterface;
@@ -16,6 +17,12 @@ class CharacterAdmin extends BaseAdmin
 {
     protected $baseRouteName = 'app_admin_character';
     protected $baseRoutePattern = 'characters';
+    protected $formFactory;
+
+    public function setFormFactory(FormFactory $formFactory)
+    {
+        $this->formFactory = $formFactory;
+    }
 
     protected $datagridValues = array(
         '_page' => 1,
@@ -66,6 +73,30 @@ class CharacterAdmin extends BaseAdmin
                 ->add('updatedAt')
             ->end()
             ;
+
+        $sections = $this->getSubject()->getLarp()->getCharacterDataSections();
+
+        foreach ($sections as $section) {
+            $showMapper
+                ->with('bloc.section.'.$section->getId(), [
+                    'class' => 'col-md-'.$section->getSize(),
+                    'box_class'   => 'box box-primary',
+                    'name' => $section->getLabel(),
+                ])
+                ;
+
+            foreach ($section->getCharacterDataDefinitions() as $definition) {
+                $showMapper
+                    ->add('definition_'.$definition->getName(), null, [
+                        'label' => $definition->getLabel(),
+                        'template' => 'AppBundle:CharacterAdmin:show_data.html.twig',
+                        'definition' => $definition,
+                    ]);
+
+            }
+
+            $showMapper->end();
+        }
     }
 
     protected function configureFormFields(FormMapper $formMapper)
@@ -82,6 +113,31 @@ class CharacterAdmin extends BaseAdmin
                 ->add('title')
             ->end()
             ;
+
+        if (!$this->formFactory) {
+            return ;
+        }
+
+        $sections = $this->getSubject()->getLarp()->getCharacterDataSections();
+
+        foreach ($sections as $section) {
+            $formMapper
+                ->with('bloc.section.'.$section->getId(), [
+                    'class' => 'col-md-'.$section->getSize(),
+                    'box_class'   => 'box box-primary',
+                    'name' => $section->getLabel(),
+                ])
+                ;
+
+            foreach ($section->getCharacterDataDefinitions() as $definition) {
+                $form = $this->formFactory->create($definition);
+                if ($form) {
+                    $formMapper->add($form);
+                }
+            }
+
+            $formMapper->end();
+        }
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)

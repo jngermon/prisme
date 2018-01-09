@@ -39,13 +39,13 @@ abstract class CharacterDataDefinition implements LarpRelatedInterface
     protected $position;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Larp")
+     * @ORM\ManyToOne(targetEntity="Larp", inversedBy="characterDataDefinitions")
      * @Gedmo\SortableGroup
      */
     protected $larp;
 
     /**
-     * @ORM\ManyToOne(targetEntity="CharacterDataSection")
+     * @ORM\ManyToOne(targetEntity="CharacterDataSection", inversedBy="characterDataDefinitions")
      * @Gedmo\SortableGroup
      * @Assert\Expression("!value or this.getLarp() == value.getLarp()")
      */

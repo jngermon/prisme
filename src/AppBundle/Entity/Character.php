@@ -65,11 +65,17 @@ class Character implements SynchronizableInterface, LarpRelatedInterface
      */
     protected $title;
 
+    /**
+     * @ORM\Column(name="datas", type="json")
+     */
+    protected $datas;
+
     public function __construct()
     {
         $this->characterOrganizers = new ArrayCollection();
         $this->characterGroups = new ArrayCollection();
         $this->characterSkills = new ArrayCollection();
+        $this->datas = [];
     }
 
     public function __toString()
@@ -258,5 +264,28 @@ class Character implements SynchronizableInterface, LarpRelatedInterface
         $this->title = $title;
 
         return $this;
+    }
+
+    /**
+     * @return Array
+     */
+    public function getDatas()
+    {
+        return $this->datas;
+    }
+
+    /**
+     * @param Array $datas
+     */
+    public function setDatas($datas)
+    {
+        $this->datas = $datas;
+
+        return $this;
+    }
+
+    public function getData($name)
+    {
+        return isset($this->datas[$name]) ? $this->datas[$name] : null;
     }
 }

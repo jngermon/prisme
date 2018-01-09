@@ -70,6 +70,18 @@ class Larp implements SynchronizableInterface
     protected $characters;
 
     /**
+     * @ORM\OneToMany(targetEntity="CharacterDataSection", mappedBy="larp")
+     * @ORM\OrderBy({"position" = "ASC"})
+     */
+    protected $characterDataSections;
+
+    /**
+     * @ORM\OneToMany(targetEntity="CharacterDataDefinition", mappedBy="larp")
+     * @ORM\OrderBy({"position" = "ASC"})
+     */
+    protected $characterDataDefinitions;
+
+    /**
      * @ORM\OneToMany(targetEntity="Group", mappedBy="larp")
      */
     protected $groups;
@@ -285,5 +297,21 @@ class Larp implements SynchronizableInterface
             $this->groups->remove($group);
         }
         return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getCharacterDataSections()
+    {
+        return $this->characterDataSections;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getCharacterDataDefinitions()
+    {
+        return $this->characterDataDefinitions;
     }
 }
