@@ -288,4 +288,11 @@ class Character implements SynchronizableInterface, LarpRelatedInterface
     {
         return isset($this->datas[$name]) ? $this->datas[$name] : null;
     }
+
+    public function setData($name, $value)
+    {
+        $this->datas[$name] = $value;
+
+        return $this;
+    }
 }

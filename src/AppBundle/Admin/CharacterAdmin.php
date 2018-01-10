@@ -189,4 +189,17 @@ class CharacterAdmin extends BaseAdmin
             ]);
         }
     }
+
+    public function getNewInstance()
+    {
+        $character = parent::getNewInstance();
+
+        foreach ($character->getLarp()->getCharacterDataDefinitions() as $definition) {
+            if ($definition->getOption('default') !== null) {
+                $character->setData($definition->getName(), $definition->getOption('default'));
+            }
+        }
+
+        return $character;
+    }
 }
