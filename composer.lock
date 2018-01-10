@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "879d0e18057891acf02377ccec6f0cee",
+    "content-hash": "36d63e33ea1877639713514ea81206b6",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1711,16 +1711,16 @@
         },
         {
             "name": "meuhmeuhconcept/processor",
-            "version": "v2.1.0",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MeuhMeuhConcept/processor.git",
-                "reference": "1c8b6653a60bbea0e162ed8716c300c050daaa06"
+                "reference": "67294efa90ecec6c3be575113c0a3b37c9a069ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MeuhMeuhConcept/processor/zipball/1c8b6653a60bbea0e162ed8716c300c050daaa06",
-                "reference": "1c8b6653a60bbea0e162ed8716c300c050daaa06",
+                "url": "https://api.github.com/repos/MeuhMeuhConcept/processor/zipball/67294efa90ecec6c3be575113c0a3b37c9a069ac",
+                "reference": "67294efa90ecec6c3be575113c0a3b37c9a069ac",
                 "shasum": ""
             },
             "require": {
@@ -1755,7 +1755,7 @@
                 }
             ],
             "description": "Mechanism to process a work from a request",
-            "time": "2017-12-08T11:16:21+00:00"
+            "time": "2018-01-10T20:06:00+00:00"
         },
         {
             "name": "meuhmeuhconcept/sonata-admin-bundle",

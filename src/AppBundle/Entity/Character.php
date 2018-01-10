@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Domain\CharacterDataDefinition\Validator\Constraints\CharacterDataDefinition as AssertCharacterDataDefinition;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use ExternalBundle\Annotations\External;
@@ -13,6 +14,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity
  * @ORM\Table(name="character")
+ * @AssertCharacterDataDefinition()
  */
 class Character implements SynchronizableInterface, LarpRelatedInterface
 {

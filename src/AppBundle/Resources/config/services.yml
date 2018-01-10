@@ -22,6 +22,26 @@ services:
         tags:
             - { name: 'app.doctrine.character_data_definition.form.factory' }
 
+    ### Validator
+    app.domain.character_data_definition.validator:
+        class: AppBundle\Domain\CharacterDataDefinition\Validator\Constraints\CharacterDataDefinitionValidator
+        public: false
+        tags:
+            - { name: 'mmc.processor.chain' }
+            - { name: 'validator.constraint_validator' }
+
+    app.domain.character_data_definition.validator.integer:
+        class: AppBundle\Domain\CharacterDataDefinition\Validator\IntegerValidator
+        public: false
+        tags:
+            - { name: 'app.domain.character_data_definition.validator' }
+
+    app.domain.character_data_definition.validator.string:
+        class: AppBundle\Domain\CharacterDataDefinition\Validator\StringValidator
+        public: false
+        tags:
+            - { name: 'app.domain.character_data_definition.validator' }
+
     ### Viewer
     app.domain.character_data_definition.viewer:
         class: AppBundle\Domain\CharacterDataDefinition\Viewer\Viewer

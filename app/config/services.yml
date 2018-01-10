@@ -35,3 +35,5 @@ services:
     #         $someArgument: 'some_value'
 
     AppBundle\Domain\CharacterDataDefinition\Viewer\Viewer: '@app.domain.character_data_definition.viewer'
+
+    AppBundle\Domain\CharacterDataDefinition\Validator\Constraints\CharacterDataDefinitionValidator: '@app.domain.character_data_definition.validator'
