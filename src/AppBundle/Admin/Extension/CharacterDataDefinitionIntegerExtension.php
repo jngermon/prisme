@@ -28,6 +28,16 @@ class CharacterDataDefinitionIntegerExtension extends AbstractAdminExtension
                 ], [
                     'translation_domain' => 'CharacterDataDefinitionInteger',
                 ])
+                ->add('singular', 'text', [
+                    'required' => false,
+                ], [
+                    'translation_domain' => 'CharacterDataDefinitionInteger',
+                ])
+                ->add('plural', 'text', [
+                    'required' => false,
+                ], [
+                    'translation_domain' => 'CharacterDataDefinitionInteger',
+                ])
             ->end()
             ;
     }
@@ -44,6 +54,12 @@ class CharacterDataDefinitionIntegerExtension extends AbstractAdminExtension
                     'translation_domain' => 'CharacterDataDefinitionInteger',
                 ])
                 ->add('max', 'integer', [
+                    'translation_domain' => 'CharacterDataDefinitionInteger',
+                ])
+                ->add('singular', 'text', [
+                    'translation_domain' => 'CharacterDataDefinitionInteger',
+                ])
+                ->add('plural', 'text', [
                     'translation_domain' => 'CharacterDataDefinitionInteger',
                 ])
             ->end()

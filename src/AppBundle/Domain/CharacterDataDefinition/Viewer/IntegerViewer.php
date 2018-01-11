@@ -20,6 +20,10 @@ class IntegerViewer extends BaseViewer
         $character = $request['character'];
         $definition = $request['definition'];
 
-        return intval($character->getData($definition->getName()));
+        $v = intval($character->getData($definition->getName()));
+
+        $unity = $v > 1 ? $definition->getPlural() : $ $definition->getSingular();
+
+        return sprintf('%d %s', $v, $unity);
     }
 }

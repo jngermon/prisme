@@ -62,4 +62,40 @@ class CharacterDataDefinitionInteger extends CharacterDataDefinition
 
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getSingular()
+    {
+        return $this->getOption('singular', '');
+    }
+
+    /**
+     * @param string $singular
+     */
+    public function setSingular($singular)
+    {
+        $this->setOption('singular', $singular);
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPlural()
+    {
+        return $this->getOption('plural', '');
+    }
+
+    /**
+     * @param string $plural
+     */
+    public function setPlural($plural)
+    {
+        $this->setOption('plural', $plural);
+
+        return $this;
+    }
 }

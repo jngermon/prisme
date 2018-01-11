@@ -10,6 +10,14 @@
                 <source>form.label_max</source>
                 <target>Valeur maximale</target>
             </trans-unit>
+            <trans-unit id="form.label_singular">
+                <source>form.label_singular</source>
+                <target>Unité (singulier)</target>
+            </trans-unit>
+            <trans-unit id="form.label_plural">
+                <source>form.label_plural</source>
+                <target>Unité (pluriel)</target>
+            </trans-unit>
 
             <trans-unit id="show.label_min">
                 <source>show.label_min</source>
@@ -18,6 +26,14 @@
             <trans-unit id="show.label_max">
                 <source>show.label_max</source>
                 <target>Valeur maximale</target>
+            </trans-unit>
+            <trans-unit id="show.label_singular">
+                <source>show.label_singular</source>
+                <target>Unité (singulier)</target>
+            </trans-unit>
+            <trans-unit id="show.label_plural">
+                <source>show.label_plural</source>
+                <target>Unité (pluriel)</target>
             </trans-unit>
         </body>
     </file>
