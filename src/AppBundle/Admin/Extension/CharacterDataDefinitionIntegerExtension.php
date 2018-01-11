@@ -18,12 +18,12 @@ class CharacterDataDefinitionIntegerExtension extends AbstractAdminExtension
 
         $formMapper->with('bloc.options')
                 ->add('default', 'integer')
-                ->add('minValue', 'integer', [
+                ->add('min', 'integer', [
                     'required' => false,
                 ], [
                     'translation_domain' => 'CharacterDataDefinitionInteger',
                 ])
-                ->add('maxValue', 'integer', [
+                ->add('max', 'integer', [
                     'required' => false,
                 ], [
                     'translation_domain' => 'CharacterDataDefinitionInteger',
@@ -40,10 +40,10 @@ class CharacterDataDefinitionIntegerExtension extends AbstractAdminExtension
 
         $showMapper->with('bloc.options')
                 ->add('default', 'integer')
-                ->add('minValue', 'integer', [
+                ->add('min', 'integer', [
                     'translation_domain' => 'CharacterDataDefinitionInteger',
                 ])
-                ->add('maxValue', 'integer', [
+                ->add('max', 'integer', [
                     'translation_domain' => 'CharacterDataDefinitionInteger',
                 ])
             ->end()

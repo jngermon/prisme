@@ -2,21 +2,21 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" datatype="plaintext" original="file.ext">
         <body>
-            <trans-unit id="form.label_min_value">
-                <source>form.label_min_value</source>
+            <trans-unit id="form.label_min">
+                <source>form.label_min</source>
                 <target>Valeur minimale</target>
             </trans-unit>
-            <trans-unit id="form.label_max_value">
-                <source>form.label_max_value</source>
+            <trans-unit id="form.label_max">
+                <source>form.label_max</source>
                 <target>Valeur maximale</target>
             </trans-unit>
 
-            <trans-unit id="show.label_min_value">
-                <source>show.label_min_value</source>
+            <trans-unit id="show.label_min">
+                <source>show.label_min</source>
                 <target>Valeur minimale</target>
             </trans-unit>
-            <trans-unit id="show.label_max_value">
-                <source>show.label_max_value</source>
+            <trans-unit id="show.label_max">
+                <source>show.label_max</source>
                 <target>Valeur maximale</target>
             </trans-unit>
         </body>

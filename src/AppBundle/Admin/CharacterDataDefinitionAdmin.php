@@ -26,8 +26,7 @@ class CharacterDataDefinitionAdmin extends BaseAdmin
                     'catalogue' => 'CharacterDataDefinition',
                 ])
                 ->add('label')
-                ->add('min')
-                ->add('max')
+                ->add('required')
             ->end()
             ->with('bloc.options', [
                     'class'       => 'col-md-6',
@@ -56,8 +55,7 @@ class CharacterDataDefinitionAdmin extends BaseAdmin
                 ->add('position')
                 ->add('name')
                 ->add('label')
-                ->add('min')
-                ->add('max')
+                ->add('required')
             ->end()
             ->with('bloc.options', [
                     'class'       => 'col-md-6',

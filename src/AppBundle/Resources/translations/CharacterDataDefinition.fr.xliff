@@ -35,13 +35,9 @@
                 <source>form.label_type</source>
                 <target>Type</target>
             </trans-unit>
-            <trans-unit id="form.label_min">
-                <source>form.label_min</source>
-                <target>Nombre minimum d'éléments</target>
-            </trans-unit>
-            <trans-unit id="form.label_max">
-                <source>form.label_max</source>
-                <target>Nombre maximum d'éléments</target>
+            <trans-unit id="form.label_required">
+                <source>form.label_required</source>
+                <target>Requis</target>
             </trans-unit>
             <trans-unit id="form.label_default">
                 <source>form.label_default</source>
@@ -72,13 +68,9 @@
                 <source>list.label_type</source>
                 <target>Type</target>
             </trans-unit>
-            <trans-unit id="list.label_min">
-                <source>list.label_min</source>
-                <target>Nombre minimum d'éléments</target>
-            </trans-unit>
-            <trans-unit id="list.label_max">
-                <source>list.label_max</source>
-                <target>Nombre maximum d'éléments</target>
+            <trans-unit id="list.label_required">
+                <source>list.label_required</source>
+                <target>Requis</target>
             </trans-unit>
 
             <trans-unit id="show.label_section">
@@ -101,13 +93,9 @@
                 <source>show.label_type</source>
                 <target>Type</target>
             </trans-unit>
-            <trans-unit id="show.label_min">
-                <source>show.label_min</source>
-                <target>Nombre minimum d'éléments</target>
-            </trans-unit>
-            <trans-unit id="show.label_max">
-                <source>show.label_max</source>
-                <target>Nombre maximum d'éléments</target>
+            <trans-unit id="show.label_required">
+                <source>show.label_required</source>
+                <target>Requis</target>
             </trans-unit>
             <trans-unit id="show.label_default">
                 <source>show.label_default</source>

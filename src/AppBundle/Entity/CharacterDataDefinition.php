@@ -62,22 +62,13 @@ abstract class CharacterDataDefinition implements LarpRelatedInterface
     protected $label;
 
     /**
-     * @ORM\Column(name="min", type="integer")
-     * @Assert\GreaterThanOrEqual(0)
+     * @ORM\Column(name="required", type="boolean", options={"default"=false})
      */
-    protected $min;
-
-    /**
-     * @ORM\Column(name="max", type="integer")
-     * @Assert\GreaterThanOrEqual(propertyPath="min")
-     * @Assert\GreaterThanOrEqual(1)
-     */
-    protected $max;
+    protected $required;
 
     public function __construct()
     {
-        $this->min = 0;
-        $this->max = 1;
+        $this->required = false;
         $this->options = [];
         $this->position = -1;
     }
@@ -232,37 +223,19 @@ abstract class CharacterDataDefinition implements LarpRelatedInterface
     }
 
     /**
-     * @return integer
+     * @return boolean
      */
-    public function getMin()
+    public function getRequired()
     {
-        return $this->min;
+        return $this->required;
     }
 
     /**
-     * @param integer $min
+     * @param boolean $required
      */
-    public function setMin($min)
+    public function setRequired($required)
     {
-        $this->min = $min;
-
-        return $this;
-    }
-
-    /**
-     * @return integer
-     */
-    public function getMax()
-    {
-        return $this->max;
-    }
-
-    /**
-     * @param integer $max
-     */
-    public function setMax($max)
-    {
-        $this->max = $max;
+        $this->required = $required;
 
         return $this;
     }

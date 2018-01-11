@@ -56,7 +56,7 @@ abstract class BaseValidator implements Processor
     protected function getConstraints(CharacterDataDefinition $definition)
     {
         $constraints = [];
-        if ($definition->getMin() > 0) {
+        if ($definition->getRequired()) {
             $constraints[] = new Required();
         }
 

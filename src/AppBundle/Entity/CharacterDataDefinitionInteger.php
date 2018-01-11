@@ -30,7 +30,7 @@ class CharacterDataDefinitionInteger extends CharacterDataDefinition
     /**
      * @return integer
      */
-    public function getMinValue()
+    public function getMin()
     {
         return $this->getOption('min', null);
     }
@@ -38,7 +38,7 @@ class CharacterDataDefinitionInteger extends CharacterDataDefinition
     /**
      * @param integer $min
      */
-    public function setMinValue($min)
+    public function setMin($min)
     {
         $this->setOption('min', $min);
 
@@ -48,7 +48,7 @@ class CharacterDataDefinitionInteger extends CharacterDataDefinition
     /**
      * @return integer
      */
-    public function getMaxValue()
+    public function getMax()
     {
         return $this->getOption('max', null);
     }
@@ -56,7 +56,7 @@ class CharacterDataDefinitionInteger extends CharacterDataDefinition
     /**
      * @param integer $max
      */
-    public function setMaxValue($max)
+    public function setMax($max)
     {
         $this->setOption('max', $max);
 
