@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\DiscriminatorMap({
  *   "string" = "CharacterDataDefinitionString",
  *   "integer" = "CharacterDataDefinitionInteger",
+ *   "boolean" = "CharacterDataDefinitionBoolean"
  * })
  * @UniqueEntity(fields={"larp", "name"},
  *   entityClass="AppBundle\Entity\CharacterDataDefinition",

@@ -8,6 +8,13 @@ services:
         tags:
             - { name: 'mmc.processor.chain' }
 
+    app.doctrine.character_data_definition.form.factory.boolean:
+        class: AppBundle\Domain\CharacterDataDefinition\Form\BooleanFormFactory
+        arguments:
+            - '@form.factory'
+        tags:
+            - { name: 'app.doctrine.character_data_definition.form.factory' }
+
     app.doctrine.character_data_definition.form.factory.integer:
         class: AppBundle\Domain\CharacterDataDefinition\Form\IntegerFormFactory
         arguments:
@@ -30,6 +37,12 @@ services:
             - { name: 'mmc.processor.chain' }
             - { name: 'validator.constraint_validator' }
 
+    app.domain.character_data_definition.validator.boolean:
+        class: AppBundle\Domain\CharacterDataDefinition\Validator\BooleanValidator
+        public: false
+        tags:
+            - { name: 'app.domain.character_data_definition.validator' }
+
     app.domain.character_data_definition.validator.integer:
         class: AppBundle\Domain\CharacterDataDefinition\Validator\IntegerValidator
         public: false
@@ -47,6 +60,11 @@ services:
         class: AppBundle\Domain\CharacterDataDefinition\Viewer\Viewer
         tags:
             - { name: 'mmc.processor.chain' }
+
+    app.domain.character_data_definition.viewer.boolean:
+        class: AppBundle\Domain\CharacterDataDefinition\Viewer\BooleanViewer
+        tags:
+            - { name: 'app.domain.character_data_definition.viewer' }
 
     app.domain.character_data_definition.viewer.integer:
         class: AppBundle\Domain\CharacterDataDefinition\Viewer\IntegerViewer

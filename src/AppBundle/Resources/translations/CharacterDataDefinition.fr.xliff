@@ -127,6 +127,14 @@
                 <source>AppBundle\Entity\CharacterDataDefinitionInteger</source>
                 <target>Nombre entier</target>
             </trans-unit>
+            <trans-unit id="boolean">
+                <source>boolean</source>
+                <target>Booléen</target>
+            </trans-unit>
+            <trans-unit id="AppBundle\Entity\CharacterDataDefinitionBoolean">
+                <source>AppBundle\Entity\CharacterDataDefinitionBoolean</source>
+                <target>Booléen</target>
+            </trans-unit>
 
         </body>
     </file>

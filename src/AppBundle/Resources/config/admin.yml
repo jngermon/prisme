@@ -23,7 +23,8 @@ services:
             - [ setLabelTranslatorStrategy, ['@sonata.admin.label.strategy.underscore']]
             - [ setSubClasses, [{
                 string: AppBundle\Entity\CharacterDataDefinitionString,
-                integer: AppBundle\Entity\CharacterDataDefinitionInteger
+                integer: AppBundle\Entity\CharacterDataDefinitionInteger,
+                boolean: AppBundle\Entity\CharacterDataDefinitionBoolean
                 }]]
         public: true
 
@@ -143,6 +144,11 @@ services:
             - { name: sonata.block }
 
     # Extension
+    app.extension.character_data_definition.boolean:
+        class: AppBundle\Admin\Extension\CharacterDataDefinitionBooleanExtension
+        tags:
+            - { name: sonata.admin.extension, target: app.admin.character_data_definition }
+
     app.extension.character_data_definition.integer:
         class: AppBundle\Admin\Extension\CharacterDataDefinitionIntegerExtension
         tags:

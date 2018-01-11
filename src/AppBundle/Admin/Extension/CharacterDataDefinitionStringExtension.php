@@ -2,7 +2,7 @@
 
 namespace AppBundle\Admin\Extension;
 
-use AppBundle\ENtity\CharacterDataDefinitionString;
+use AppBundle\Entity\CharacterDataDefinitionString;
 use Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Form\FormMapper;
