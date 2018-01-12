@@ -121,6 +121,7 @@ sonata_admin:
                 items:
                     - app.admin.character_data_section
                     - app.admin.character_data_definition
+                    - app.admin.character_data_definition_enum_category
             sonata.admin.group.common:
                 items:
                     - app.admin.person

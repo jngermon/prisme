@@ -28,6 +28,16 @@ services:
                 }]]
         public: true
 
+    app.admin.character_data_definition_enum_category:
+        class: AppBundle\Admin\CharacterDataDefinitionEnumCategoryAdmin
+        arguments: [~, AppBundle\Entity\CharacterDataDefinitionEnumCategory, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: CharacterDataDefinitionEnumCategory }
+        calls:
+            - [ setTranslationDomain, [CharacterDataDefinitionEnumCategory]]
+            - [ setLabelTranslatorStrategy, ['@sonata.admin.label.strategy.underscore']]
+        public: true
+
     app.admin.character_data_section:
         class: AppBundle\Admin\CharacterDataSectionAdmin
         arguments: [~, AppBundle\Entity\CharacterDataSection, ~]
