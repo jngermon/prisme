@@ -26,6 +26,7 @@ class CharacterDataSection implements LarpRelatedInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="Larp", inversedBy="characterDataSections")
+     * @Gedmo\SortableGroup
      */
     protected $larp;
 

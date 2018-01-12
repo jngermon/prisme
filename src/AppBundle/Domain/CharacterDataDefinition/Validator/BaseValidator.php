@@ -51,6 +51,8 @@ abstract class BaseValidator implements Processor
 
             $context->getViolations()->add($v);
         }
+
+        return true;
     }
 
     protected function getConstraints(CharacterDataDefinition $definition)

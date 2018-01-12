@@ -12,6 +12,12 @@ class CharacterDataSectionAdmin extends BaseAdmin
     protected $baseRouteName = 'app_admin_character_data_section';
     protected $baseRoutePattern = 'character_data_section';
 
+    protected $datagridValues = array(
+        '_page' => 1,
+        '_sort_order' => 'ASC',
+        '_sort_by' => 'position',
+    );
+
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper

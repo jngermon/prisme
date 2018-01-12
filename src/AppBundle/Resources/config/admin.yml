@@ -24,7 +24,8 @@ services:
             - [ setSubClasses, [{
                 string: AppBundle\Entity\CharacterDataDefinitionString,
                 integer: AppBundle\Entity\CharacterDataDefinitionInteger,
-                boolean: AppBundle\Entity\CharacterDataDefinitionBoolean
+                boolean: AppBundle\Entity\CharacterDataDefinitionBoolean,
+                enum: AppBundle\Entity\CharacterDataDefinitionEnum
                 }]]
         public: true
 
@@ -167,6 +168,11 @@ services:
     # Extension
     app.extension.character_data_definition.boolean:
         class: AppBundle\Admin\Extension\CharacterDataDefinitionBooleanExtension
+        tags:
+            - { name: sonata.admin.extension, target: app.admin.character_data_definition }
+
+    app.extension.character_data_definition.enum:
+        class: AppBundle\Admin\Extension\CharacterDataDefinitionEnumExtension
         tags:
             - { name: sonata.admin.extension, target: app.admin.character_data_definition }
 

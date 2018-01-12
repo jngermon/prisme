@@ -135,6 +135,14 @@
                 <source>AppBundle\Entity\CharacterDataDefinitionBoolean</source>
                 <target>Booléen</target>
             </trans-unit>
+            <trans-unit id="enum">
+                <source>enum</source>
+                <target>Liste déroulante</target>
+            </trans-unit>
+            <trans-unit id="AppBundle\Entity\CharacterDataDefinitionEnum">
+                <source>AppBundle\Entity\CharacterDataDefinitionEnum</source>
+                <target>Liste déroulante</target>
+            </trans-unit>
 
         </body>
     </file>
