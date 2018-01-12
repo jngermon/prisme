@@ -1,0 +1,9 @@
+{% extends 'SonataAdminBundle:CRUD:base_show_field.html.twig' %}
+
+{% block field %}
+    {% trans_default_domain 'CharacterDataDefinitionEnumCategory' %}
+        <span class="label label-primary">{{ object.items|length }}</span>
+        <div class="pull-right">
+            {% include 'AppBundle:CharacterDataDefinitionEnumCategory:list__item_action.html.twig' %}
+        </div>
+{% endblock %}

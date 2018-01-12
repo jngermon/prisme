@@ -3,7 +3,9 @@
 namespace AppBundle\Security\Voter;
 
 use AppBundle\Admin\CharacterDataDefinitionEnumCategoryAdmin;
+use AppBundle\Admin\CharacterDataDefinitionEnumCategoryItemAdmin;
 use AppBundle\Entity\CharacterDataDefinitionEnumCategory;
+use AppBundle\Entity\CharacterDataDefinitionEnumCategoryItem;
 use AppBundle\Entity\Organizer;
 use AppBundle\Entity\User;
 use AppBundle\Security\ProfileProvider;
@@ -26,7 +28,7 @@ class CharacterDataDefinitionEnumCategoryAdminVoter extends Voter
         $this->decisionManager = $decisionManager;
         $this->profileProvider = $profileProvider;
 
-        $this->rolePattern = '/^ROLE_APP_ADMIN_CHARACTER_DATA_DEFINITION_ENUM_CATEGORY_(.*)$/';
+        $this->rolePattern = '/^ROLE_APP_ADMIN_CHARACTER_DATA_DEFINITION_ENUM_CATEGORY_(ITEM_)?(.*)$/';
     }
 
     protected function supports($attribute, $subject)
@@ -44,16 +46,20 @@ class CharacterDataDefinitionEnumCategoryAdminVoter extends Voter
             return false;
         }
 
-        $CharacterDataDefinitionEnumCategory = null;
+        $characterDataDefinitionEnumCategory = null;
         if ($subject && $subject instanceof CharacterDataDefinitionEnumCategoryAdmin) {
-            $CharacterDataDefinitionEnumCategory = $subject->getSubject();
+            $characterDataDefinitionEnumCategory = $subject->getSubject();
         } elseif ($subject && $subject instanceof CharacterDataDefinitionEnumCategory) {
-            $CharacterDataDefinitionEnumCategory = $subject;
+            $characterDataDefinitionEnumCategory = $subject;
+        } elseif ($subject && $subject instanceof CharacterDataDefinitionEnumCategoryItemAdmin) {
+            $characterDataDefinitionEnumCategory = $subject->getParent()->getSubject();
+        } elseif ($subject && $subject instanceof CharacterDataDefinitionEnumCategoryItem) {
+            $characterDataDefinitionEnumCategory = $subject->getCategory();
         }
 
         preg_match($this->rolePattern, $attribute, $matches);
 
-        $attribute = $matches[1];
+        $attribute = $matches[2];
 
         switch ($attribute) {
             case 'LIST':
@@ -61,11 +67,11 @@ class CharacterDataDefinitionEnumCategoryAdminVoter extends Voter
             case 'CREATE':
                 return $this->canCreate($token->getUser());
             case 'VIEW':
-                return $CharacterDataDefinitionEnumCategory && $this->canView($CharacterDataDefinitionEnumCategory, $token->getUser());
+                return $characterDataDefinitionEnumCategory && $this->canView($characterDataDefinitionEnumCategory, $token->getUser());
             case 'EDIT':
-                return $CharacterDataDefinitionEnumCategory && $this->canEdit($CharacterDataDefinitionEnumCategory, $token->getUser());
+                return $characterDataDefinitionEnumCategory && $this->canEdit($characterDataDefinitionEnumCategory, $token->getUser());
             case 'DELETE':
-                return $CharacterDataDefinitionEnumCategory && $this->canDelete($CharacterDataDefinitionEnumCategory, $token->getUser());
+                return $characterDataDefinitionEnumCategory && $this->canDelete($characterDataDefinitionEnumCategory, $token->getUser());
         }
 
         return false;
@@ -90,9 +96,9 @@ class CharacterDataDefinitionEnumCategoryAdminVoter extends Voter
         return $this->profileProvider->getActiveProfile() instanceof Organizer;
     }
 
-    protected function canView(CharacterDataDefinitionEnumCategory $CharacterDataDefinitionEnumCategory, User $user)
+    protected function canView(CharacterDataDefinitionEnumCategory $characterDataDefinitionEnumCategory, User $user)
     {
-        if (!$CharacterDataDefinitionEnumCategory->getId()) {
+        if (!$characterDataDefinitionEnumCategory->getId()) {
             return true;
         }
 
@@ -102,29 +108,14 @@ class CharacterDataDefinitionEnumCategoryAdminVoter extends Voter
             return false;
         }
 
-        if ($profile instanceof Organizer && $profile->getLarp() == $CharacterDataDefinitionEnumCategory->getLarp()) {
-            return true;
-        }
-
-        return false;
-    }
-
-    protected function canEdit(CharacterDataDefinitionEnumCategory $CharacterDataDefinitionEnumCategory, User $user)
-    {
-        $profile = $this->profileProvider->getActiveProfile();
-
-        if (!$profile) {
-            return false;
-        }
-
-        if ($profile instanceof Organizer && $profile->getLarp() == $CharacterDataDefinitionEnumCategory->getLarp()) {
+        if ($profile instanceof Organizer && $profile->getLarp() == $characterDataDefinitionEnumCategory->getLarp()) {
             return true;
         }
 
         return false;
     }
 
-    protected function canDelete(CharacterDataDefinitionEnumCategory $CharacterDataDefinitionEnumCategory, User $user)
+    protected function canEdit(CharacterDataDefinitionEnumCategory $characterDataDefinitionEnumCategory, User $user)
     {
         $profile = $this->profileProvider->getActiveProfile();
 
@@ -132,7 +123,22 @@ class CharacterDataDefinitionEnumCategoryAdminVoter extends Voter
             return false;
         }
 
-        if ($profile instanceof Organizer && $profile->getLarp() == $CharacterDataDefinitionEnumCategory->getLarp()) {
+        if ($profile instanceof Organizer && $profile->getLarp() == $characterDataDefinitionEnumCategory->getLarp()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    protected function canDelete(CharacterDataDefinitionEnumCategory $characterDataDefinitionEnumCategory, User $user)
+    {
+        $profile = $this->profileProvider->getActiveProfile();
+
+        if (!$profile) {
+            return false;
+        }
+
+        if ($profile instanceof Organizer && $profile->getLarp() == $characterDataDefinitionEnumCategory->getLarp()) {
             return true;
         }
 

@@ -1,0 +1,7 @@
+{% set item_admin = admin.getChild('app.admin.character_data_definition_enum_category_item') %}
+{% if item_admin.hasAccess('list', object) and item_admin.hasRoute('list') %}
+    <a href="{{ item_admin.generateObjectUrl('list', object) }}" class="btn btn-sm btn-default list_link" title="{{ 'list.actions_item'|trans({}, 'CharacterDataDefinitionEnumCategory') }}">
+        <i class="fa fa-group" aria-hidden="true"></i>
+        {{ 'list.actions_item'|trans({}, 'CharacterDataDefinitionEnumCategory') }}
+    </a>
+{% endif %}

@@ -2,15 +2,23 @@
 
 namespace AppBundle\Admin;
 
-use Doctrine\ORM\EntityRepository;
+use Greg0ire\Enum\Bridge\Symfony\Form\Type\EnumType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class CharacterDataDefinitionEnumCategoryAdmin extends BaseAdmin
+class CharacterDataDefinitionEnumCategoryItemAdmin extends BaseAdmin
 {
-    protected $baseRouteName = 'app_admin_character_data_definition_enum_category';
-    protected $baseRoutePattern = 'character_data_definition_enum_category';
+    protected $parentAssociationMapping = 'category';
+
+    protected $baseRouteName = 'app_admin_character_data_definition_enum_category_item';
+    protected $baseRoutePattern = 'character_data_definition_enum_category_item';
+
+    protected $datagridValues = array(
+        '_page' => 1,
+        '_sort_order' => 'ASC',
+        '_sort_by' => 'position',
+    );
 
     protected function configureShowFields(ShowMapper $showMapper)
     {
@@ -19,11 +27,9 @@ class CharacterDataDefinitionEnumCategoryAdmin extends BaseAdmin
                 'class'       => 'col-md-6',
                 'box_class'   => 'box box-primary',
             ])
+                ->add('position')
                 ->add('name')
                 ->add('label')
-                ->add('items', null, [
-                    'template' => 'AppBundle:CharacterDataDefinitionEnumCategory:show_items.html.twig',
-                ])
             ->end()
             ;
     }
@@ -35,7 +41,10 @@ class CharacterDataDefinitionEnumCategoryAdmin extends BaseAdmin
                 'class'       => 'col-md-6',
                 'box_class'   => 'box box-primary',
             ])
-                ->add('name')
+                ->add('position')
+                ->add('name', null, [
+                    'required' => false
+                ])
                 ->add('label')
             ->end()
             ;
@@ -44,15 +53,13 @@ class CharacterDataDefinitionEnumCategoryAdmin extends BaseAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
+            ->add('position')
             ->add('name')
             ->add('label')
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
                     'edit' => [],
-                    'item' => [
-                        'template' => 'AppBundle:CharacterDataDefinitionEnumCategory:list__item_action.html.twig',
-                    ],
                 ]
             ])
             ;

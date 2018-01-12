@@ -34,6 +34,11 @@ class CharacterDataDefinitionEnumCategory implements LarpRelatedInterface
      */
     protected $label;
 
+    /**
+     * @ORM\OneToMany(targetEntity="CharacterDataDefinitionEnumCategoryItem", mappedBy="category")
+     */
+    protected $items;
+
     public function __construct()
     {
         $this->position = -1;
@@ -104,5 +109,13 @@ class CharacterDataDefinitionEnumCategory implements LarpRelatedInterface
         $this->label = $label;
 
         return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getItems()
+    {
+        return $this->items;
     }
 }

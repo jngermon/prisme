@@ -36,6 +36,17 @@ services:
         calls:
             - [ setTranslationDomain, [CharacterDataDefinitionEnumCategory]]
             - [ setLabelTranslatorStrategy, ['@sonata.admin.label.strategy.underscore']]
+            - [ addChild, [ '@app.admin.character_data_definition_enum_category_item' ]]
+        public: true
+
+    app.admin.character_data_definition_enum_category_item:
+        class: AppBundle\Admin\CharacterDataDefinitionEnumCategoryItemAdmin
+        arguments: [~, AppBundle\Entity\CharacterDataDefinitionEnumCategoryItem, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: CharacterDataDefinitionEnumCategoryItem }
+        calls:
+            - [ setTranslationDomain, [CharacterDataDefinitionEnumCategoryItem]]
+            - [ setLabelTranslatorStrategy, ['@sonata.admin.label.strategy.underscore']]
         public: true
 
     app.admin.character_data_section:
