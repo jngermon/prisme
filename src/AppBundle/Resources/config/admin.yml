@@ -1,5 +1,26 @@
 services:
     # Admin
+    app.admin.calendar:
+        class: AppBundle\Admin\CalendarAdmin
+        arguments: [~, AppBundle\Entity\Calendar, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Calendar }
+        calls:
+            - [ setTranslationDomain, [Calendar]]
+            - [ setLabelTranslatorStrategy, ['@sonata.admin.label.strategy.underscore']]
+            - [ addChild, [ '@app.admin.calendar_month' ]]
+        public: true
+
+    app.admin.calendar_month:
+        class: AppBundle\Admin\CalendarMonthAdmin
+        arguments: [~, AppBundle\Entity\CalendarMonth, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: CalendarMonth }
+        calls:
+            - [ setTranslationDomain, [CalendarMonth]]
+            - [ setLabelTranslatorStrategy, ['@sonata.admin.label.strategy.underscore']]
+        public: true
+
     app.admin.character:
         class: AppBundle\Admin\CharacterAdmin
         arguments: [~, AppBundle\Entity\Character, ~]

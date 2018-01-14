@@ -1,0 +1,6 @@
+{% extends 'SonataAdminBundle:CRUD:base_show_field.html.twig' %}
+
+{% block field %}
+    {% trans_default_domain 'Calendar' %}
+        <span class="label label-primary">{{ object.nbDays }}</span>
+{% endblock %}

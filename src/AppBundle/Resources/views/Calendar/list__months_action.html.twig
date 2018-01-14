@@ -1,0 +1,7 @@
+{% set month_admin = admin.getChild('app.admin.calendar_month') %}
+{% if month_admin.hasAccess('list', object) and month_admin.hasRoute('list') %}
+    <a href="{{ month_admin.generateObjectUrl('list', object) }}" class="btn btn-sm btn-default list_link" title="{{ 'list.actions_months'|trans({}, 'Calendar') }}">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+        {{ 'list.actions_months'|trans({}, 'Calendar') }}
+    </a>
+{% endif %}

@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="Calendar">
+                <source>Calendar</source>
+                <target>Calendier</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_calendar_list">
+                <source>breadcrumb.link_calendar_list</source>
+                <target>Calendier</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_calendar_create">
+                <source>breadcrumb.link_calendar_create</source>
+                <target>Création d'un calendier</target>
+            </trans-unit>
+
+            <trans-unit id="form.label_name">
+                <source>form.label_name</source>
+                <target>Nom</target>
+            </trans-unit>
+            <trans-unit id="form.label_diff_days_with_origin">
+                <source>form.label_diff_days_with_origin</source>
+                <target>Décalage avec l'origine commune (en jours)</target>
+            </trans-unit>
+
+            <trans-unit id="list.label__action">
+                <source>list.label__action</source>
+                <target>Actions</target>
+            </trans-unit>
+            <trans-unit id="list.label_name">
+                <source>list.label_name</source>
+                <target>Nom</target>
+            </trans-unit>
+            <trans-unit id="list.label_diff_days_with_origin">
+                <source>list.label_diff_days_with_origin</source>
+                <target>Décalage avec l'origine commune (en jours)</target>
+            </trans-unit>
+            <trans-unit id="list.actions_months">
+                <source>list.actions_months</source>
+                <target>Liste des mois</target>
+            </trans-unit>
+
+            <trans-unit id="show.label_name">
+                <source>show.label_name</source>
+                <target>Nom</target>
+            </trans-unit>
+            <trans-unit id="show.label_diff_days_with_origin">
+                <source>show.label_diff_days_with_origin</source>
+                <target>Décalage avec l'origine commune (en jours)</target>
+            </trans-unit>
+            <trans-unit id="show.label_months">
+                <source>show.label_months</source>
+                <target>Mois</target>
+            </trans-unit>
+            <trans-unit id="show.label_nb_days">
+                <source>show.label_nb_days</source>
+                <target>Nombre de jour dans une année</target>
+            </trans-unit>
+
+            <trans-unit id="bloc.main">
+                <source>bloc.main</source>
+                <target>Définition</target>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>

@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="CalendarMonth">
+                <source>CalendarMonth</source>
+                <target>Liste de mois</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_calendar_month_list">
+                <source>breadcrumb.link_calendar_month_list</source>
+                <target>Liste de mois</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_calendar_month_create">
+                <source>breadcrumb.link_calendar_month_create</source>
+                <target>Création d'un mois</target>
+            </trans-unit>
+
+            <trans-unit id="form.label_position">
+                <source>form.label_position</source>
+                <target>Position</target>
+            </trans-unit>
+            <trans-unit id="form.label_name">
+                <source>form.label_name</source>
+                <target>Nom</target>
+            </trans-unit>
+            <trans-unit id="form.label_nb_days">
+                <source>form.label_nb_days</source>
+                <target>Nombre de jour dans le mois</target>
+            </trans-unit>
+
+            <trans-unit id="list.label_position">
+                <source>list.label_position</source>
+                <target>Position</target>
+            </trans-unit>
+            <trans-unit id="list.label__action">
+                <source>list.label__action</source>
+                <target>Actions</target>
+            </trans-unit>
+            <trans-unit id="list.label_name">
+                <source>list.label_name</source>
+                <target>Nom</target>
+            </trans-unit>
+            <trans-unit id="list.label_nb_days">
+                <source>list.label_nb_days</source>
+                <target>Nombre de jour dans le mois</target>
+            </trans-unit>
+
+            <trans-unit id="show.label_position">
+                <source>show.label_position</source>
+                <target>Position</target>
+            </trans-unit>
+            <trans-unit id="show.label_name">
+                <source>show.label_name</source>
+                <target>Nom</target>
+            </trans-unit>
+            <trans-unit id="show.label_nb_days">
+                <source>show.label_nb_days</source>
+                <target>Nombre de jour dans le mois</target>
+            </trans-unit>
+
+            <trans-unit id="bloc.main">
+                <source>bloc.main</source>
+                <target>Définition</target>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>

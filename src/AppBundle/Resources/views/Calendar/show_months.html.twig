@@ -1,0 +1,9 @@
+{% extends 'SonataAdminBundle:CRUD:base_show_field.html.twig' %}
+
+{% block field %}
+    {% trans_default_domain 'Calendar' %}
+        <span class="label label-primary">{{ object.months|length }}</span>
+        <div class="pull-right">
+            {% include 'AppBundle:Calendar:list__months_action.html.twig' %}
+        </div>
+{% endblock %}
