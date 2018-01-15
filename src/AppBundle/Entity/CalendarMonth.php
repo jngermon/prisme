@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -21,6 +22,7 @@ class CalendarMonth
     /**
      * @Gedmo\SortablePosition
      * @ORM\Column(name="position", type="integer")
+     * @Groups({"export"})
      */
     protected $position;
 
@@ -34,12 +36,14 @@ class CalendarMonth
      * @ORM\Column(name="name", type="string", length=64, nullable=true)
      * @Assert\NotBlank()
      * @Assert\Length(max=64)
+     * @Groups({"export"})
      */
     protected $name;
 
     /**
      * @ORM\Column(type="integer")
      * @Assert\GreaterThan(1)
+     * @Groups({"export"})
      */
     protected $nbDays;
 

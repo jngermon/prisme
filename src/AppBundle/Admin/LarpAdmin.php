@@ -6,6 +6,7 @@ use MMC\SonataAdminBundle\Datagrid\DTOFieldDescription;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 class LarpAdmin extends BaseAdmin
@@ -78,5 +79,46 @@ class LarpAdmin extends BaseAdmin
             'ended_at' => new DTOFieldDescription('endedAt', 'datetime'),
             'owner' => new DTOFieldDescription('owner'),
         ];
+    }
+
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection->add('export_parameters', $this->getRouterIdParameter().'/exportParameters');
+        $collection->add('import_parameters', $this->getRouterIdParameter().'/importParameters');
+    }
+
+    protected function getAccess()
+    {
+        return array_merge(parent::getAccess(), [
+            'export_parameters' => 'EXPORT_PARAMETERS',
+            'import_parameters' => 'IMPORT_PARAMETERS',
+        ]);
+    }
+
+    public function configureActionButtons($action, $object = null)
+    {
+
+        $list = [];
+        if ($action == 'show'
+            && $this->canAccessObject('export_parameters', $object)
+            && $this->hasRoute('export_parameters')) {
+            $list['export_parameters'] = [
+                'template' => 'AppBundle:LarpAdmin:show__action_export_parameters.html.twig',
+            ];
+        }
+
+        if ($action == 'show'
+            && $this->canAccessObject('import_parameters', $object)
+            && $this->hasRoute('import_parameters')) {
+            $list['import_parameters'] = [
+                'template' => 'AppBundle:LarpAdmin:show__action_import_parameters.html.twig',
+            ];
+        }
+
+        if ($action == 'import_parameters') {
+            $action = 'edit';
+        }
+
+        return array_merge($list, parent::configureActionButtons($action, $object));
     }
 }

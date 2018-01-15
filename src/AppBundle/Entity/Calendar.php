@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -20,7 +21,7 @@ class Calendar implements LarpRelatedInterface
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Larp", inversedBy="characters")
+     * @ORM\ManyToOne(targetEntity="Larp", inversedBy="calendars")
      */
     protected $larp;
 
@@ -28,17 +29,20 @@ class Calendar implements LarpRelatedInterface
      * @ORM\Column(type="string", length=64)
      * @Assert\NotBlank()
      * @Assert\Length(max=64)
+     * @Groups({"export"})
      */
     protected $name;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"export"})
      */
     protected $diffDaysWithOrigin;
 
     /**
-     * @ORM\OneToMany(targetEntity="CalendarMonth", mappedBy="calendar")
+     * @ORM\OneToMany(targetEntity="CalendarMonth", mappedBy="calendar", cascade={"persist", "remove"})
      * @ORM\OrderBy({"position" = "ASC"})
+     * @Groups({"export"})
      */
     protected $months;
 
@@ -121,6 +125,16 @@ class Calendar implements LarpRelatedInterface
     public function getMonths()
     {
         return $this->months;
+    }
+
+    /**
+     * @param ArrayCollection $months
+     */
+    public function setMonths($months)
+    {
+        $this->months = $months;
+
+        return $this;
     }
 
     /**

@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -21,6 +22,7 @@ class CharacterDataDefinitionEnumCategoryItem
     /**
      * @Gedmo\SortablePosition
      * @ORM\Column(name="position", type="integer")
+     * @Groups({"export"})
      */
     protected $position;
 
@@ -32,12 +34,14 @@ class CharacterDataDefinitionEnumCategoryItem
 
     /**
      * @ORM\Column(name="name", type="string", length=64, nullable=true)
+     * @Groups({"export"})
      */
     protected $name;
 
     /**
      * @ORM\Column(name="label", type="string", length=255)
      * @Assert\NotBlank()
+     * @Groups({"export"})
      */
     protected $label;
 

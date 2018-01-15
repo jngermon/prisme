@@ -70,6 +70,11 @@ class Larp implements SynchronizableInterface
     protected $characters;
 
     /**
+     * @ORM\OneToMany(targetEntity="Calendar", mappedBy="larp")
+     */
+    protected $calendars;
+
+    /**
      * @ORM\OneToMany(targetEntity="CharacterDataSection", mappedBy="larp")
      * @ORM\OrderBy({"position" = "ASC"})
      */
@@ -80,6 +85,11 @@ class Larp implements SynchronizableInterface
      * @ORM\OrderBy({"position" = "ASC"})
      */
     protected $characterDataDefinitions;
+
+    /**
+     * @ORM\OneToMany(targetEntity="CharacterDataDefinitionEnumCategory", mappedBy="larp")
+     */
+    protected $characterDataDefinitionEnumCategories;
 
     /**
      * @ORM\OneToMany(targetEntity="Group", mappedBy="larp")
@@ -302,6 +312,14 @@ class Larp implements SynchronizableInterface
     /**
      * @return ArrayCollection
      */
+    public function getCalendars()
+    {
+        return $this->calendars;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
     public function getCharacterDataSections()
     {
         return $this->characterDataSections;
@@ -313,5 +331,13 @@ class Larp implements SynchronizableInterface
     public function getCharacterDataDefinitions()
     {
         return $this->characterDataDefinitions;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getCharacterDataDefinitionEnumCategories()
+    {
+        return $this->characterDataDefinitionEnumCategories;
     }
 }

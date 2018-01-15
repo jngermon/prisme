@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -11,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class CharacterDataDefinitionEnum extends CharacterDataDefinition
 {
     /**
-     * @ORM\ManyToOne(targetEntity="CharacterDataDefinitionEnumCategory")
+     * @ORM\ManyToOne(targetEntity="CharacterDataDefinitionEnumCategory", inversedBy="enums")
      */
     protected $category;
 
@@ -39,5 +40,13 @@ class CharacterDataDefinitionEnum extends CharacterDataDefinition
         $this->category = $category;
 
         return $this;
+    }
+
+    /**
+     * @Groups({"export"})
+     */
+    public function getCategoryName()
+    {
+        return $this->category ? $this->category->getName() : '';
     }
 }

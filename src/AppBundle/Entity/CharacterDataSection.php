@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -21,6 +22,7 @@ class CharacterDataSection implements LarpRelatedInterface
     /**
      * @Gedmo\SortablePosition
      * @ORM\Column(name="position", type="integer")
+     * @Groups({"export"})
      */
     protected $position;
 
@@ -31,14 +33,16 @@ class CharacterDataSection implements LarpRelatedInterface
     protected $larp;
 
     /**
-     * @ORM\OneToMany(targetEntity="CharacterDataDefinition", mappedBy="section")
+     * @ORM\OneToMany(targetEntity="CharacterDataDefinition", mappedBy="section", cascade={"persist", "remove"})
      * @ORM\OrderBy({"position" = "ASC"})
+     * @Groups({"export"})
      */
     protected $characterDataDefinitions;
 
     /**
      * @ORM\Column(name="label", type="string", length=255)
      * @Assert\NotBlank()
+     * @Groups({"export"})
      */
     protected $label;
 
@@ -46,6 +50,7 @@ class CharacterDataSection implements LarpRelatedInterface
      * @ORM\Column(name="class", type="integer")
      * @Assert\GreaterThanOrEqual(1)
      * @Assert\LessThanOrEqual(12)
+     * @Groups({"export"})
      */
     protected $size;
 
@@ -146,5 +151,15 @@ class CharacterDataSection implements LarpRelatedInterface
     public function getCharacterDataDefinitions()
     {
         return $this->characterDataDefinitions;
+    }
+
+    /**
+     * @param ArrayCollection $characterDataDefinitions
+     */
+    public function setCharacterDataDefinitions($characterDataDefinitions)
+    {
+        $this->characterDataDefinitions = $characterDataDefinitions;
+
+        return $this;
     }
 }

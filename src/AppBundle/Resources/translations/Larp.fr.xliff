@@ -91,10 +91,39 @@
                 <source>show.label_owner</source>
                 <target>Propriétaire</target>
             </trans-unit>
+            <trans-unit id="show.action__export">
+                <source>show.action__export</source>
+                <target>Télécharger les paramètres</target>
+            </trans-unit>
+            <trans-unit id="show.action__import">
+                <source>show.action__import</source>
+                <target>Importer des paramètres</target>
+            </trans-unit>
 
             <trans-unit id="bloc.main">
                 <source>bloc.main</source>
                 <target>GN</target>
+            </trans-unit>
+
+            <trans-unit id="import_parameters.title">
+                <source>import_parameters.title</source>
+                <target>Importer des paramètres</target>
+            </trans-unit>
+            <trans-unit id="import_parameters.input">
+                <source>import_parameters.input</source>
+                <target>Fichier (JSON)</target>
+            </trans-unit>
+            <trans-unit id="import_parameters.submit">
+                <source>import_parameters.submit</source>
+                <target>Envoyer</target>
+            </trans-unit>
+            <trans-unit id="import_parameters.error">
+                <source>import_parameters.error</source>
+                <target>Erreur lors de l'importations : %errors%</target>
+            </trans-unit>
+            <trans-unit id="import_parameters.success">
+                <source>import_parameters.success</source>
+                <target>Les paramètres ont été ajoutés au GN</target>
             </trans-unit>
 
         </body>

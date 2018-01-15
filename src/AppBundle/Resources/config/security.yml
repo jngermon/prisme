@@ -74,6 +74,7 @@ services:
         class: AppBundle\Security\Voter\LarpAdminVoter
         arguments:
             - '@security.access.decision_manager'
+            - '@app.security.profile_provider'
         tags:
             - {name: security.voter}
 

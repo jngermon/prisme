@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -31,12 +32,14 @@ abstract class CharacterDataDefinition implements LarpRelatedInterface
 
     /**
      * @ORM\Column(name="name", type="string", length=64)
+     * @Groups({"export"})
      */
     protected $name;
 
     /**
      * @Gedmo\SortablePosition
      * @ORM\Column(name="position", type="integer")
+     * @Groups({"export"})
      */
     protected $position;
 
@@ -55,16 +58,19 @@ abstract class CharacterDataDefinition implements LarpRelatedInterface
 
     /**
      * @ORM\Column(name="options", type="json")
+     * @Groups({"export"})
      */
     protected $options;
 
     /**
      * @ORM\Column(name="label", type="string", length=255)
+     * @Groups({"export"})
      */
     protected $label;
 
     /**
      * @ORM\Column(name="required", type="boolean", options={"default"=false})
+     * @Groups({"export"})
      */
     protected $required;
 
@@ -84,6 +90,7 @@ abstract class CharacterDataDefinition implements LarpRelatedInterface
 
     /**
      * @return string
+     * @Groups({"export"})
      */
     public function getType()
     {
