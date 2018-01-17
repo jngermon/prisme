@@ -4,46 +4,17 @@ namespace AppBundle\Security\Voter;
 
 use AppBundle\Admin\GroupAdmin;
 use AppBundle\Entity\Group;
-use AppBundle\Entity\Organizer;
 use AppBundle\Entity\User;
-use AppBundle\Security\ProfileProvider;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
-use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class GroupAdminVoter extends Voter
+class GroupAdminVoter extends BaseAdminVoter
 {
-    protected $rolePattern;
-
-    protected $decisionManager;
-
-    protected $profileProvider;
-
-    public function __construct(
-        AccessDecisionManagerInterface $decisionManager,
-        ProfileProvider $profileProvider
-    ) {
-        $this->decisionManager = $decisionManager;
-        $this->profileProvider = $profileProvider;
-
-        $this->rolePattern = '/^ROLE_APP_ADMIN_GROUP_(.*)$/';
+    protected function getRolePattern()
+    {
+        return '/^ROLE_APP_ADMIN_GROUP_(.*)$/';
     }
 
-    protected function supports($attribute, $subject)
+    protected function voteForAction($matches, $subject, User $user)
     {
-        return preg_match($this->rolePattern, $attribute);
-    }
-
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
-    {
-        if ($this->decisionManager->decide($token, array('ROLE_SUPER_ADMIN'))) {
-            return true;
-        }
-
-        if (!$token->getUser() instanceof User) {
-            return false;
-        }
-
         $group = null;
         if ($subject && $subject instanceof GroupAdmin) {
             $group = $subject->getSubject();
@@ -51,89 +22,19 @@ class GroupAdminVoter extends Voter
             $group = $subject;
         }
 
-        preg_match($this->rolePattern, $attribute, $matches);
-
         $attribute = $matches[1];
 
         switch ($attribute) {
             case 'LIST':
-                return $this->canList($token->getUser());
+                return $this->isAnOrganizer($user);
             case 'CREATE':
-                return $this->canCreate($token->getUser());
+                return $this->isAnOrganizer($user);
             case 'VIEW':
-                return $group && $this->canView($group, $token->getUser());
+                return $group && (!$group->getId() || $this->isTheOrganizer($group, $user));
             case 'EDIT':
-                return $group && $this->canEdit($group, $token->getUser());
+                return $group && $this->isTheOrganizer($group, $user);
             case 'DELETE':
-                return $group && $this->canDelete($group, $token->getUser());
-        }
-
-        return false;
-    }
-
-
-    protected function canList(User $user)
-    {
-        if (!$this->profileProvider->getActiveProfile()) {
-            return false;
-        }
-
-        return $this->profileProvider->getActiveProfile() instanceof Organizer;
-    }
-
-    protected function canCreate(User $user)
-    {
-        if (!$this->profileProvider->getActiveProfile()) {
-            return false;
-        }
-
-        return $this->profileProvider->getActiveProfile() instanceof Organizer;
-    }
-
-    protected function canView(Group $group, User $user)
-    {
-        if (!$group->getId()) {
-            return true;
-        }
-
-        $profile = $this->profileProvider->getActiveProfile();
-
-        if (!$profile) {
-            return false;
-        }
-
-        if ($profile instanceof Organizer && $profile->getLarp() == $group->getLarp()) {
-            return true;
-        }
-
-        return false;
-    }
-
-    protected function canEdit(Group $group, User $user)
-    {
-        $profile = $this->profileProvider->getActiveProfile();
-
-        if (!$profile) {
-            return false;
-        }
-
-        if ($profile instanceof Organizer && $profile->getLarp() == $group->getLarp()) {
-            return true;
-        }
-
-        return false;
-    }
-
-    protected function canDelete(Group $group, User $user)
-    {
-        $profile = $this->profileProvider->getActiveProfile();
-
-        if (!$profile) {
-            return false;
-        }
-
-        if ($profile instanceof Organizer && $profile->getLarp() == $group->getLarp()) {
-            return true;
+                return $group && $this->isTheOrganizer($group, $user);
         }
 
         return false;

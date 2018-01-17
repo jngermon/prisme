@@ -3,47 +3,18 @@
 namespace AppBundle\Security\Voter;
 
 use AppBundle\Admin\PlayerAdmin;
-use AppBundle\Entity\Organizer;
 use AppBundle\Entity\Player;
 use AppBundle\Entity\User;
-use AppBundle\Security\ProfileProvider;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
-use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class PlayerAdminVoter extends Voter
+class PlayerAdminVoter extends BaseAdminVoter
 {
-    protected $rolePattern;
-
-    protected $decisionManager;
-
-    protected $profileProvider;
-
-    public function __construct(
-        AccessDecisionManagerInterface $decisionManager,
-        ProfileProvider $profileProvider
-    ) {
-        $this->decisionManager = $decisionManager;
-        $this->profileProvider = $profileProvider;
-
-        $this->rolePattern = '/^ROLE_APP_ADMIN_PLAYER_(.*)$/';
+    protected function getRolePattern()
+    {
+        return '/^ROLE_APP_ADMIN_PLAYER_(.*)$/';
     }
 
-    protected function supports($attribute, $subject)
+    protected function voteForAction($matches, $subject, User $user)
     {
-        return preg_match($this->rolePattern, $attribute);
-    }
-
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
-    {
-        if ($this->decisionManager->decide($token, array('ROLE_SUPER_ADMIN'))) {
-            return true;
-        }
-
-        if (!$token->getUser() instanceof User) {
-            return false;
-        }
-
         $player = null;
         if ($subject && $subject instanceof PlayerAdmin) {
             $player = $subject->getSubject();
@@ -51,32 +22,20 @@ class PlayerAdminVoter extends Voter
             $player = $subject;
         }
 
-        preg_match($this->rolePattern, $attribute, $matches);
-
         $attribute = $matches[1];
 
         switch ($attribute) {
             case 'LIST':
-                return $this->canList($token->getUser());
+                return $this->isAnOrganizer($user);
             case 'CREATE':
-                return $this->canCreate($token->getUser());
+                return $this->canCreate($user);
             case 'VIEW':
-                return $player && $this->canView($player, $token->getUser());
+                return $player && (!$player->getId() || $this->isTheOrganizer($player, $user));
             case 'EDIT':
-                return $player && $this->canEdit($player, $token->getUser());
+                return $player && $this->isTheOrganizer($player, $user);
         }
 
         return false;
-    }
-
-
-    protected function canList(User $user)
-    {
-        if (!$this->profileProvider->getActiveProfile()) {
-            return false;
-        }
-
-        return $this->profileProvider->getActiveProfile() instanceof Organizer;
     }
 
     protected function canCreate(User $user)
@@ -95,39 +54,5 @@ class PlayerAdminVoter extends Voter
         }
 
         return !$profile->getLarp()->isExternal();
-    }
-
-    protected function canView(Player $player, User $user)
-    {
-        if (!$player->getId()) {
-            return true;
-        }
-
-        $profile = $this->profileProvider->getActiveProfile();
-
-        if (!$profile) {
-            return false;
-        }
-
-        if ($profile instanceof Organizer && $profile->getLarp() == $player->getLarp()) {
-            return true;
-        }
-
-        return false;
-    }
-
-    protected function canEdit(Player $player, User $user)
-    {
-        $profile = $this->profileProvider->getActiveProfile();
-
-        if (!$profile) {
-            return false;
-        }
-
-        if ($profile instanceof Organizer && $profile->getLarp() == $player->getLarp()) {
-            return true;
-        }
-
-        return false;
     }
 }

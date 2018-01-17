@@ -4,46 +4,17 @@ namespace AppBundle\Security\Voter;
 
 use AppBundle\Admin\CharacterAdmin;
 use AppBundle\Entity\Character;
-use AppBundle\Entity\Organizer;
 use AppBundle\Entity\User;
-use AppBundle\Security\ProfileProvider;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
-use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class CharacterAdminVoter extends Voter
+class CharacterAdminVoter extends BaseAdminVoter
 {
-    protected $rolePattern;
-
-    protected $decisionManager;
-
-    protected $profileProvider;
-
-    public function __construct(
-        AccessDecisionManagerInterface $decisionManager,
-        ProfileProvider $profileProvider
-    ) {
-        $this->decisionManager = $decisionManager;
-        $this->profileProvider = $profileProvider;
-
-        $this->rolePattern = '/^ROLE_APP_ADMIN_CHARACTER_(.*)$/';
+    protected function getRolePattern()
+    {
+        return '/^ROLE_APP_ADMIN_CHARACTER_(.*)$/';
     }
 
-    protected function supports($attribute, $subject)
+    protected function voteForAction($matches, $subject, User $user)
     {
-        return preg_match($this->rolePattern, $attribute);
-    }
-
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
-    {
-        if ($this->decisionManager->decide($token, array('ROLE_SUPER_ADMIN'))) {
-            return true;
-        }
-
-        if (!$token->getUser() instanceof User) {
-            return false;
-        }
-
         $character = null;
         if ($subject && $subject instanceof CharacterAdmin) {
             $character = $subject->getSubject();
@@ -51,89 +22,19 @@ class CharacterAdminVoter extends Voter
             $character = $subject;
         }
 
-        preg_match($this->rolePattern, $attribute, $matches);
-
         $attribute = $matches[1];
 
         switch ($attribute) {
             case 'LIST':
-                return $this->canList($token->getUser());
+                return $this->isAnOrganizer($user);
             case 'CREATE':
-                return $this->canCreate($token->getUser());
+                return $this->isAnOrganizer($user);
             case 'VIEW':
-                return $character && $this->canView($character, $token->getUser());
+                return $character && (!$character->getId() || $this->isTheOrganizer($character, $user));
             case 'EDIT':
-                return $character && $this->canEdit($character, $token->getUser());
+                return $character && $this->isTheOrganizer($character, $user);
             case 'DELETE':
-                return $character && $this->canDelete($character, $token->getUser());
-        }
-
-        return false;
-    }
-
-
-    protected function canList(User $user)
-    {
-        if (!$this->profileProvider->getActiveProfile()) {
-            return false;
-        }
-
-        return $this->profileProvider->getActiveProfile() instanceof Organizer;
-    }
-
-    protected function canCreate(User $user)
-    {
-        if (!$this->profileProvider->getActiveProfile()) {
-            return false;
-        }
-
-        return $this->profileProvider->getActiveProfile() instanceof Organizer;
-    }
-
-    protected function canView(Character $character, User $user)
-    {
-        if (!$character->getId()) {
-            return true;
-        }
-
-        $profile = $this->profileProvider->getActiveProfile();
-
-        if (!$profile) {
-            return false;
-        }
-
-        if ($profile instanceof Organizer && $profile->getLarp() == $character->getLarp()) {
-            return true;
-        }
-
-        return false;
-    }
-
-    protected function canEdit(Character $character, User $user)
-    {
-        $profile = $this->profileProvider->getActiveProfile();
-
-        if (!$profile) {
-            return false;
-        }
-
-        if ($profile instanceof Organizer && $profile->getLarp() == $character->getLarp()) {
-            return true;
-        }
-
-        return false;
-    }
-
-    protected function canDelete(Character $character, User $user)
-    {
-        $profile = $this->profileProvider->getActiveProfile();
-
-        if (!$profile) {
-            return false;
-        }
-
-        if ($profile instanceof Organizer && $profile->getLarp() == $character->getLarp()) {
-            return true;
+                return $character && $this->isTheOrganizer($character, $user);
         }
 
         return false;

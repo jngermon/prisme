@@ -6,46 +6,17 @@ use AppBundle\Admin\CharacterDataDefinitionEnumCategoryAdmin;
 use AppBundle\Admin\CharacterDataDefinitionEnumCategoryItemAdmin;
 use AppBundle\Entity\CharacterDataDefinitionEnumCategory;
 use AppBundle\Entity\CharacterDataDefinitionEnumCategoryItem;
-use AppBundle\Entity\Organizer;
 use AppBundle\Entity\User;
-use AppBundle\Security\ProfileProvider;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
-use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class CharacterDataDefinitionEnumCategoryAdminVoter extends Voter
+class CharacterDataDefinitionEnumCategoryAdminVoter extends BaseAdminVoter
 {
-    protected $rolePattern;
-
-    protected $decisionManager;
-
-    protected $profileProvider;
-
-    public function __construct(
-        AccessDecisionManagerInterface $decisionManager,
-        ProfileProvider $profileProvider
-    ) {
-        $this->decisionManager = $decisionManager;
-        $this->profileProvider = $profileProvider;
-
-        $this->rolePattern = '/^ROLE_APP_ADMIN_CHARACTER_DATA_DEFINITION_ENUM_CATEGORY_(ITEM_)?(.*)$/';
+    protected function getRolePattern()
+    {
+        return '/^ROLE_APP_ADMIN_CHARACTER_DATA_DEFINITION_ENUM_CATEGORY_(ITEM_)?(.*)$/';
     }
 
-    protected function supports($attribute, $subject)
+    protected function voteForAction($matches, $subject, User $user)
     {
-        return preg_match($this->rolePattern, $attribute);
-    }
-
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
-    {
-        if ($this->decisionManager->decide($token, array('ROLE_SUPER_ADMIN'))) {
-            return true;
-        }
-
-        if (!$token->getUser() instanceof User) {
-            return false;
-        }
-
         $characterDataDefinitionEnumCategory = null;
         if ($subject && $subject instanceof CharacterDataDefinitionEnumCategoryAdmin) {
             $characterDataDefinitionEnumCategory = $subject->getSubject();
@@ -57,89 +28,19 @@ class CharacterDataDefinitionEnumCategoryAdminVoter extends Voter
             $characterDataDefinitionEnumCategory = $subject->getCategory();
         }
 
-        preg_match($this->rolePattern, $attribute, $matches);
-
         $attribute = $matches[2];
 
         switch ($attribute) {
             case 'LIST':
-                return $this->canList($token->getUser());
+                return $this->isALarpOwner($user);
             case 'CREATE':
-                return $this->canCreate($token->getUser());
+                return $this->isALarpOwner($user);
             case 'VIEW':
-                return $characterDataDefinitionEnumCategory && $this->canView($characterDataDefinitionEnumCategory, $token->getUser());
+                return $characterDataDefinitionEnumCategory && (!$characterDataDefinitionEnumCategory->getId() || $this->isTheLarpOwner($characterDataDefinitionEnumCategory, $user));
             case 'EDIT':
-                return $characterDataDefinitionEnumCategory && $this->canEdit($characterDataDefinitionEnumCategory, $token->getUser());
+                return $characterDataDefinitionEnumCategory && $this->isTheLarpOwner($characterDataDefinitionEnumCategory, $user);
             case 'DELETE':
-                return $characterDataDefinitionEnumCategory && $this->canDelete($characterDataDefinitionEnumCategory, $token->getUser());
-        }
-
-        return false;
-    }
-
-
-    protected function canList(User $user)
-    {
-        if (!$this->profileProvider->getActiveProfile()) {
-            return false;
-        }
-
-        return $this->profileProvider->getActiveProfile() instanceof Organizer;
-    }
-
-    protected function canCreate(User $user)
-    {
-        if (!$this->profileProvider->getActiveProfile()) {
-            return false;
-        }
-
-        return $this->profileProvider->getActiveProfile() instanceof Organizer;
-    }
-
-    protected function canView(CharacterDataDefinitionEnumCategory $characterDataDefinitionEnumCategory, User $user)
-    {
-        if (!$characterDataDefinitionEnumCategory->getId()) {
-            return true;
-        }
-
-        $profile = $this->profileProvider->getActiveProfile();
-
-        if (!$profile) {
-            return false;
-        }
-
-        if ($profile instanceof Organizer && $profile->getLarp() == $characterDataDefinitionEnumCategory->getLarp()) {
-            return true;
-        }
-
-        return false;
-    }
-
-    protected function canEdit(CharacterDataDefinitionEnumCategory $characterDataDefinitionEnumCategory, User $user)
-    {
-        $profile = $this->profileProvider->getActiveProfile();
-
-        if (!$profile) {
-            return false;
-        }
-
-        if ($profile instanceof Organizer && $profile->getLarp() == $characterDataDefinitionEnumCategory->getLarp()) {
-            return true;
-        }
-
-        return false;
-    }
-
-    protected function canDelete(CharacterDataDefinitionEnumCategory $characterDataDefinitionEnumCategory, User $user)
-    {
-        $profile = $this->profileProvider->getActiveProfile();
-
-        if (!$profile) {
-            return false;
-        }
-
-        if ($profile instanceof Organizer && $profile->getLarp() == $characterDataDefinitionEnumCategory->getLarp()) {
-            return true;
+                return $characterDataDefinitionEnumCategory && $this->isTheLarpOwner($characterDataDefinitionEnumCategory, $user);
         }
 
         return false;

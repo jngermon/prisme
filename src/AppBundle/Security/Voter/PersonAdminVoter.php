@@ -3,47 +3,18 @@
 namespace AppBundle\Security\Voter;
 
 use AppBundle\Admin\PersonAdmin;
-use AppBundle\Entity\Organizer;
 use AppBundle\Entity\Person;
 use AppBundle\Entity\User;
-use AppBundle\Security\ProfileProvider;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
-use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class PersonAdminVoter extends Voter
+class PersonAdminVoter extends BaseAdminVoter
 {
-    protected $rolePattern;
-
-    protected $decisionManager;
-
-    protected $profileProvider;
-
-    public function __construct(
-        AccessDecisionManagerInterface $decisionManager,
-        ProfileProvider $profileProvider
-    ) {
-        $this->decisionManager = $decisionManager;
-        $this->profileProvider = $profileProvider;
-
-        $this->rolePattern = '/^ROLE_APP_ADMIN_PERSON_(.*)$/';
+    protected function getRolePattern()
+    {
+        return '/^ROLE_APP_ADMIN_PERSON_(.*)$/';
     }
 
-    protected function supports($attribute, $subject)
+    protected function voteForAction($matches, $subject, User $user)
     {
-        return preg_match($this->rolePattern, $attribute);
-    }
-
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
-    {
-        if ($this->decisionManager->decide($token, array('ROLE_SUPER_ADMIN'))) {
-            return true;
-        }
-
-        if (!$token->getUser() instanceof User) {
-            return false;
-        }
-
         $person = null;
         if ($subject && $subject instanceof PersonAdmin) {
             $person = $subject->getSubject();
@@ -51,37 +22,20 @@ class PersonAdminVoter extends Voter
             $person = $subject;
         }
 
-        preg_match($this->rolePattern, $attribute, $matches);
-
         $attribute = $matches[1];
 
         switch ($attribute) {
             case 'LIST':
-                return $this->canList($token->getUser());
+                return $this->isAnOrganizer($user);
             case 'CREATE':
-                return $this->canCreate($token->getUser());
+                return $user->getPerson() === null;
             case 'VIEW':
-                return $person && $this->canView($person, $token->getUser());
+                return $person && $this->canView($person, $user);
             case 'EDIT':
-                return $person && $this->canEdit($person, $token->getUser());
+                return $person && $this->canEdit($person, $user);
         }
 
         return false;
-    }
-
-
-    protected function canList(User $user)
-    {
-        if (!$this->profileProvider->getActiveProfile()) {
-            return false;
-        }
-
-        return $this->profileProvider->getActiveProfile() instanceof Organizer;
-    }
-
-    protected function canCreate(User $user)
-    {
-        return $user->getPerson() === null;
     }
 
     protected function canView(Person $person, User $user)

@@ -6,46 +6,17 @@ use AppBundle\Admin\CalendarAdmin;
 use AppBundle\Admin\CalendarMonthAdmin;
 use AppBundle\Entity\Calendar;
 use AppBundle\Entity\CalendarMonth;
-use AppBundle\Entity\Organizer;
 use AppBundle\Entity\User;
-use AppBundle\Security\ProfileProvider;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
-use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class CalendarAdminVoter extends Voter
+class CalendarAdminVoter extends BaseAdminVoter
 {
-    protected $rolePattern;
-
-    protected $decisionManager;
-
-    protected $profileProvider;
-
-    public function __construct(
-        AccessDecisionManagerInterface $decisionManager,
-        ProfileProvider $profileProvider
-    ) {
-        $this->decisionManager = $decisionManager;
-        $this->profileProvider = $profileProvider;
-
-        $this->rolePattern = '/^ROLE_APP_ADMIN_CALENDAR_(MONTH_)?(.*)$/';
+    protected function getRolePattern()
+    {
+        return '/^ROLE_APP_ADMIN_CALENDAR_(MONTH_)?(.*)$/';
     }
 
-    protected function supports($attribute, $subject)
+    protected function voteForAction($matches, $subject, User $user)
     {
-        return preg_match($this->rolePattern, $attribute);
-    }
-
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
-    {
-        if ($this->decisionManager->decide($token, array('ROLE_SUPER_ADMIN'))) {
-            return true;
-        }
-
-        if (!$token->getUser() instanceof User) {
-            return false;
-        }
-
         $calendar = null;
         if ($subject && $subject instanceof CalendarAdmin) {
             $calendar = $subject->getSubject();
@@ -57,89 +28,19 @@ class CalendarAdminVoter extends Voter
             $calendar = $subject->getCalendar();
         }
 
-        preg_match($this->rolePattern, $attribute, $matches);
-
         $attribute = $matches[2];
 
         switch ($attribute) {
             case 'LIST':
-                return $this->canList($token->getUser());
+                return $this->isALarpOwner($user);
             case 'CREATE':
-                return $this->canCreate($token->getUser());
+                return $this->isALarpOwner($user);
             case 'VIEW':
-                return $calendar && $this->canView($calendar, $token->getUser());
+                return $calendar && $this->isTheLarpOwner($calendar, $user);
             case 'EDIT':
-                return $calendar && $this->canEdit($calendar, $token->getUser());
+                return $calendar && $this->isTheLarpOwner($calendar, $user);
             case 'DELETE':
-                return $calendar && $this->canDelete($calendar, $token->getUser());
-        }
-
-        return false;
-    }
-
-
-    protected function canList(User $user)
-    {
-        if (!$this->profileProvider->getActiveProfile()) {
-            return false;
-        }
-
-        return $this->profileProvider->getActiveProfile() instanceof Organizer;
-    }
-
-    protected function canCreate(User $user)
-    {
-        if (!$this->profileProvider->getActiveProfile()) {
-            return false;
-        }
-
-        return $this->profileProvider->getActiveProfile() instanceof Organizer;
-    }
-
-    protected function canView(Calendar $calendar, User $user)
-    {
-        if (!$calendar->getId()) {
-            return true;
-        }
-
-        $profile = $this->profileProvider->getActiveProfile();
-
-        if (!$profile) {
-            return false;
-        }
-
-        if ($profile instanceof Organizer && $profile->getLarp() == $calendar->getLarp()) {
-            return true;
-        }
-
-        return false;
-    }
-
-    protected function canEdit(Calendar $calendar, User $user)
-    {
-        $profile = $this->profileProvider->getActiveProfile();
-
-        if (!$profile) {
-            return false;
-        }
-
-        if ($profile instanceof Organizer && $profile->getLarp() == $calendar->getLarp()) {
-            return true;
-        }
-
-        return false;
-    }
-
-    protected function canDelete(Calendar $calendar, User $user)
-    {
-        $profile = $this->profileProvider->getActiveProfile();
-
-        if (!$profile) {
-            return false;
-        }
-
-        if ($profile instanceof Organizer && $profile->getLarp() == $calendar->getLarp()) {
-            return true;
+                return $calendar && $this->isTheLarpOwner($calendar, $user);
         }
 
         return false;
