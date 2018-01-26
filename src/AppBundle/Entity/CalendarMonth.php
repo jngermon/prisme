@@ -6,11 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Domain\Calendar\Model\Month as MonthInterface;
 
 /**
  * @ORM\Entity(repositoryClass="Gedmo\Sortable\Entity\Repository\SortableRepository")
  */
-class CalendarMonth
+class CalendarMonth implements MonthInterface
 {
     /**
      * @ORM\Id
@@ -81,6 +82,11 @@ class CalendarMonth
         $this->position = $position;
 
         return $this;
+    }
+
+    public function getNumber()
+    {
+        return $this->getPosition() + 1;
     }
 
     /**

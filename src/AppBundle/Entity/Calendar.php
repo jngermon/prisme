@@ -6,12 +6,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Domain\Calendar\Model\Calendar as CalendarInterface;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="calendar")
  */
-class Calendar implements LarpRelatedInterface
+class Calendar implements LarpRelatedInterface, CalendarInterface
 {
     /**
      * @ORM\Id
