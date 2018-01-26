@@ -32,7 +32,7 @@ class CharacterDataDefinitionEnumCategoryAdminVoter extends BaseAdminVoter
 
         switch ($attribute) {
             case 'LIST':
-                return $this->isALarpOwner($user);
+                return $this->isALarpOwner($user) || $this->isAnOrganizer($user);
             case 'CREATE':
                 return $this->isALarpOwner($user);
             case 'VIEW':
