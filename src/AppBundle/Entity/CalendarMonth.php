@@ -42,6 +42,20 @@ class CalendarMonth implements MonthInterface
     protected $name;
 
     /**
+     * @ORM\Column(type="string", length=64, nullable=true)
+     * @Assert\NotBlank()
+     * @Assert\Length(max=64)
+     * @Groups({"export"})
+     */
+    protected $nameForDate;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     * @Groups({"export"})
+     */
+    protected $formatDay;
+
+    /**
      * @ORM\Column(type="integer")
      * @Assert\GreaterThan(1)
      * @Groups({"export"})
@@ -84,9 +98,22 @@ class CalendarMonth implements MonthInterface
         return $this;
     }
 
+    /**
+     * @return integer
+     */
     public function getNumber()
     {
         return $this->getPosition() + 1;
+    }
+
+    /**
+     * @param integer $number
+     */
+    public function setNumber($number)
+    {
+        $this->position = $number - 1;
+
+        return $this;
     }
 
     /**
@@ -139,6 +166,42 @@ class CalendarMonth implements MonthInterface
     public function setNbDays($nbDays)
     {
         $this->nbDays = $nbDays;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNameForDate()
+    {
+        return $this->nameForDate;
+    }
+
+    /**
+     * @param string $nameForDate
+     */
+    public function setNameForDate($nameForDate)
+    {
+        $this->nameForDate = $nameForDate;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFormatDay()
+    {
+        return $this->formatDay;
+    }
+
+    /**
+     * @param string $formatDay
+     */
+    public function setFormatDay($formatDay)
+    {
+        $this->formatDay = $formatDay;
 
         return $this;
     }

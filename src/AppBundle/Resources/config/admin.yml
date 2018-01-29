@@ -2,7 +2,7 @@ services:
     # Admin
     app.admin.calendar:
         class: AppBundle\Admin\CalendarAdmin
-        arguments: [~, AppBundle\Entity\Calendar, ~]
+        arguments: [~, AppBundle\Entity\Calendar, AppBundle:Calendar]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Calendar }
         calls:

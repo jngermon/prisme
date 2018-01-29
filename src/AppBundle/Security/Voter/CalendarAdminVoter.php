@@ -36,11 +36,13 @@ class CalendarAdminVoter extends BaseAdminVoter
             case 'CREATE':
                 return $this->isALarpOwner($user);
             case 'VIEW':
-                return $calendar && $this->isTheLarpOwner($calendar, $user);
+                return $this->isALarpOwner($user) || $this->isAnOrganizer($user);
             case 'EDIT':
                 return $calendar && $this->isTheLarpOwner($calendar, $user);
             case 'DELETE':
                 return $calendar && $this->isTheLarpOwner($calendar, $user);
+            case 'CONVERTOR':
+                return $this->isALarpOwner($user) || $this->isAnOrganizer($user);
         }
 
         return false;

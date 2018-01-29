@@ -14,6 +14,10 @@
                 <source>breadcrumb.link_calendar_create</source>
                 <target>Création d'un calendier</target>
             </trans-unit>
+            <trans-unit id="breadcrumb.link_calendar_convertor">
+                <source>breadcrumb.link_calendar_convertor</source>
+                <target>Convertisseur de dates</target>
+            </trans-unit>
 
             <trans-unit id="form.label_name">
                 <source>form.label_name</source>
@@ -22,6 +26,30 @@
             <trans-unit id="form.label_diff_days_with_origin">
                 <source>form.label_diff_days_with_origin</source>
                 <target>Décalage avec l'origine commune (en jours)</target>
+            </trans-unit>
+            <trans-unit id="form.label_format_global">
+                <source>form.label_format_global</source>
+                <target>Format</target>
+            </trans-unit>
+            <trans-unit id="help.format_global">
+                <source>help.format_global</source>
+                <target>%day% sera remplacé par le format du jour, %month% par celui du mois et %year% par celui de l'année</target>
+            </trans-unit>
+            <trans-unit id="form.label_format_year">
+                <source>form.label_format_year</source>
+                <target>Format de l'année</target>
+            </trans-unit>
+            <trans-unit id="help.format_year">
+                <source>help.format_year</source>
+                <target>%y% sera remplacé par le numéro de l'année, (%absy% sera remplacée par la valeur absolue de l'année)</target>
+            </trans-unit>
+            <trans-unit id="form.label_format_day">
+                <source>form.label_format_day</source>
+                <target>Format du jour</target>
+            </trans-unit>
+            <trans-unit id="help.format_day">
+                <source>help.format_day</source>
+                <target>%d% sera remplacé par le numéro du jour</target>
             </trans-unit>
 
             <trans-unit id="list.label__action">
@@ -40,6 +68,11 @@
                 <source>list.actions_months</source>
                 <target>Liste des mois</target>
             </trans-unit>
+            <trans-unit id="list.actions_convertor">
+                <source>list.actions_convertor</source>
+                <target>Convertir</target>
+            </trans-unit>
+
 
             <trans-unit id="show.label_name">
                 <source>show.label_name</source>
@@ -57,11 +90,51 @@
                 <source>show.label_nb_days</source>
                 <target>Nombre de jour dans une année</target>
             </trans-unit>
+            <trans-unit id="show.label_format_global">
+                <source>show.label_format_global</source>
+                <target>Format</target>
+            </trans-unit>
+            <trans-unit id="show.label_format_year">
+                <source>show.label_format_year</source>
+                <target>Format de l'année</target>
+            </trans-unit>
+            <trans-unit id="show.label_format_day">
+                <source>show.label_format_day</source>
+                <target>Format du jour</target>
+            </trans-unit>
 
             <trans-unit id="bloc.main">
                 <source>bloc.main</source>
                 <target>Définition</target>
             </trans-unit>
+
+            <trans-unit id="convertor.title">
+                <source>convertor.title</source>
+                <target>Convertisseur de dates</target>
+            </trans-unit>
+            <trans-unit id="convertor.submit">
+                <source>convertor.submit</source>
+                <target>Convertir</target>
+            </trans-unit>
+            <trans-unit id="convertor.year">
+                <source>convertor.year</source>
+                <target>Année</target>
+            </trans-unit>
+            <trans-unit id="convertor.month">
+                <source>convertor.month</source>
+                <target>Mois</target>
+            </trans-unit>
+            <trans-unit id="convertor.day">
+                <source>convertor.day</source>
+                <target>Jour</target>
+            </trans-unit>
+            <trans-unit id="convertor.result.title">
+                <source>convertor.result.title</source>
+                <target>Convertions</target>
+            </trans-unit>
+
+
+
 
         </body>
     </file>

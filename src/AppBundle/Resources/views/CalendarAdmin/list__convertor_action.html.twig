@@ -1,0 +1,6 @@
+{% if admin.hasAccess('convertor', object) and admin.hasRoute('convertor') %}
+    <a href="{{ admin.generateObjectUrl('convertor', object) }}" class="btn btn-sm btn-default list_link" title="{{ 'list.actions_convertor'|trans({}, 'Calendar') }}">
+        <i class="fa fa-arrows-h" aria-hidden="true"></i>
+        {{ 'list.actions_convertor'|trans({}, 'Calendar') }}
+    </a>
+{% endif %}

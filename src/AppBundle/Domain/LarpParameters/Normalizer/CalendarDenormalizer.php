@@ -23,7 +23,7 @@ class CalendarDenormalizer extends BaseDenormalizer
         }
 
         $accessor = PropertyAccess::createPropertyAccessor();
-        foreach (['name', 'diffDaysWithOrigin'] as $property) {
+        foreach (['name', 'diffDaysWithOrigin', 'formatGlobal', 'formatYear', 'formatDay'] as $property) {
             if (array_key_exists($property, $data)) {
                 $accessor->setValue($calendar, Inflector::camelize($property), $data[$property]);
             }

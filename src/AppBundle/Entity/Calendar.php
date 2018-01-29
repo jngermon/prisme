@@ -41,6 +41,24 @@ class Calendar implements LarpRelatedInterface, CalendarInterface
     protected $diffDaysWithOrigin;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     * @Groups({"export"})
+     */
+    protected $formatGlobal;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     * @Groups({"export"})
+     */
+    protected $formatYear;
+
+        /**
+     * @ORM\Column(type="text", nullable=true)
+     * @Groups({"export"})
+     */
+    protected $formatDay;
+
+    /**
      * @ORM\OneToMany(targetEntity="CalendarMonth", mappedBy="calendar", cascade={"persist", "remove"})
      * @ORM\OrderBy({"position" = "ASC"})
      * @Groups({"export"})
@@ -149,5 +167,59 @@ class Calendar implements LarpRelatedInterface, CalendarInterface
         }
 
         return $nbDays;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFormatGlobal()
+    {
+        return $this->formatGlobal;
+    }
+
+    /**
+     * @param string $formatGlobal
+     */
+    public function setFormatGlobal($formatGlobal)
+    {
+        $this->formatGlobal = $formatGlobal;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFormatYear()
+    {
+        return $this->formatYear;
+    }
+
+    /**
+     * @param string $formatYear
+     */
+    public function setFormatYear($formatYear)
+    {
+        $this->formatYear = $formatYear;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFormatDay()
+    {
+        return $this->formatDay;
+    }
+
+    /**
+     * @param string $formatDay
+     */
+    public function setFormatDay($formatDay)
+    {
+        $this->formatDay = $formatDay;
+
+        return $this;
     }
 }

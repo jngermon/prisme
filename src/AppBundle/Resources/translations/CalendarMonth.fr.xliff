@@ -15,9 +15,9 @@
                 <target>Création d'un mois</target>
             </trans-unit>
 
-            <trans-unit id="form.label_position">
-                <source>form.label_position</source>
-                <target>Position</target>
+            <trans-unit id="form.label_number">
+                <source>form.label_number</source>
+                <target>Numéro</target>
             </trans-unit>
             <trans-unit id="form.label_name">
                 <source>form.label_name</source>
@@ -27,10 +27,23 @@
                 <source>form.label_nb_days</source>
                 <target>Nombre de jour dans le mois</target>
             </trans-unit>
+            <trans-unit id="form.label_name_for_date">
+                <source>form.label_name_for_date</source>
+                <target>Format du mois dans une date</target>
+            </trans-unit>
+            <trans-unit id="form.label_format_day">
+                <source>form.label_format_day</source>
+                <target>Format des jours</target>
+            </trans-unit>
+            <trans-unit id="help.format_day">
+                <source>help.format_day</source>
+                <target>%d% sera remplacé par le numéro du jour</target>
+            </trans-unit>
 
-            <trans-unit id="list.label_position">
-                <source>list.label_position</source>
-                <target>Position</target>
+
+            <trans-unit id="list.label_number">
+                <source>list.label_number</source>
+                <target>Numéro</target>
             </trans-unit>
             <trans-unit id="list.label__action">
                 <source>list.label__action</source>
@@ -45,9 +58,9 @@
                 <target>Nombre de jour dans le mois</target>
             </trans-unit>
 
-            <trans-unit id="show.label_position">
-                <source>show.label_position</source>
-                <target>Position</target>
+            <trans-unit id="show.label_number">
+                <source>show.label_number</source>
+                <target>Numéro</target>
             </trans-unit>
             <trans-unit id="show.label_name">
                 <source>show.label_name</source>
@@ -57,11 +70,24 @@
                 <source>show.label_nb_days</source>
                 <target>Nombre de jour dans le mois</target>
             </trans-unit>
+            <trans-unit id="show.label_name_for_date">
+                <source>show.label_name_for_date</source>
+                <target>Format du mois dans une date</target>
+            </trans-unit>
+            <trans-unit id="show.label_format_day">
+                <source>show.label_format_day</source>
+                <target>Format des jours</target>
+            </trans-unit>
 
             <trans-unit id="bloc.main">
                 <source>bloc.main</source>
                 <target>Définition</target>
             </trans-unit>
+            <trans-unit id="bloc.days">
+                <source>bloc.days</source>
+                <target>Jours</target>
+            </trans-unit>
+
 
         </body>
     </file>

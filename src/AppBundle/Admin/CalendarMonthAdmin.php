@@ -27,9 +27,20 @@ class CalendarMonthAdmin extends BaseAdmin
                 'class'       => 'col-md-6',
                 'box_class'   => 'box box-primary',
             ])
-                ->add('position')
+                ->add('number')
                 ->add('name')
                 ->add('nbDays')
+                ->add('nameForDate')
+                ->add('formatDay')
+            ->end()
+            ->with('bloc.days', [
+                'class'       => 'col-md-6',
+                'box_class'   => 'box box-success',
+            ])
+                ->add('days', null, [
+                    'show_label' => false,
+                    'template' => 'AppBundle:CalendarMonthAdmin:show_days.html.twig'
+                ])
             ->end()
             ;
     }
@@ -41,9 +52,11 @@ class CalendarMonthAdmin extends BaseAdmin
                 'class'       => 'col-md-6',
                 'box_class'   => 'box box-primary',
             ])
-                ->add('position')
+                ->add('number', 'integer')
                 ->add('name')
                 ->add('nbDays')
+                ->add('nameForDate')
+                ->add('formatDay', null, ['help' => 'help.format_day'])
             ->end()
             ;
     }
@@ -51,7 +64,7 @@ class CalendarMonthAdmin extends BaseAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('position')
+            ->add('number')
             ->add('name')
             ->add('nbDays')
             ->add('_action', null, [

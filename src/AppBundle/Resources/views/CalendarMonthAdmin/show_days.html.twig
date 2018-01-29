@@ -1,0 +1,12 @@
+{% extends 'MMCSonataAdminBundle:CRUD:base_show_list_items.html.twig' %}
+
+{% trans_default_domain 'CalendarMonth' %}
+
+{% set value = [] %}
+{% for number in range(1, object.nbDays) %}
+    {% set value = value|merge([createDate(object.calendar, 0, object, number)]) %}
+{% endfor %}
+
+{% block item %}
+    {{ item|formatDate({'format': '%day%'}) }}
+{% endblock item %}

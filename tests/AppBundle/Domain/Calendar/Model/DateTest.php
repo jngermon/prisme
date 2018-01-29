@@ -9,10 +9,14 @@ use PHPUnit\Framework\TestCase;
 
 class ManipulatorTest extends TestCase
 {
-    public function test()
+    protected $firstCalendar;
+
+    protected $secondCalendar;
+
+    public function setUp()
     {
-        $calendar = new Calendar();
-        $calendar->setDiffDaysWithOrigin(0);
+        $this->firstCalendar = new Calendar();
+        $this->firstCalendar->setDiffDaysWithOrigin(0);
 
         $months = [];
         for ($i = 0; $i < 12; $i++) {
@@ -23,10 +27,10 @@ class ManipulatorTest extends TestCase
             $months[] = $month;
         }
 
-        $calendar->setMonths($months);
+        $this->firstCalendar->setMonths($months);
 
-        $calendar2 = new Calendar();
-        $calendar2->setDiffDaysWithOrigin(350);
+        $this->secondCalendar = new Calendar();
+        $this->secondCalendar->setDiffDaysWithOrigin(350);
 
         $months = [];
         for ($i = 0; $i < 6; $i++) {
@@ -37,38 +41,58 @@ class ManipulatorTest extends TestCase
             $months[] = $month;
         }
 
-        $calendar2->setMonths($months);
+        $this->secondCalendar->setMonths($months);
 
-        $this->controleDatas(new Date(0, $calendar), 0, 1, 1);
-        $this->controleDatas(new Date(24, $calendar), 0, 1, 25);
-        $this->controleDatas(new Date(25, $calendar), 0, 2, 1);
-        $this->controleDatas(new Date(299, $calendar), 0, 12, 25);
-        $this->controleDatas(new Date(300, $calendar), 1, 1, 1);
-        $this->controleDatas(new Date(810, $calendar), 2, 9, 11);
-        $this->controleDatas(new Date(1550, $calendar), 5, 3, 1);
+        $this->thirdCalendar = new Calendar();
+        $this->thirdCalendar->setDiffDaysWithOrigin(0);
 
-        $calendar->setDiffDaysWithOrigin(300);
+        $months = [
+            (new CalendarMonth())
+                ->setName('Month1')
+                ->setNumber(1)
+                ->setNbDays(30),
+            (new CalendarMonth())
+                ->setName('Month2')
+                ->setNumber(2)
+                ->setNbDays(10),
+            (new CalendarMonth())
+                ->setName('Month3')
+                ->setNumber(3)
+                ->setNbDays(30),
+        ];
 
-        $this->controleDatas(new Date(0, $calendar), -1, 1, 1);
-        $this->controleDatas(new Date(24, $calendar), -1, 1, 25);
-        $this->controleDatas(new Date(25, $calendar), -1, 2, 1);
-        $this->controleDatas(new Date(299, $calendar), -1, 12, 25);
-        $this->controleDatas(new Date(300, $calendar), 0, 1, 1);
-        $this->controleDatas(new Date(810, $calendar), 1, 9, 11);
-        $this->controleDatas(new Date(1550, $calendar), 4, 3, 1);
-
-        $this->controleDatas(new Date(0, $calendar2), -2, 6, 1);
-        $this->controleDatas(new Date(24, $calendar2), -2, 6, 25);
-        $this->controleDatas(new Date(25, $calendar2), -2, 6, 26);
-        $this->controleDatas(new Date(299, $calendar2), -1, 5, 50);
-        $this->controleDatas(new Date(300, $calendar2), -1, 6, 1);
-        $this->controleDatas(new Date(810, $calendar2), 1, 4, 11);
-        $this->controleDatas(new Date(1550, $calendar2), 4, 1, 1);
+        $this->thirdCalendar->setMonths($months);
     }
 
-    /**
-     *
-     */
+    public function test()
+    {
+        $this->controleDatas(new Date(0, $this->firstCalendar), 0, 1, 1);
+        $this->controleDatas(new Date(24, $this->firstCalendar), 0, 1, 25);
+        $this->controleDatas(new Date(25, $this->firstCalendar), 0, 2, 1);
+        $this->controleDatas(new Date(299, $this->firstCalendar), 0, 12, 25);
+        $this->controleDatas(new Date(300, $this->firstCalendar), 1, 1, 1);
+        $this->controleDatas(new Date(810, $this->firstCalendar), 2, 9, 11);
+        $this->controleDatas(new Date(1550, $this->firstCalendar), 5, 3, 1);
+
+        $this->firstCalendar->setDiffDaysWithOrigin(300);
+
+        $this->controleDatas(new Date(0, $this->firstCalendar), -1, 1, 1);
+        $this->controleDatas(new Date(24, $this->firstCalendar), -1, 1, 25);
+        $this->controleDatas(new Date(25, $this->firstCalendar), -1, 2, 1);
+        $this->controleDatas(new Date(299, $this->firstCalendar), -1, 12, 25);
+        $this->controleDatas(new Date(300, $this->firstCalendar), 0, 1, 1);
+        $this->controleDatas(new Date(810, $this->firstCalendar), 1, 9, 11);
+        $this->controleDatas(new Date(1550, $this->firstCalendar), 4, 3, 1);
+
+        $this->controleDatas(new Date(0, $this->secondCalendar), -2, 6, 1);
+        $this->controleDatas(new Date(24, $this->secondCalendar), -2, 6, 25);
+        $this->controleDatas(new Date(25, $this->secondCalendar), -2, 6, 26);
+        $this->controleDatas(new Date(299, $this->secondCalendar), -1, 5, 50);
+        $this->controleDatas(new Date(300, $this->secondCalendar), -1, 6, 1);
+        $this->controleDatas(new Date(810, $this->secondCalendar), 1, 4, 11);
+        $this->controleDatas(new Date(1550, $this->secondCalendar), 4, 1, 1);
+    }
+
     public function testNoCalendar()
     {
         $this->expectException(CalendarException::class);
@@ -76,6 +100,24 @@ class ManipulatorTest extends TestCase
         $date = new Date(0);
 
         $date->getDatas();
+    }
+
+    public function testUpdate()
+    {
+        $date = new Date(0, $this->firstCalendar);
+        $this->controleDatas($date, 0, 1, 1);
+
+        $date->update(1, 2, 7);
+        $this->controleDatas($date, 1, 2, 7);
+
+        $date = new Date(0, $this->thirdCalendar);
+        $this->controleDatas($date, 0, 1, 1);
+
+        $date->update(1, 2, 4);
+        $this->controleDatas($date, 1, 2, 4);
+
+        $date->update(1, 2, 15);
+        $this->controleDatas($date, 1, 3, 5);
     }
 
     protected function controleDatas($date, $year, $month, $day)

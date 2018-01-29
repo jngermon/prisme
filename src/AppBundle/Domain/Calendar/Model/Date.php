@@ -90,4 +90,29 @@ class Date
             'year' => $year,
         ];
     }
+
+    public function update($year, $month, $day)
+    {
+        $calendar = $this->getCalendar();
+
+        if (!$calendar) {
+            throw new CalendarNotSpecifiedException('No calendar specified');
+        }
+
+        if ($month instanceof Month) {
+            $month = $month->getNumber();
+        }
+
+        $this->nbDaysFromOrigin = $calendar->getDiffDaysWithOrigin();
+
+        $this->nbDaysFromOrigin += $year * $calendar->getNbDays();
+
+        foreach ($calendar->getMonths() as $m) {
+            if ($m->getNumber() < $month) {
+                $this->nbDaysFromOrigin += $m->getNbDays();
+            }
+        }
+
+        $this->nbDaysFromOrigin += $day - 1;
+    }
 }

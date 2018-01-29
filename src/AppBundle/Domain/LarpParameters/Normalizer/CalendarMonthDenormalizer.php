@@ -23,7 +23,7 @@ class CalendarMonthDenormalizer extends BaseDenormalizer
         }
 
         $accessor = PropertyAccess::createPropertyAccessor();
-        foreach (['name', 'nbDays', 'position'] as $property) {
+        foreach (['name', 'nbDays', 'position', 'nameForDate', 'formatDay'] as $property) {
             if (array_key_exists($property, $data)) {
                 $accessor->setValue($month, Inflector::camelize($property), $data[$property]);
             }

@@ -5,6 +5,7 @@ namespace AppBundle\Admin;
 use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 class CalendarAdmin extends BaseAdmin
@@ -22,11 +23,14 @@ class CalendarAdmin extends BaseAdmin
                 ->add('name')
                 ->add('diffDaysWithOrigin')
                 ->add('months', null, [
-                    'template' => 'AppBundle:Calendar:show_months.html.twig',
+                    'template' => 'AppBundle:CalendarAdmin:show_months.html.twig',
                 ])
                 ->add('nbDays', null, [
-                    'template' => 'AppBundle:Calendar:show_nb_days.html.twig',
+                    'template' => 'AppBundle:CalendarAdmin:show_nb_days.html.twig',
                 ])
+                ->add('formatGlobal')
+                ->add('formatYear')
+                ->add('formatDay')
             ->end()
             ;
     }
@@ -40,6 +44,9 @@ class CalendarAdmin extends BaseAdmin
             ])
                 ->add('name')
                 ->add('diffDaysWithOrigin')
+                ->add('formatGlobal', 'text', ['help' => 'help.format_global'])
+                ->add('formatYear', 'text', ['help' => 'help.format_year'])
+                ->add('formatDay', 'text', ['help' => 'help.format_day'])
             ->end()
             ;
     }
@@ -54,10 +61,25 @@ class CalendarAdmin extends BaseAdmin
                     'show' => [],
                     'edit' => [],
                     'item' => [
-                        'template' => 'AppBundle:Calendar:list__months_action.html.twig',
+                        'template' => 'AppBundle:CalendarAdmin:list__months_action.html.twig',
+                    ],
+                    'convert' => [
+                        'template' => 'AppBundle:CalendarAdmin:list__convertor_action.html.twig',
                     ],
                 ]
             ])
             ;
+    }
+
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection->add('convertor', $this->getRouterIdParameter().'/convertor');
+    }
+
+    protected function getAccess()
+    {
+        return array_merge(parent::getAccess(), [
+            'convertor' => 'CONVERTOR',
+        ]);
     }
 }

@@ -1,0 +1,56 @@
+{% extends 'AppBundle::sonata_layout.html.twig' %}
+
+{% trans_default_domain 'Calendar' %}
+{% form_theme form with ['bootstrap_3_horizontal_layout.html.twig', _self] %}
+
+{%- block actions -%}
+    {% include 'SonataAdminBundle:CRUD:action_buttons.html.twig' %}
+{%- endblock -%}
+
+{% block sonata_admin_content %}
+    {{ parent() }}
+
+    <div class="row">
+        <div class="col-md-5 ">
+            {{ form_start(form, {attr: {class: "box box-primary"}}) }}
+                <div class="box-header">
+                    <h4 class="box-title">{{ 'convertor.title'|trans }}</h4>
+                </div>
+                <div class="box-body">
+                    {{ form_row(form.year, {label: 'convertor.year', attr: {class: 'form-control'}}) }}
+                    {{ form_row(form.month, {label: 'convertor.month', attr: {class: 'form-control'}}) }}
+                    {{ form_row(form.day, {label: 'convertor.day', attr: {class: 'form-control'}}) }}
+
+                    <div class="row">
+                        <div class="col-sm-12 text-right">
+                            <input type="submit" class="btn btn-success" value="{{ 'convertor.submit'|trans }}" />
+                        </div>
+                    </div>
+                </div>
+            {{ form_end(form) }}
+        </div>
+        <div class="col-md-7">
+            <div class="box box-secondary">
+                <div class="box-header">
+                    <h4 class="box-title">{{ 'convertor.result.title'|trans }}</h4>
+                </div>
+                <div class="box-body">
+                    <dl class="dl-horizontal">
+                        {% for calendar in calendars %}
+                            <dt class="{{ calendar == date.calendar ? 'text-primary' : '' }}">{{ calendar.name }}</dt>
+                            <dd>{{ date|formatDate([], calendar) }}</dd>
+                        {% endfor %}
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock sonata_admin_content %}
+
+{% block form_label_class -%}
+col-sm-4
+{%- endblock form_label_class %}
+
+{% block form_group_class -%}
+col-sm-8
+{%- endblock form_group_class %}

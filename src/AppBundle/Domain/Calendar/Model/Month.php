@@ -9,4 +9,8 @@ interface Month
     public function getName();
 
     public function getNbDays();
+
+    public function getNameForDate();
+
+    public function getFormatDay();
 }
