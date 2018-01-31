@@ -5,7 +5,7 @@
         backupGlobals="false"
         colors="true"
         syntaxCheck="false"
-        bootstrap="tests/autoload.php">
+        bootstrap="vendor/autoload.php">
 
     <testsuites>
         <testsuite name="Prisme - unit test suite">
