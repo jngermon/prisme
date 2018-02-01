@@ -4,11 +4,11 @@
         <body>
             <trans-unit id="Calendar">
                 <source>Calendar</source>
-                <target>Calendier</target>
+                <target>Calendrier</target>
             </trans-unit>
             <trans-unit id="breadcrumb.link_calendar_list">
                 <source>breadcrumb.link_calendar_list</source>
-                <target>Calendier</target>
+                <target>Calendrier</target>
             </trans-unit>
             <trans-unit id="breadcrumb.link_calendar_create">
                 <source>breadcrumb.link_calendar_create</source>
