@@ -1,69 +1,68 @@
-data:
-    image: busybox
-    container_name: prisme_data
-    volumes:
-        - .:/srv
-        - ./docker/conf/nginx_vhost.conf:/etc/nginx/sites-enabled/my_app.conf
-        - ./docker/.home-developer:/home/developer
-        - /var/lib/postgresql/data
+version: "3.4"
 
-webserver:
-    image: greg0ire/nginx
-    container_name: prisme_webserver
-    volumes_from:
-        - data
-    links:
-        - appserver
-    env_file:
-        - ./docker/docker-compose.env
-    environment:
-        - DNSDOCK_IMAGE=web
-    restart: always
+services:
+    webserver:
+        image: greg0ire/nginx
+        container_name: prisme_webserver
+        volumes:
+            - .:/srv
+            - ./docker/conf/nginx_vhost.conf:/etc/nginx/sites-enabled/my_app.conf
+        links:
+            - appserver
+        environment:
+            - DNSDOCK_IMAGE=web
+            - DNSDOCK_NAME
+        restart: always
 
-appserver:
-    image: meuhmeuhconcept/php-fpm
-    container_name: prisme_appserver
-    volumes_from:
-        - data
-    links:
-        - database
-        - mailer
-    env_file:
-        - ./docker/docker-compose.env
-    environment:
-        - DNSDOCK_IMAGE=app
-    restart: always
+    appserver:
+        image: meuhmeuhconcept/php-fpm
+        container_name: prisme_appserver
+        volumes:
+            - .:/srv
+            - ./docker/.home-developer:/home/developer
+        links:
+            - database
+            - mailer
+        environment:
+            - DNSDOCK_IMAGE=app
+            - DNSDOCK_NAME
+            - USERNAME
+            - UNIX_UID
+        restart: always
 
-console:
-    image: meuhmeuhconcept/php-console
-    container_name: prisme_console
-    volumes_from:
-        - data
-    links:
-        - database
-        - mailer
-    env_file:
-        - ./docker/docker-compose.env
-    environment:
-        - DNSDOCK_IMAGE=console
-    working_dir: /srv
-    restart: always
+    console:
+        image: meuhmeuhconcept/php-console
+        container_name: prisme_console
+        volumes:
+            - .:/srv
+            - ./docker/.home-developer:/home/developer
+        links:
+            - database
+            - mailer
+        environment:
+            - DNSDOCK_IMAGE=console
+            - DNSDOCK_NAME
+            - USERNAME
+            - UNIX_UID
+            - CONTAINER_SHELL
+        working_dir: /srv
+        restart: always
 
-database:
-    image: postgres:9.6
-    container_name: prisme_database
-    volumes_from:
-        - data
-    env_file:
-        - ./docker/docker-compose.env
-    environment:
-        - DNSDOCK_IMAGE=db
-    restart: always
+    database:
+        image: postgres:9.6
+        container_name: prisme_database
+        volumes:
+            - /var/lib/postgresql/data
+        environment:
+            - DNSDOCK_IMAGE=db
+            - DNSDOCK_NAME
+            - POSTGRES_DB
+            - POSTGRES_USER
+            - POSTGRES_PASSWORD
+        restart: always
 
-mailer:
-    image: greg0ire/mailcatcher
-    container_name: prisme_mailer
-    env_file:
-        - ./docker/docker-compose.env
-    environment:
-        - DNSDOCK_IMAGE=mailer
+    mailer:
+        image: greg0ire/mailcatcher
+        container_name: prisme_mailer
+        environment:
+            - DNSDOCK_IMAGE=mailer

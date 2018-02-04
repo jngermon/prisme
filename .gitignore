@@ -1,4 +1,5 @@
 #Docker
+.env
 docker-compose.yml
 /docker/docker-compose.env
 /docker/.home-developer

@@ -4,15 +4,15 @@ bin_dir=vendor/bin
 docker-compose.yml:
 	cp docker-compose.yml.dist $@
 
-docker/docker-compose.env:
-	cp docker/docker-compose.env.dist $@
+.env:
+	cp .env.dist $@
 	sed --in-place "s/{your_unix_local_username}/$(shell whoami)/" $@
 	sed --in-place "s/{your_unix_local_uid}/$(shell id -u)/" $@
 
 docker/conf/nginx_vhost.conf:
 	cp docker/conf/nginx_vhost.conf.dist $@
 
-start: docker-compose.yml docker/docker-compose.env docker/conf/nginx_vhost.conf ## Launch containers
+start: docker-compose.yml .env docker/conf/nginx_vhost.conf ## Launch containers
 	docker-compose up -d
 
 stop: ## Stop containers

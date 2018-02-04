@@ -15,6 +15,9 @@ $available_ips = ['127.0.0.1', '::1'];
 for ($i = 1; $i < 254; $i++) {
     $available_ips[] = "172.17.0.".$i;
 }
+for ($i = 1; $i < 254; $i++) {
+    $available_ips[] = "172.20.0.".$i;
+}
 
 if (isset($_SERVER['HTTP_CLIENT_IP'])
     || isset($_SERVER['HTTP_X_FORWARDED_FOR'])
