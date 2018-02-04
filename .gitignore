@@ -27,3 +27,7 @@ docker-compose.yml
 !var/sessions/.gitkeep
 !var/SymfonyRequirements.php
 /web/bundles/
+
+node_modules/
+web/build/
+yarn-error.log
