@@ -4,7 +4,7 @@ namespace AppBundle\Domain\Calendar\Model;
 
 use AppBundle\Domain\Calendar\Exception\CalendarNotSpecifiedException;
 
-class Date
+class Date implements \ArrayAccess
 {
     protected $nbDaysFromOrigin;
 
@@ -24,6 +24,16 @@ class Date
     public function getNbDaysFromOrigin()
     {
         return $this->nbDaysFromOrigin;
+    }
+
+    /**
+     * @param integer $nbDaysFromOrigin
+     */
+    public function setNbDaysFromOrigin($nbDaysFromOrigin)
+    {
+        $this->nbDaysFromOrigin = $nbDaysFromOrigin;
+
+        return $this;
     }
 
     /**
@@ -114,5 +124,41 @@ class Date
         }
 
         $this->nbDaysFromOrigin += $day - 1;
+    }
+
+    public function offsetExists($offset)
+    {
+        return in_array($offset, ['nbDaysFromOrigin', 'calendar', 'year', 'month', 'day']);
+    }
+
+    public function offsetGet($offset)
+    {
+        switch($offset) {
+            case 'nbDaysFromOrigin':
+                return $this->getNbDaysFromOrigin();
+            case 'calendar':
+                return $this->getCalendar();
+            case 'year':
+                return $this->getYear();
+            case 'month':
+                return $this->getMonth();
+            case 'day':
+                return $this->getDay();
+        }
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        switch($offset) {
+            case 'nbDaysFromOrigin':
+                return $this->setNbDaysFromOrigin($value);
+            case 'calendar':
+                return $this->setCalendar($value);
+        }
+    }
+
+    public function offsetUnset($offset)
+    {
+
     }
 }

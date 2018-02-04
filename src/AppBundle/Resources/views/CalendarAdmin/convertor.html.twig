@@ -17,9 +17,7 @@
                     <h4 class="box-title">{{ 'convertor.title'|trans }}</h4>
                 </div>
                 <div class="box-body">
-                    {{ form_row(form.year, {label: 'convertor.year', attr: {class: 'form-control'}}) }}
-                    {{ form_row(form.month, {label: 'convertor.month', attr: {class: 'form-control'}}) }}
-                    {{ form_row(form.day, {label: 'convertor.day', attr: {class: 'form-control'}}) }}
+                    {{ form_row(form, { attr: {class: 'form-control'}}) }}
 
                     <div class="row">
                         <div class="col-sm-12 text-right">

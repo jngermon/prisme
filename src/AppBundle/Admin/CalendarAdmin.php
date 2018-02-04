@@ -13,6 +13,12 @@ class CalendarAdmin extends BaseAdmin
     protected $baseRouteName = 'app_admin_calendar';
     protected $baseRoutePattern = 'calendar';
 
+    protected $datagridValues = array(
+        '_page' => 1,
+        '_sort_order' => 'ASC',
+        '_sort_by' => 'name',
+    );
+
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
@@ -63,9 +69,6 @@ class CalendarAdmin extends BaseAdmin
                     'item' => [
                         'template' => 'AppBundle:CalendarAdmin:list__months_action.html.twig',
                     ],
-                    'convert' => [
-                        'template' => 'AppBundle:CalendarAdmin:list__convertor_action.html.twig',
-                    ],
                 ]
             ])
             ;
@@ -73,7 +76,8 @@ class CalendarAdmin extends BaseAdmin
 
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->add('convertor', $this->getRouterIdParameter().'/convertor');
+        $collection->add('convertor', 'convertor');
+        $collection->add('infos', 'infos');
     }
 
     protected function getAccess()
@@ -81,5 +85,20 @@ class CalendarAdmin extends BaseAdmin
         return array_merge(parent::getAccess(), [
             'convertor' => 'CONVERTOR',
         ]);
+    }
+
+    public function configureActionButtons($action, $object = null)
+    {
+
+        $list = [];
+        if ($action == 'list'
+            && $this->hasAccess('convertor')
+            && $this->hasRoute('convertor')) {
+            $list['export_parameters'] = [
+                'template' => 'AppBundle:CalendarAdmin:list__convertor_action.html.twig',
+            ];
+        }
+
+        return array_merge($list, parent::configureActionButtons($action, $object));
     }
 }

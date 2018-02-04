@@ -30,8 +30,12 @@ class CalendarExtension extends \Twig_Extension
         );
     }
 
-    public function formatDate(Date $date, $options = [], Calendar $calendar = null)
+    public function formatDate(Date $date = null, $options = [], Calendar $calendar = null)
     {
+        if ($date == null) {
+            return ;
+        }
+
         $old = $date->getCalendar();
 
         if ($calendar) {

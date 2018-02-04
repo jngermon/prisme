@@ -13,7 +13,11 @@ class Formatter
     {
         $options = $this->createOptionsResolver()->resolve($options);
 
-        $datas = $date->getDatas();
+        try {
+            $datas = $date->getDatas();
+        } catch (Exception\CalendarException $e) {
+            return $e->getMessage();
+        }
 
         $messageFormatter = new MessageFormatter();
 

@@ -1,0 +1,39 @@
+{% block calendar_date_widget %}
+    {% spaceless %}
+        {% trans_default_domain 'Calendar' %}
+        <div class="calendar_date" data-remote="{{ path('app_admin_calendar_infos') }}" data-prefixe="{{ form.vars.id }}">
+            {% set date = form.vars.data %}
+
+            {% if date is null and form.calendar.vars.choices|first is not null %}
+                {% set date = createDate((form.calendar.vars.choices|first).data) %}
+            {% endif %}
+
+            {% if date is not null %}
+                {% set dateDatas = date.datas %}
+
+                {% set value = date|formatDate %}
+                {% set attr = { 'data-toggle': 'modal', 'data-target': '#modal_'~form.vars.id, readonly: true } %}
+                {{ block('form_widget_simple') }}
+
+                <div class="modal" id="modal_{{ form.vars.id }}">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                               <span id="{{ form.vars.id }}_text">{{ value }}</span>
+                            </div>
+                            <div class="modal-body">
+                                {{ form_row(form.nbDaysFromOrigin) }}
+                                {{ form_row(form.calendar) }}
+                                {{ form_row(form.year, { value: dateDatas.year }) }}
+                                {{ form_row(form.month, { value: ""~dateDatas.month.id }) }}{# the id is cast to string deliberately #}
+                                {{ form_row(form.day, { value: dateDatas.day }) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <span class="text-danger">{{ 'error.no_calendar_for_this_larp'|trans }}</span>
+            {% endif %}
+        </div>
+    {% endspaceless %}
+{% endblock %}

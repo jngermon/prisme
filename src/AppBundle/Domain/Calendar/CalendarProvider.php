@@ -26,4 +26,9 @@ class CalendarProvider
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findOneById($id)
+    {
+        return $this->repository->findOneById($id);
+    }
 }

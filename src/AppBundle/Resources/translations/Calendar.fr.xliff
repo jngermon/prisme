@@ -112,29 +112,40 @@
                 <source>convertor.title</source>
                 <target>Convertisseur de dates</target>
             </trans-unit>
+            <trans-unit id="convertor.date">
+                <source>convertor.date</source>
+                <target>Date</target>
+            </trans-unit>
             <trans-unit id="convertor.submit">
                 <source>convertor.submit</source>
                 <target>Convertir</target>
-            </trans-unit>
-            <trans-unit id="convertor.year">
-                <source>convertor.year</source>
-                <target>Année</target>
-            </trans-unit>
-            <trans-unit id="convertor.month">
-                <source>convertor.month</source>
-                <target>Mois</target>
-            </trans-unit>
-            <trans-unit id="convertor.day">
-                <source>convertor.day</source>
-                <target>Jour</target>
             </trans-unit>
             <trans-unit id="convertor.result.title">
                 <source>convertor.result.title</source>
                 <target>Convertions</target>
             </trans-unit>
 
+            <trans-unit id="calendar_date_type.calendar">
+                <source>calendar_date_type.calendar</source>
+                <target>Calendrier</target>
+            </trans-unit>
+            <trans-unit id="calendar_date_type.year">
+                <source>calendar_date_type.year</source>
+                <target>Année</target>
+            </trans-unit>
+            <trans-unit id="calendar_date_type.month">
+                <source>calendar_date_type.month</source>
+                <target>Mois</target>
+            </trans-unit>
+            <trans-unit id="calendar_date_type.day">
+                <source>calendar_date_type.day</source>
+                <target>Jour</target>
+            </trans-unit>
 
-
+            <trans-unit id="error.no_calendar_for_this_larp">
+                <source>error.no_calendar_for_this_larp</source>
+                <target>Aucun calendrier n'est défini pour ce GN !</target>
+            </trans-unit>
 
         </body>
     </file>

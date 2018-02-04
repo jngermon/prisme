@@ -40,6 +40,7 @@ twig:
     strict_variables: '%kernel.debug%'
     form_themes:
         - 'SonataCoreBundle:Form:datepicker.html.twig'
+        - 'AppBundle:Form:fields.html.twig'
     globals:
         mmc_fos_user_layout: "FOSUserBundle:Default:layout.html.twig"
         mmc_fos_user_bundle_logout_path: '/logout'

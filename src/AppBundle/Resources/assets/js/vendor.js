@@ -19,7 +19,7 @@ require('moment');
 require('jquery-ui');
 require('../../../../../node_modules/jquery-ui-datepicker-with-i18n/ui/jquery.ui.datepicker');
 require('bootstrap');
-require('eonasdan-bootstrap-datetimepicker');
+require('../../../../../web/bundles/sonatacore/vendor/eonasdan-bootstrap-datetimepicker');
 require('jquery-form');
 require('../../../../../web/bundles/sonataadmin/jquery/jquery.confirmExit');
 require('../../../../../web/bundles/sonataadmin/vendor/x-editable/dist/bootstrap3-editable/js/bootstrap-editable');
