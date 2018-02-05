@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Domain\Calendar\Form\Type\CalendarDateType;
 use MMC\SonataAdminBundle\Datagrid\DTOFieldDescription;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -26,6 +27,9 @@ class LarpAdmin extends BaseAdmin
                 ->add('startedAt')
                 ->add('endedAt')
                 ->add('owner')
+                ->add('inGameDate', null, [
+                    'template' => 'AppBundle:Common:show_calendar_date.html.twig',
+                ])
             ->end()
             ;
     }
@@ -46,6 +50,9 @@ class LarpAdmin extends BaseAdmin
                     'required' => false,
                 ])
                 ->add('owner', null, ['disabled' => !$this->getSecurityHandler()->isGranted($this, 'CHANGE_OWNER', $this->getSubject())])
+                ->add('inGameDate', CalendarDateType::class, [
+                    'larp' => $this->getSubject(),
+                ])
             ->end()
             ;
     }

@@ -53,6 +53,11 @@
                 <source>form.label_owner</source>
                 <target>Propriétaire</target>
             </trans-unit>
+            <trans-unit id="form.label_in_game_date">
+                <source>form.label_in_game_date</source>
+                <target>Date "en jeu"</target>
+            </trans-unit>
+
 
             <trans-unit id="list.label__action">
                 <source>list.label__action</source>
@@ -91,6 +96,11 @@
                 <source>show.label_owner</source>
                 <target>Propriétaire</target>
             </trans-unit>
+            <trans-unit id="show.label_in_game_date">
+                <source>show.label_in_game_date</source>
+                <target>Date "en jeu"</target>
+            </trans-unit>
+
             <trans-unit id="show.action__export">
                 <source>show.action__export</source>
                 <target>Télécharger les paramètres</target>

@@ -66,6 +66,8 @@ doctrine:
                 user: '%database_external_user%'
                 password: '%database_external_password%'
                 charset: UTF8
+        types:
+            calendarDate: AppBundle\Doctrine\Types\CalendarDateType
 
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'

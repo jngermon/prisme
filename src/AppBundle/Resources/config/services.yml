@@ -1,4 +1,13 @@
 services:
+    # Doctrine
+    ## Listeners
+    app.doctrine.listeners.entity_loader:
+        class: AppBundle\Doctrine\Listeners\EntityLoader
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: doctrine.event_listener, event: loadEntity }
+
     # Domain
 
     ## CharacterDataDefinition

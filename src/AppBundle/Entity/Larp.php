@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Domain\Calendar\Model\Date;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use ExternalBundle\Annotations\External;
@@ -55,6 +56,11 @@ class Larp implements SynchronizableInterface
     protected $endedAt;
 
     /**
+     * @ORM\Column(type="calendarDate", nullable=true)
+     */
+    protected $inGameDate;
+
+    /**
      * @ORM\OneToMany(targetEntity="Organizer", mappedBy="larp")
      */
     protected $organizers;
@@ -102,6 +108,7 @@ class Larp implements SynchronizableInterface
         $this->players = new ArrayCollection();
         $this->characters = new ArrayCollection();
         $this->groups = new ArrayCollection();
+        $this->inGameDate = new Date(0);
     }
 
     public function __toString()
@@ -185,6 +192,24 @@ class Larp implements SynchronizableInterface
     public function setEndedAt($endedAt)
     {
         $this->endedAt = $endedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Date
+     */
+    public function getInGameDate()
+    {
+        return $this->inGameDate;
+    }
+
+    /**
+     * @param Date $inGameDate
+     */
+    public function setInGameDate(Date $inGameDate = null)
+    {
+        $this->inGameDate = $inGameDate;
 
         return $this;
     }
