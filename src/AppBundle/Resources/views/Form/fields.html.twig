@@ -37,3 +37,29 @@
         </div>
     {% endspaceless %}
 {% endblock %}
+
+{% block sonata_type_date_picker_widget %}
+    {% spaceless %}
+        {% set attr = { class: 'sonata_dtp', 'data-options': dp_options|json_encode|raw } %}
+        {% if wrap_fields_with_addons %}
+            <div class="input-group">
+                {{ block('sonata_type_date_picker_widget_html') }}
+            </div>
+        {% else %}
+            {{ block('sonata_type_date_picker_widget_html') }}
+        {% endif %}
+    {% endspaceless %}
+{% endblock sonata_type_date_picker_widget %}
+
+{% block sonata_type_datetime_picker_widget %}
+    {% spaceless %}
+        {% set attr = { class: 'sonata_dtp', 'data-options': dp_options|json_encode|raw } %}
+        {% if wrap_fields_with_addons %}
+            <div class="input-group">
+                {{ block('sonata_type_datetime_picker_widget_html') }}
+            </div>
+        {% else %}
+            {{ block('sonata_type_datetime_picker_widget_html') }}
+        {% endif %}
+    {% endspaceless %}
+{% endblock sonata_type_datetime_picker_widget %}
