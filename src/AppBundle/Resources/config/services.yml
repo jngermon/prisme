@@ -1,6 +1,15 @@
 services:
     # Doctrine
     ## Listeners
+    app.doctrine.listeners.character_listener:
+        class: AppBundle\Doctrine\Listeners\CharacterListener
+        arguments:
+            - '@app.doctrine.character_data_definition.transformer'
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
+            - { name: doctrine.event_listener, event: postLoad }
+
     app.doctrine.listeners.entity_loader:
         class: AppBundle\Doctrine\Listeners\EntityLoader
         arguments:
@@ -19,6 +28,13 @@ services:
 
     app.doctrine.character_data_definition.form.factory.boolean:
         class: AppBundle\Domain\CharacterDataDefinition\Form\BooleanFormFactory
+        arguments:
+            - '@form.factory'
+        tags:
+            - { name: 'app.doctrine.character_data_definition.form.factory' }
+
+    app.doctrine.character_data_definition.form.factory.calendar_date:
+        class: AppBundle\Domain\CharacterDataDefinition\Form\CalendarDateFormFactory
         arguments:
             - '@form.factory'
         tags:
@@ -45,6 +61,19 @@ services:
             - '@form.factory'
         tags:
             - { name: 'app.doctrine.character_data_definition.form.factory' }
+
+    ### Transformer
+    app.doctrine.character_data_definition.transformer:
+        class: AppBundle\Domain\CharacterDataDefinition\Transformer\Transformer
+        tags:
+            - { name: 'mmc.processor.chain' }
+
+    app.doctrine.character_data_definition.transformer.calendar_date:
+        class: AppBundle\Domain\CharacterDataDefinition\Transformer\CalendarDateTransformer
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: 'app.doctrine.character_data_definition.transformer' }
 
     ### Validator
     app.domain.character_data_definition.validator:
@@ -86,6 +115,14 @@ services:
 
     app.domain.character_data_definition.viewer.boolean:
         class: AppBundle\Domain\CharacterDataDefinition\Viewer\BooleanViewer
+        tags:
+            - { name: 'app.domain.character_data_definition.viewer' }
+
+
+    app.domain.character_data_definition.viewer.calendar_date:
+        class: AppBundle\Domain\CharacterDataDefinition\Viewer\CalendarDateViewer
+        arguments:
+            - '@AppBundle\Domain\Calendar\Formatter'
         tags:
             - { name: 'app.domain.character_data_definition.viewer' }
 

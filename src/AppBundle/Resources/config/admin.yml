@@ -46,7 +46,8 @@ services:
                 string: AppBundle\Entity\CharacterDataDefinitionString,
                 integer: AppBundle\Entity\CharacterDataDefinitionInteger,
                 boolean: AppBundle\Entity\CharacterDataDefinitionBoolean,
-                enum: AppBundle\Entity\CharacterDataDefinitionEnum
+                enum: AppBundle\Entity\CharacterDataDefinitionEnum,
+                calendar_date: AppBundle\Entity\CharacterDataDefinitionCalendarDate
                 }]]
         public: true
 

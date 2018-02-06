@@ -16,7 +16,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *   "string" = "CharacterDataDefinitionString",
  *   "integer" = "CharacterDataDefinitionInteger",
  *   "boolean" = "CharacterDataDefinitionBoolean",
- *   "enum" = "CharacterDataDefinitionEnum"
+ *   "enum" = "CharacterDataDefinitionEnum",
+ *   "calendar_date" = "CharacterDataDefinitionCalendarDate"
  * })
  * @UniqueEntity(fields={"larp", "name"},
  *   entityClass="AppBundle\Entity\CharacterDataDefinition",

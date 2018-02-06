@@ -195,8 +195,8 @@ class CharacterAdmin extends BaseAdmin
         $character = parent::getNewInstance();
 
         foreach ($character->getLarp()->getCharacterDataDefinitions() as $definition) {
-            if ($definition->getOption('default') !== null) {
-                $character->setData($definition->getName(), $definition->getOption('default'));
+            if ($definition->getDefault() !== null) {
+                $character->setData($definition->getName(), $definition->getDefault());
             }
         }
 

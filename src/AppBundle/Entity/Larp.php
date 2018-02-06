@@ -77,6 +77,7 @@ class Larp implements SynchronizableInterface
 
     /**
      * @ORM\OneToMany(targetEntity="Calendar", mappedBy="larp")
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     protected $calendars;
 

@@ -143,6 +143,16 @@
                 <source>AppBundle\Entity\CharacterDataDefinitionEnum</source>
                 <target>Liste déroulante</target>
             </trans-unit>
+            <trans-unit id="calendar_date">
+                <source>calendar_date</source>
+                <target>Date</target>
+            </trans-unit>
+            <trans-unit id="AppBundle\Entity\CharacterDataDefinitionCalendarDate">
+                <source>AppBundle\Entity\CharacterDataDefinitionCalendarDate</source>
+                <target>Date</target>
+            </trans-unit>
+
+
 
         </body>
     </file>
