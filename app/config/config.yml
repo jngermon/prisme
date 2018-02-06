@@ -109,6 +109,7 @@ sonata_admin:
     title_logo: favicon.png
     templates:
         layout: AppBundle::sonata_layout.html.twig
+        button_create: AppBundle:Button:create_button.html.twig
     security:
         handler: sonata.admin.security.handler.role
     dashboard:
