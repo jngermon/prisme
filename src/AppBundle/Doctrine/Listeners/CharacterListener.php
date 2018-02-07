@@ -51,7 +51,13 @@ class CharacterListener
 
     protected function transform(Character $character)
     {
-        foreach ($character->getLarp()->getCharacterDataDefinitions() as $definition) {
+        $definitions = $character->getLarp()->getCharacterDataDefinitions()->toArray();
+
+        usort($definitions, function ($d1, $d2) {
+            return $d1->getTransformerPriority() < $d2->getTransformerPriority();
+        });
+
+        foreach ($definitions as $definition) {
             if ($definition->getDefault() !== null) {
                 $value = $character->getData($definition->getName());
                 $value = $this->transformer->transform($value, $definition, $character);
@@ -62,7 +68,13 @@ class CharacterListener
 
     protected function reverseTransform(Character $character)
     {
-        foreach ($character->getLarp()->getCharacterDataDefinitions() as $definition) {
+        $definitions = $character->getLarp()->getCharacterDataDefinitions()->toArray();
+
+        usort($definitions, function ($d1, $d2) {
+            return $d1->getTransformerPriority() > $d2->getTransformerPriority();
+        });
+
+        foreach ($definitions as $definition) {
             if ($definition->getDefault() !== null) {
                 $value = $character->getData($definition->getName());
                 $value = $this->transformer->reverseTransform($value, $definition, $character);

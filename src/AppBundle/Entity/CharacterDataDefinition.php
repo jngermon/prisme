@@ -89,6 +89,11 @@ abstract class CharacterDataDefinition implements LarpRelatedInterface
 
     abstract public function getDefault();
 
+    public function getTransformerPriority()
+    {
+        return 0;
+    }
+
     /**
      * @return string
      * @Groups({"export"})
