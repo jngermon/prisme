@@ -43,6 +43,9 @@ class BaseFormFactory implements Processor
             'label' => $definition->getLabel(),
             'required' => $definition->getRequired(),
             'property_path' => 'datas['.$definition->getName().']',
+            'attr' => [
+                'data-definition-name' => $definition->getName(),
+            ],
         ];
     }
 }

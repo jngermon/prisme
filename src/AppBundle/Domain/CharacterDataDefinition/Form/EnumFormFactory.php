@@ -34,7 +34,7 @@ class EnumFormFactory extends BaseFormFactory
 
     protected function getOptions(CharacterDataDefinition $definition)
     {
-        return array_merge(parent::getOptions($definition), [
+        return array_merge_recursive(parent::getOptions($definition), [
             'class' => CharacterDataDefinitionEnumCategoryItem::class,
             'query_builder' => function (EntityRepository $er) use ($definition) {
                 return $er->createQueryBuilder('i')

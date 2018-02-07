@@ -20,7 +20,7 @@ class IntegerFormFactory extends BaseFormFactory
 
     protected function getOptions(CharacterDataDefinition $definition)
     {
-        return array_merge(parent::getOptions($definition), [
+        return array_merge_recursive(parent::getOptions($definition), [
             'attr' => [
                 'min' => $definition->getOption('min'),
                 'max' => $definition->getOption('max'),
