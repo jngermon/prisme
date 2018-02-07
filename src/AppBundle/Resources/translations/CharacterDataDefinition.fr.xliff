@@ -151,7 +151,38 @@
                 <source>AppBundle\Entity\CharacterDataDefinitionCalendarDate</source>
                 <target>Date</target>
             </trans-unit>
+            <trans-unit id="calculator">
+                <source>calculator</source>
+                <target>Calculator (%type%)</target>
+            </trans-unit>
+            <trans-unit id="AppBundle\Entity\CharacterDataDefinitionCalculator">
+                <source>AppBundle\Entity\CharacterDataDefinitionCalculator</source>
+                <target>Calculator (%type%)</target>
+            </trans-unit>
 
+            <trans-unit id="calculator_age">
+                <source>calculator_age</source>
+                <target>Age</target>
+            </trans-unit>
+
+
+            <trans-unit id="title_type_base">
+                <source>title_type_base</source>
+                <target>Type de donnée de base</target>
+            </trans-unit>
+            <trans-unit id="title_type_calculator">
+                <source>title_type_calculator</source>
+                <target>Données calculées</target>
+            </trans-unit>
+            <trans-unit id="title_type_other">
+                <source>title_type_other</source>
+                <target>Autre type de donnée</target>
+            </trans-unit>
+
+            <trans-unit id="no_type_calculator_available">
+                <source>no_type_calculator_available</source>
+                <target>Aucune donnée calculée disponible</target>
+            </trans-unit>
 
 
         </body>

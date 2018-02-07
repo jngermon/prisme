@@ -20,6 +20,20 @@ services:
     # Domain
 
     ## CharacterDataDefinition
+    ###Calculator
+    app.doctrine.character_data_definition.calculator:
+        class: AppBundle\Domain\CharacterDataDefinition\Calculator\Calculator
+        tags:
+            - { name: 'mmc.processor.chain' }
+
+    app.doctrine.character_data_definition.calculator.age:
+        class: AppBundle\Domain\CharacterDataDefinition\Calculator\CalculatorAge
+        arguments:
+            - '@router'
+            - '@translator'
+        tags:
+            - { name: 'app.doctrine.character_data_definition.calculator' }
+
     ### Type
     app.doctrine.character_data_definition.form.factory:
         class: AppBundle\Domain\CharacterDataDefinition\Form\FormFactory
@@ -30,6 +44,14 @@ services:
         class: AppBundle\Domain\CharacterDataDefinition\Form\BooleanFormFactory
         arguments:
             - '@form.factory'
+        tags:
+            - { name: 'app.doctrine.character_data_definition.form.factory' }
+
+    app.doctrine.character_data_definition.form.factory.calculator:
+        class: AppBundle\Domain\CharacterDataDefinition\Form\CalculatorFormFactory
+        arguments:
+            - '@form.factory'
+            - '@app.doctrine.character_data_definition.calculator'
         tags:
             - { name: 'app.doctrine.character_data_definition.form.factory' }
 
@@ -67,6 +89,13 @@ services:
         class: AppBundle\Domain\CharacterDataDefinition\Transformer\Transformer
         tags:
             - { name: 'mmc.processor.chain' }
+
+    app.doctrine.character_data_definition.transformer.calculator:
+        class: AppBundle\Domain\CharacterDataDefinition\Transformer\CalculatorTransformer
+        arguments:
+            - '@app.doctrine.character_data_definition.calculator'
+        tags:
+            - { name: 'app.doctrine.character_data_definition.transformer' }
 
     app.doctrine.character_data_definition.transformer.calendar_date:
         class: AppBundle\Domain\CharacterDataDefinition\Transformer\CalendarDateTransformer
@@ -118,6 +147,10 @@ services:
         tags:
             - { name: 'app.domain.character_data_definition.viewer' }
 
+    app.domain.character_data_definition.viewer.calculator:
+        class: AppBundle\Domain\CharacterDataDefinition\Viewer\CalculatorViewer
+        tags:
+            - { name: 'app.domain.character_data_definition.viewer' }
 
     app.domain.character_data_definition.viewer.calendar_date:
         class: AppBundle\Domain\CharacterDataDefinition\Viewer\CalendarDateViewer

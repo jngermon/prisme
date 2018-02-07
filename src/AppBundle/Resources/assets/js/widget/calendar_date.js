@@ -99,7 +99,7 @@ $.widget( "prisme.calendarDate", {
                 that.input.val(data.text);
                 that.text.html(data.text);
 
-                that.nbDaysFromOriginInput.val(data.nbDaysFromOriginInput);
+                that.nbDaysFromOriginInput.val(data.nbDaysFromOriginInput).trigger('change');
 
                 that.yearInput.val(data.year);
                 that.monthInput.val(data.month).trigger({ type: 'change', '_refreshInfos': true});

@@ -1,5 +1,6 @@
 require('./vendor');
 require('./widget/calendar_date');
+require('./widget/calculator_age');
 
 $(document).ready(function() {
 
@@ -8,4 +9,6 @@ $(document).ready(function() {
     });
 
     $('.calendar_date').calendarDate();
+
+    $('.calculator_age').calculatorAge();
 });

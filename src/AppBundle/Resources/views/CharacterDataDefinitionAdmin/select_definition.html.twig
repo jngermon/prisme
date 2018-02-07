@@ -1,0 +1,87 @@
+{% extends base_template %}
+
+{% block title %}{{ 'title_type_base'|trans({}, 'CharacterDataDefinition') }}{% endblock %}
+
+{% block content %}
+    {% set baseTypes = [
+        'string',
+        'integer',
+        'boolean',
+        'enum',
+        'calendar_date',
+    ] %}
+    {% set alreadyWatchTypes = [] %}
+
+    <div class="box box-success">
+        <div class="box-header">
+            <h3 class="box-title">
+                {{ block('title') }}
+            </h3>
+        </div>
+        <div class="box-body">
+            {% for subclass in baseTypes %}
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                    <a href="{{ admin.generateUrl(action, {'subclass': subclass }) }}"
+                       class="btn btn-app btn-block"
+                            >
+                        <i class="fa fa-plus-square" aria-hidden="true"></i>
+                        {{ subclass|trans({}, admin.translationdomain|default('CharacterDataDefinition')) }}
+                    </a>
+                </div>
+                {% set alreadyWatchTypes = alreadyWatchTypes|merge([subclass]) %}
+            {% endfor %}
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <div class="box box-success">
+        <div class="box-header">
+            <h3 class="box-title">
+                {{ 'title_type_calculator'|trans({}, 'CharacterDataDefinition') }}
+            </h3>
+        </div>
+        <div class="box-body">
+            {% set subclass = 'calculator' %}
+            {% for calculator in calculators %}
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                    <a href="{{ admin.generateUrl(action, {'subclass': subclass, 'calculator': calculator }) }}"
+                       class="btn btn-app btn-block"
+                            >
+                        <i class="fa fa-plus-square" aria-hidden="true"></i>
+                        {{ ('calculator_'~calculator)|trans({}, admin.translationdomain|default('CharacterDataDefinition')) }}
+                    </a>
+                </div>
+
+            {% else %}
+                <div class="alert alert-info">{{ 'no_type_calculator_available'|trans({}, 'CharacterDataDefinition') }}</div>
+            {% endfor %}
+            {% set alreadyWatchTypes = alreadyWatchTypes|merge(['subclass']) %}
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    {% if alreadyWatchTypes|length < admin.subclasses|keys|length %}
+    <div class="box box-success">
+        <div class="box-header">
+            <h3 class="box-title">
+                {{ 'title_type_other'|trans({}, 'CharacterDataDefinition') }}
+            </h3>
+        </div>
+        <div class="box-body">
+            {% for subclass in admin.subclasses|keys if subclass not in alreadyWatchTypes %}
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                    <a href="{{ admin.generateUrl(action, {'subclass': subclass }) }}"
+                       class="btn btn-app btn-block"
+                            >
+                        <i class="fa fa-plus-square" aria-hidden="true"></i>
+                        {{ subclass|trans({}, admin.translationdomain|default('CharacterDataDefinition')) }}
+                    </a>
+                </div>
+                {% set alreadyWatchTypes = alreadyWatchTypes|merge([subclass]) %}
+            {% endfor %}
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    {% endif %}
+
+{% endblock %}

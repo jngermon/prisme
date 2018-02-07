@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="form.label_mapping_birthdate">
+                <source>form.label_mapping_birthdate</source>
+                <target>Donnée relative à la date de naissance</target>
+            </trans-unit>
+            <trans-unit id="show.label_mapping_birthdate">
+                <source>show.label_mapping_birthdate</source>
+                <target>Donnée relative à la date de naissance</target>
+            </trans-unit>
+
+            <trans-unit id="format">
+                <source>format</source>
+                <target>{0} moins d'un an | {1} 1 an | ]1,Inf[ %age% ans</target>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>

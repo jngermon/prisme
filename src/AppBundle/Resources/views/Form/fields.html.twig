@@ -1,7 +1,12 @@
 {% block calendar_date_widget %}
     {% spaceless %}
         {% trans_default_domain 'Calendar' %}
-        <div class="calendar_date" data-remote="{{ path('app_admin_calendar_infos') }}" data-prefixe="{{ form.vars.id }}">
+        {% set attr = attr|merge({
+            'class': 'calendar_date',
+            'data-remote': path('app_admin_calendar_infos'),
+            'data-prefixe': form.vars.id,
+        }) %}
+        <div {{ block('attributes') }}>
             {% set date = form.vars.data %}
 
             {% if date is null and form.calendar.vars.choices|first is not null %}

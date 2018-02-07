@@ -36,7 +36,7 @@ services:
 
     app.admin.character_data_definition:
         class: AppBundle\Admin\CharacterDataDefinitionAdmin
-        arguments: [~, AppBundle\Entity\CharacterDataDefinition, ~]
+        arguments: [~, AppBundle\Entity\CharacterDataDefinition, AppBundle:CharacterDataDefinition]
         tags:
             - { name: sonata.admin, manager_type: orm, label: CharacterDataDefinition }
         calls:
@@ -47,8 +47,10 @@ services:
                 integer: AppBundle\Entity\CharacterDataDefinitionInteger,
                 boolean: AppBundle\Entity\CharacterDataDefinitionBoolean,
                 enum: AppBundle\Entity\CharacterDataDefinitionEnum,
-                calendar_date: AppBundle\Entity\CharacterDataDefinitionCalendarDate
+                calendar_date: AppBundle\Entity\CharacterDataDefinitionCalendarDate,
+                calculator: AppBundle\Entity\CharacterDataDefinitionCalculator
                 }]]
+            - [ setTemplate, [ edit, AppBundle:CharacterDataDefinitionAdmin:edit.html.twig]]
         public: true
 
     app.admin.character_data_definition_enum_category:
@@ -205,6 +207,13 @@ services:
 
     app.extension.character_data_definition.string:
         class: AppBundle\Admin\Extension\CharacterDataDefinitionStringExtension
+        tags:
+            - { name: sonata.admin.extension, target: app.admin.character_data_definition }
+
+    app.extension.character_data_definition.calculator:
+        class: AppBundle\Admin\Extension\CharacterDataDefinitionCalculatorExtension
+        arguments:
+            - '@app.doctrine.character_data_definition.calculator'
         tags:
             - { name: sonata.admin.extension, target: app.admin.character_data_definition }
 
