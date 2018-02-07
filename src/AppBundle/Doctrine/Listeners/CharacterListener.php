@@ -54,7 +54,7 @@ class CharacterListener
         foreach ($character->getLarp()->getCharacterDataDefinitions() as $definition) {
             if ($definition->getDefault() !== null) {
                 $value = $character->getData($definition->getName());
-                $value = $this->transformer->transform($value, $definition);
+                $value = $this->transformer->transform($value, $definition, $character);
                 $character->setData($definition->getName(), $value);
             }
         }
@@ -65,7 +65,7 @@ class CharacterListener
         foreach ($character->getLarp()->getCharacterDataDefinitions() as $definition) {
             if ($definition->getDefault() !== null) {
                 $value = $character->getData($definition->getName());
-                $value = $this->transformer->reverseTransform($value, $definition);
+                $value = $this->transformer->reverseTransform($value, $definition, $character);
                 $character->setData($definition->getName(), $value);
             }
         }

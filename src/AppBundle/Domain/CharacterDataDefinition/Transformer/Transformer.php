@@ -8,11 +8,12 @@ use Mmc\Processor\Component\ChainProcessor;
 
 class Transformer extends ChainProcessor
 {
-    public function transform($value, CharacterDataDefinition $definition)
+    public function transform($value, CharacterDataDefinition $definition, Character $character)
     {
         $request = [
             'value' => $value,
             'definition' => $definition,
+            'character' => $character,
             'reverse' => false,
         ];
 
@@ -25,11 +26,12 @@ class Transformer extends ChainProcessor
         return $value;
     }
 
-    public function reverseTransform($value, CharacterDataDefinition $definition)
+    public function reverseTransform($value, CharacterDataDefinition $definition, Character $character)
     {
         $request = [
             'value' => $value,
             'definition' => $definition,
+            'character' => $character,
             'reverse' => true,
         ];
 

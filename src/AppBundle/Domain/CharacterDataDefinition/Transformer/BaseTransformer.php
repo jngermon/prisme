@@ -34,12 +34,13 @@ abstract class BaseTransformer implements Processor
     {
         $resolver = new OptionsResolver();
 
-        $resolver->setRequired(['value', 'definition']);
+        $resolver->setRequired(['value', 'definition', 'character']);
         $resolver->setDefaults([
             'reverse' => false,
         ]);
 
         $resolver->setAllowedTypes('definition', CharacterDataDefinition::class);
+        $resolver->setAllowedTypes('character', Character::class);
         $resolver->setAllowedTypes('reverse', 'boolean');
 
         return $resolver;
